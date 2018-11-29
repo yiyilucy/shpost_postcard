@@ -221,8 +221,8 @@ zh-CN:
     create: 新增
     update: 修改
     destroy: 删除
-    permission: 权限管理
-    do_permission: 确认赋权
+    permission: 查看
+    do_permission: 修改
 
   wice_grid:
     show_filter_tooltip: 显示过滤
@@ -301,7 +301,7 @@ zh-CN:
         object_symbol: "对象标识"
         created_at: "创建时间"
       permission:
-        module: "模块"
+        module_name: "模块"
         operation: "操作"
   menu:
     permission:

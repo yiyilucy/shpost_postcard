@@ -5,7 +5,7 @@ class Ability
     user ||= User.new
     UserPermission.where(user_id: user).each do |x|
         if !x.permission.blank?
-            can x.permission.operation.to_sym, eval(x.permission.module)
+            can x.permission.operation.to_sym, eval(x.permission.module_name)
             # binding.pry
         end
     end

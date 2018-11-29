@@ -54,7 +54,7 @@ class PermissionsController < ApplicationController
               end
             end
           end
-          flash[:notice] = "赋权成功"
+          flash[:notice] = "赋权成功!"
         rescue Exception => e
           flash[:alert] = e.message
           raise ActiveRecord::Rollback

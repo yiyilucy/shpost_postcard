@@ -64,7 +64,7 @@ ShpostPostcard::Application.routes.draw do
   
 
   resources :users do
-     resources :permissions
+    resources :permissions
   end
 
   resources :user_permissions

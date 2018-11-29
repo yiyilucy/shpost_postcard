@@ -1,7 +1,6 @@
 <%- model_class = Permission -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human%></h1>
-  
+  <h1><%=t '.title', :default => model_class.model_name.human%></h1> 
 </div>
 <div>
   <%= form_tag('', name: 'form1') %>
@@ -27,7 +26,7 @@
       <% i = x.id %>
       <tr>
         <td><%= check_box("checkbox","permission_"+i.to_s, checked: UserPermission.find_by(user_id: (@user.blank? ? nil : @user), permission_id: x.id).blank? ? false : true)%></td>
-        <td><%= I18n.t("module_name.#{x.module}") %></td>
+        <td><%= I18n.t("module_name.#{x.module_name}") %></td>
         <td><%= I18n.t("operation_name.#{x.operation}") %></td>
       </tr>
       <% end %>
