@@ -301,7 +301,7 @@ zh-CN:
         object_symbol: "对象标识"
         created_at: "创建时间"
       permission:
-        module_nameh: "模块"
+        module_name: "模块"
         operation: "操作"
   menu:
     permission:
