@@ -1,0 +1,38 @@
+<%- model_class = Permission -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human%></h1>
+  
+</div>
+<div>
+  <%= form_tag('', name: 'form1') %>
+  <div class="findprintindex-btns">
+    <% if can? :do_permission, Permission %>
+      <%= link_to t('.back', :default => t("helpers.links.back")),
+              users_path, :class => 'btn btn-default'  %>
+      <%= submit_tag "确定",:class => 'btn btn-primary', onclick: "form1.action='/permissions/do_permission';form1.submit();" %>    
+    <% end %>
+    <%= hidden_field_tag('user_id',@user) %>
+  </div>
+  <div>
+    <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>模块</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @permissions.each do |x| %>
+      <% i = x.id %>
+      <tr>
+        <td><%= check_box("checkbox","permission_"+i.to_s, checked: UserPermission.find_by(user_id: (@user.blank? ? nil : @user), permission_id: x.id).blank? ? false : true)%></td>
+        <td><%= I18n.t("module_name.#{x.module}") %></td>
+        <td><%= I18n.t("operation_name.#{x.operation}") %></td>
+      </tr>
+      <% end %>
+    </tbody>
+    </table>
+  </div>
+  </form>
+</div>
