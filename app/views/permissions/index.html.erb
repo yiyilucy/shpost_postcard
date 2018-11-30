@@ -16,7 +16,7 @@
     <table class="table table-striped">
     <thead>
       <tr>
-        <th></th>
+        <th><%= check_box_tag 'all_checked', 'all_checked', false %></th>
         <th>模块</th>
         <th>操作</th>
       </tr>
@@ -25,7 +25,7 @@
       <% @permissions.each do |x| %>
       <% i = x.id %>
       <tr>
-        <td><%= check_box("checkbox","permission_"+i.to_s, checked: UserPermission.find_by(user_id: (@user.blank? ? nil : @user), permission_id: x.id).blank? ? false : true)%></td>
+        <td><%= check_box("checkbox","permission_"+i.to_s, checked: UserPermission.find_by(user_id: (@user.blank? ? nil : @user), permission_id: x.id).blank? ? false : true)%></td>       
         <td><%= I18n.t("module_name.#{x.module_name}") %></td>
         <td><%= I18n.t("operation_name.#{x.operation}") %></td>
       </tr>
@@ -35,3 +35,15 @@
   </div>
   </form>
 </div>
+
+<script language="javascript" type="text/javascript"> 
+$(document).ready(function(){
+  $("#all_checked").click(function() { 
+    if($(this).is(':checked')){
+      $(".table input[type=checkbox]").prop("checked",true);
+    }else{
+      $(".table input[type=checkbox]").prop("checked",false);
+    }
+  });
+});
+</script>
