@@ -1,6 +1,14 @@
 ShpostPostcard::Application.routes.draw do
   
 
+  resources :bills
+
+  resources :coins
+
+  resources :stamps
+
+  resources :commodities
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

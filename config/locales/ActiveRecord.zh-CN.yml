@@ -286,6 +286,18 @@ zh-CN:
       permission:
         one: 权限管理
         other: 权限管理
+      commodity:
+        one: 商品信息
+        other: 商品信息
+      stamp:
+        one: 邮票信息
+        other: 邮票信息
+      coin:
+        one: 硬币信息
+        other: 硬币信息
+      bill:
+        one: 纸钞信息
+        other: 纸钞信息
     attributes:
       user:
         email: "电子邮件"
@@ -306,6 +318,64 @@ zh-CN:
         module_name: "模块"
         operation: "操作"
         is_show: "是否显示"
+      commodity:
+        no: "商品编码"
+        name: "商品名称"
+        short_name: "商品简称"
+        common_name: "商品俗称"
+        catalog_id: "商品目录"
+        category: "商品大类"
+        is_show: "是否显示"
+        pic_name: "主图片文件名"
+      stamp:
+        serial_no: "志号"
+        format: "版式"
+        theme: "题材"
+        version: "版别"
+        designer: "设计者"
+        ori_author: "原作者"
+        engrave_author: "雕作者"
+        issue_at: "发行时间"
+        issue_unit: "发行机构"
+        print_unit: "印刷机构"
+        gum: "背胶"
+        circulation: "发行量"
+        set_amount: "全套枚数"
+        page_amount: "整版枚数"
+        perforation: "齿孔度"
+        specification: "规格"
+        editor: "责任编辑"
+        commodity_id: "商品信息"
+      coin:
+        theme: "题材"
+        issue_unit: "发行机构"
+        circulation: "发行量"
+        material: "材质"
+        weight: "重量"
+        year: "年份"
+        face_value: "面值"
+        pack_spec: "套系(包装规格)"
+        cast_unit: "铸造单位"
+        diameter: "直径"
+        percentage: "成色"
+        quality: "质量"
+        shape: "形状"
+        head: "正面"
+        tail: "反面"
+        commodity_id: "商品信息"
+      bill:
+        version: "版别"
+        issue_at: "发行时间"
+        engrave_year: "版刻年号"
+        face_value: "面值"
+        pack_spec: "套系(包装规格)"
+        head: "正面"
+        tail: "反面"
+        prefix: "字冠"
+        serial_no: "字号"
+        watermark: "水印"
+        print_process: "印刷工艺"
+        commodity_id: "商品信息"
   menu:
     permission:
       name: "权限管理"
