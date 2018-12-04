@@ -149,6 +149,7 @@ zh-CN:
       back: 返回
       users: 用户管理
       permissions: 权限管理
+      reset_pwd: 重置密码
     titles:
       edit: 编辑%{model}
       new: 新增%{model}
@@ -221,8 +222,9 @@ zh-CN:
     create: 新增
     update: 修改
     destroy: 删除
-    permission: 查看
+    permission: 查看权限管理
     do_permission: 修改
+    reset_pwd: 重置密码
 
   wice_grid:
     show_filter_tooltip: 显示过滤
@@ -303,6 +305,7 @@ zh-CN:
       permission:
         module_name: "模块"
         operation: "操作"
+        is_show: "是否显示"
   menu:
     permission:
       name: "权限管理"

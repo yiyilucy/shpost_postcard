@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20181127054042) do
   create_table "permissions", force: true do |t|
     t.string   "module_name"
     t.string   "operation"
+    t.boolean  "is_show",     default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

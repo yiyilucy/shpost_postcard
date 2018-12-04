@@ -13,37 +13,28 @@
     <%= hidden_field_tag('user_id',@user) %>
   </div>
   <div>
-    <table class="table table-striped">
-    <thead>
-      <tr>
-        <th><%= check_box_tag 'all_checked', 'all_checked', false %></th>
-        <th>模块</th>
-        <th>操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @permissions.each do |x| %>
-      <% i = x.id %>
-      <tr>
-        <td><%= check_box("checkbox","permission_"+i.to_s, checked: UserPermission.find_by(user_id: (@user.blank? ? nil : @user), permission_id: x.id).blank? ? false : true)%></td>       
-        <td><%= I18n.t("module_name.#{x.module_name}") %></td>
-        <td><%= I18n.t("operation_name.#{x.operation}") %></td>
-      </tr>
-      <% end %>
-    </tbody>
-    </table>
+    <% @permissions.each do |x| %>
+      <div>
+        <table class="table table-striped">      
+        <thead>
+          <tr>
+            <th><%= I18n.t("module_name.#{x[0]}") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% p = Permission.where(module_name: x[0], is_show: true).order(:operation) %>
+          <% until p.blank? do %>
+          <tr>
+          <% p.pop(4).each do |y| %>   
+            <td><%= check_box("checkbox","permission_"+y.id.to_s, checked: UserPermission.find_by(user_id: (@user.blank? ? nil : @user), permission_id: y.id).blank? ? false : true)%><%= I18n.t("operation_name.#{y.operation}") %></td>        
+          <% end %>
+          </tr>
+          <% end %>
+        </tbody>
+        </table>
+      </div>
+    <% end %>
   </div>
   </form>
 </div>
 
-<script language="javascript" type="text/javascript"> 
-$(document).ready(function(){
-  $("#all_checked").click(function() { 
-    if($(this).is(':checked')){
-      $(".table input[type=checkbox]").prop("checked",true);
-    }else{
-      $(".table input[type=checkbox]").prop("checked",false);
-    }
-  });
-});
-</script>

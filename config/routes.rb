@@ -64,6 +64,9 @@ ShpostPostcard::Application.routes.draw do
   
 
   resources :users do
+    member do
+      get 'reset_pwd'
+    end
     resources :permissions
   end
 

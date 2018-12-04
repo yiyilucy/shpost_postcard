@@ -3,6 +3,7 @@ class CreatePermissions < ActiveRecord::Migration
     create_table :permissions do |t|
 	  t.string   :module_name
       t.string   :operation
+      t.boolean :is_show, default: true
 
       t.timestamps
     end

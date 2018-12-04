@@ -11,7 +11,7 @@ class Ability
     end
 
 
-
+    can :update, User, id: user.id
     # if user.superadmin?
     #     can :manage, User
     #     can :manage, UserLog
