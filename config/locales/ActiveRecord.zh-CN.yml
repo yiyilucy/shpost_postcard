@@ -310,7 +310,7 @@ zh-CN:
       front_user:
         one: 前台用户管理
         other: 前台用户管理
->>>>>>> 2da8a3c63d1653aa353599983c2d9f23fee5a56a
+
     attributes:
       user:
         email: "电子邮件"
@@ -330,14 +330,11 @@ zh-CN:
       permission:
         module_name: "模块"
         operation: "操作"
-<<<<<<< HEAD
+
       catalog:
         catalog_no: "目录编码"
         catalog_name: "目录名"
         catalog_type: "目录大类"
-        is_show: "是否显示"
-
-=======
         is_show: "是否显示"
       commodity:
         no: "商品编码"
@@ -403,7 +400,7 @@ zh-CN:
         wechat_id: "微信ID"
         email: "邮箱"
         head_url: "头像地址"
->>>>>>> 2da8a3c63d1653aa353599983c2d9f23fee5a56a
+
   menu:
     permission:
       name: "权限管理"
