@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181204032340) do
+ActiveRecord::Schema.define(version: 20181204070359) do
 
   create_table "bills", force: true do |t|
     t.string   "version"
@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 20181204032340) do
     t.string   "serial_no"
     t.string   "watermark"
     t.string   "print_process"
-    t.integer  "commodity_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -46,7 +45,6 @@ ActiveRecord::Schema.define(version: 20181204032340) do
     t.string   "shape"
     t.string   "head"
     t.string   "tail"
-    t.integer  "commodity_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -60,6 +58,23 @@ ActiveRecord::Schema.define(version: 20181204032340) do
     t.string   "category",                   null: false
     t.boolean  "is_show",     default: true
     t.string   "pic_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "detail_id"
+    t.string   "detail_type"
+  end
+
+  add_index "commodities", ["detail_type", "detail_id"], name: "index_commodities_on_detail_type_and_detail_id"
+
+  create_table "front_users", force: true do |t|
+    t.string   "name"
+    t.string   "nickname"
+    t.integer  "phone"
+    t.string   "status",      default: "unauthen", null: false
+    t.string   "authen_code"
+    t.string   "wechat_id",                        null: false
+    t.string   "email"
+    t.string   "head_url",                         null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -90,7 +105,6 @@ ActiveRecord::Schema.define(version: 20181204032340) do
     t.string   "perforation"
     t.string   "specification"
     t.string   "editor"
-    t.integer  "commodity_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

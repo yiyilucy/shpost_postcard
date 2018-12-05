@@ -1,0 +1,24 @@
+<%- model_class = FrontUser -%>
+<%= grid(@front_users_grid) do |g|
+    g.column name: model_class.human_attribute_name(:name), attribute: 'name'
+
+    g.column name: model_class.human_attribute_name(:nickname), attribute: 'nickname'
+
+    g.column name: model_class.human_attribute_name(:phone), attribute: 'phone'
+
+    g.column name: model_class.human_attribute_name(:email), attribute: 'email'
+
+    g.column name: model_class.human_attribute_name(:wechat_id), attribute: 'wechat_id'
+
+    g.column name: model_class.human_attribute_name(:status), attribute: 'status',custom_filter: FrontUser::STATUS.invert do |front_user|
+    	FrontUser::STATUS[front_user.status.to_sym]
+    end
+    
+    g.column in_csv: false do |front_user|
+      ActiveSupport::SafeBuffer.new << 
+      (link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_front_user_path(front_user), :class => 'btn btn-xs btn-primary' if can? :update, front_user)
+      end
+
+  end 
+%>

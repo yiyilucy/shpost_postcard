@@ -12,8 +12,7 @@ class CreateBills < ActiveRecord::Migration
       t.string :serial_no
       t.string :watermark
       t.string :print_process
-      t.integer :commodity_id
-
+      
       t.timestamps
     end
   end

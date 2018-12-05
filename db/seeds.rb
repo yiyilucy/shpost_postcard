@@ -15,8 +15,14 @@ permission5 = Permission.create(module_name: 'User', operation: 'permission', is
 permission6 = Permission.create(module_name: 'Permission', operation: 'read', is_show: false)
 permission7 = Permission.create(module_name: 'Permission', operation: 'do_permission', is_show: false)
 permission8 = Permission.create(module_name: 'UserLog', operation: 'read')
-
 permission9 = Permission.create(module_name: 'User', operation: 'reset_pwd', is_show: false)
+permission10 = Permission.create(module_name: 'FrontUser', operation: 'read')
+permission11 = Permission.create(module_name: 'FrontUser', operation: 'update')
+permission12 = Permission.create(module_name: 'Stamp', operation: 'read')
+permission13 = Permission.create(module_name: 'Stamp', operation: 'create')
+permission14 = Permission.create(module_name: 'Stamp', operation: 'update')
+permission15 = Permission.create(module_name: 'Stamp', operation: 'destroy')
+
 
 UserPermission1 = UserPermission.create(user_id: superadmin.id, permission_id: permission1.id)
 UserPermission2 = UserPermission.create(user_id: superadmin.id, permission_id: permission2.id)

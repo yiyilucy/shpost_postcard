@@ -216,6 +216,7 @@ zh-CN:
     User: 用户管理
     Permission: 权限管理
     UserLog: 日志查询
+    FrontUser: 前台用户
 
   operation_name:
     read: 查看
@@ -278,8 +279,8 @@ zh-CN:
       <<: *errors
     models:
       user:
-        one: 用户管理
-        other: 用户管理
+        one: 管理员用户管理
+        other: 管理员用户管理
       user_log:
         one: 用户日志
         other: 用户日志
@@ -298,6 +299,9 @@ zh-CN:
       bill:
         one: 纸钞信息
         other: 纸钞信息
+      front_user:
+        one: 前台用户管理
+        other: 前台用户管理
     attributes:
       user:
         email: "电子邮件"
@@ -345,7 +349,6 @@ zh-CN:
         perforation: "齿孔度"
         specification: "规格"
         editor: "责任编辑"
-        commodity_id: "商品信息"
       coin:
         theme: "题材"
         issue_unit: "发行机构"
@@ -362,7 +365,6 @@ zh-CN:
         shape: "形状"
         head: "正面"
         tail: "反面"
-        commodity_id: "商品信息"
       bill:
         version: "版别"
         issue_at: "发行时间"
@@ -375,7 +377,15 @@ zh-CN:
         serial_no: "字号"
         watermark: "水印"
         print_process: "印刷工艺"
-        commodity_id: "商品信息"
+      front_user:
+        name: "姓名"
+        nickname: "昵称"
+        phone: "手机"
+        status: "状态"
+        authen_code: "认证码"
+        wechat_id: "微信ID"
+        email: "邮箱"
+        head_url: "头像地址"
   menu:
     permission:
       name: "权限管理"
@@ -384,13 +394,19 @@ zh-CN:
         role: :User
       submenu:
         admin:
-          name: "用户管理"
+          name: "管理员用户管理"
           link: "/users/"
           need_count: false
           needrole:
             can: :read
             role: :User
-        
+        front_user:
+          name: "前台用户管理"
+          link: "/front_users/"
+          need_count: false
+          needrole:
+            can: :read
+            role: :FrontUser
         # role_admin:
         #   name: "角色管理"
         #   link: "/roles/"

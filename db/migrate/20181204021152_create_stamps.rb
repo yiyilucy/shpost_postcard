@@ -18,8 +18,7 @@ class CreateStamps < ActiveRecord::Migration
       t.string :perforation
       t.string :specification
       t.string :editor
-      t.integer :commodity_id
-
+      
       t.timestamps
     end
   end

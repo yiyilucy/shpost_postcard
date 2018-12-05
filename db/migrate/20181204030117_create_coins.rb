@@ -16,8 +16,7 @@ class CreateCoins < ActiveRecord::Migration
       t.string :shape
       t.string :head
       t.string :tail
-      t.integer :commodity_id
-
+      
       t.timestamps
     end
   end
