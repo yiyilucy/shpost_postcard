@@ -215,6 +215,7 @@ zh-CN:
     User: 用户管理
     Permission: 权限管理
     UserLog: 日志查询
+    Catalog: 商品目录管理
 
   operation_name:
     read: 查看
@@ -284,6 +285,10 @@ zh-CN:
       permission:
         one: 权限管理
         other: 权限管理
+      catalog:
+        one: 商品目录
+        other: 商品目录
+
     attributes:
       user:
         email: "电子邮件"
@@ -303,6 +308,12 @@ zh-CN:
       permission:
         module_name: "模块"
         operation: "操作"
+      catalog:
+        catalog_no: "目录编码"
+        catalog_name: "目录名"
+        catalog_type: "目录大类"
+        is_show: "是否显示"
+
   menu:
     permission:
       name: "权限管理"
@@ -337,6 +348,19 @@ zh-CN:
           needrole:
             can: :read
             role: :UserLog
+    catalogs:
+      name: "商品目录管理"
+      needrole:
+          can: :read
+          role: :Catalog
+      submenu:
+        user_log:
+          name: "商品目录"
+          link: "/catalogs"
+          need_count: false
+          needrole:
+            can: :read
+            role: :Catalog
         # interface_log:
         #   name: "接口信息(info)"
         #   link: "/interface_infos"

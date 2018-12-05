@@ -60,6 +60,8 @@ ShpostPostcard::Application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions" }
 
   resources :user_logs, only: [:index, :show, :destroy]
+  resources :catalogs
+  
 
   
 
@@ -74,5 +76,4 @@ ShpostPostcard::Application.routes.draw do
       post 'do_permission'
     end
   end
-  
 end

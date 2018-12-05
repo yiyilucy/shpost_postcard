@@ -11,11 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181127054042) do
+ActiveRecord::Schema.define(version: 20181203065113) do
+
+  create_table "catalogs", force: true do |t|
+    t.string  "catalog_no",                  null: false
+    t.string  "catalog_name",                null: false
+    t.string  "catalog_type",                null: false
+    t.boolean "is_show",      default: true
+  end
 
   create_table "permissions", force: true do |t|
     t.string   "module_name"
     t.string   "operation"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sequences", force: true do |t|
+    t.string   "entity"
+    t.integer  "count"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

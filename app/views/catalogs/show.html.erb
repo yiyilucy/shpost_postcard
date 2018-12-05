@@ -1,0 +1,23 @@
+<!-- <p id="notice"><%= notice %></p>
+
+<%= link_to 'Edit', edit_catalog_path(@catalog) %> |
+<%= link_to 'Back', catalogs_path %>
+ -->
+ <%- model_class = Catalog -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:catalog_no) %>:</strong></dt>
+  <dd><%= @catalog.catalog_no %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:catalog_name) %>:</strong></dt>
+  <dd><%= @catalog.catalog_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:catalog_type) %>:</strong></dt>
+  <dd><%= Catalog::CATALOG_TYPE[@catalog.catalog_type.to_sym] %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:is_show) %>:</strong></dt>
+  <dd><%= Catalog::IS_SHOW[@catalog.is_show] %></dd>
+</dl>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              catalogs_path, :class => 'btn btn-default'  %>
+

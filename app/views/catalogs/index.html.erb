@@ -1,0 +1,29 @@
+<%- model_class = Catalog -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human%></h1>
+  <div style="float:right">
+    <% if can? :new, Catalog %>
+      <%= link_to t('.new', :default => t("helpers.links.new")),
+                  new_catalog_path,
+                  :class => 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>
+<%= grid(@catalogs_grid) do |g|
+    g.column name: model_class.human_attribute_name(:catalog_no), attribute: 'catalog_no'
+    g.column name: model_class.human_attribute_name(:catalog_name), attribute: 'catalog_name'
+
+    g.column name: model_class.human_attribute_name(:catalog_type), attribute: 'catalog_type',custom_filter: Catalog::CATALOG_TYPE.invert do |catalog|
+      Catalog::CATALOG_TYPE[catalog.catalog_type.to_sym]
+    end
+    g.column name: model_class.human_attribute_name(:is_show), attribute: 'is_show' do |catalog|
+      Catalog::IS_SHOW[catalog.is_show]
+    end
+    g.column do |catalog|
+      ActiveSupport::SafeBuffer.new << 
+        (link_to t('.edit', :default => t("helpers.links.edit")), edit_catalog_path(catalog), :class => 'btn btn-xs btn-primary' if can? :update, catalog) << ' ' <<
+          (link_to t('.destroy', :default => t("helpers.links.destroy")), catalog_path(catalog), :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger' if can? :destroy, catalog)
+    end
+    
+  end 
+%>
