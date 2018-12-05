@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :user_logs
   has_many :user_permissions, dependent: :destroy
-
+ 
   devise :database_authenticatable, #:registerable,
          :recoverable, :rememberable, :trackable, :validatable, :timeoutable, :lockable
 

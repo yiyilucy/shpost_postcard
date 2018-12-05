@@ -149,6 +149,7 @@ zh-CN:
       back: 返回
       users: 用户管理
       permissions: 权限管理
+      reset_pwd: 重置密码
     titles:
       edit: 编辑%{model}
       new: 新增%{model}
@@ -216,14 +217,17 @@ zh-CN:
     Permission: 权限管理
     UserLog: 日志查询
     Catalog: 商品目录管理
+    FrontUser: 前台用户
+
 
   operation_name:
     read: 查看
     create: 新增
     update: 修改
     destroy: 删除
-    permission: 查看
+    permission: 查看权限管理
     do_permission: 修改
+    reset_pwd: 重置密码
 
   wice_grid:
     show_filter_tooltip: 显示过滤
@@ -277,18 +281,36 @@ zh-CN:
       <<: *errors
     models:
       user:
-        one: 用户管理
-        other: 用户管理
+        one: 管理员用户管理
+        other: 管理员用户管理
       user_log:
         one: 用户日志
         other: 用户日志
       permission:
         one: 权限管理
         other: 权限管理
+<<<<<<< HEAD
       catalog:
         one: 商品目录
         other: 商品目录
 
+=======
+      commodity:
+        one: 商品信息
+        other: 商品信息
+      stamp:
+        one: 邮票信息
+        other: 邮票信息
+      coin:
+        one: 硬币信息
+        other: 硬币信息
+      bill:
+        one: 纸钞信息
+        other: 纸钞信息
+      front_user:
+        one: 前台用户管理
+        other: 前台用户管理
+>>>>>>> 2da8a3c63d1653aa353599983c2d9f23fee5a56a
     attributes:
       user:
         email: "电子邮件"
@@ -308,12 +330,80 @@ zh-CN:
       permission:
         module_name: "模块"
         operation: "操作"
+<<<<<<< HEAD
       catalog:
         catalog_no: "目录编码"
         catalog_name: "目录名"
         catalog_type: "目录大类"
         is_show: "是否显示"
 
+=======
+        is_show: "是否显示"
+      commodity:
+        no: "商品编码"
+        name: "商品名称"
+        short_name: "商品简称"
+        common_name: "商品俗称"
+        catalog_id: "商品目录"
+        category: "商品大类"
+        is_show: "是否显示"
+        pic_name: "主图片文件名"
+      stamp:
+        serial_no: "志号"
+        format: "版式"
+        theme: "题材"
+        version: "版别"
+        designer: "设计者"
+        ori_author: "原作者"
+        engrave_author: "雕作者"
+        issue_at: "发行时间"
+        issue_unit: "发行机构"
+        print_unit: "印刷机构"
+        gum: "背胶"
+        circulation: "发行量"
+        set_amount: "全套枚数"
+        page_amount: "整版枚数"
+        perforation: "齿孔度"
+        specification: "规格"
+        editor: "责任编辑"
+      coin:
+        theme: "题材"
+        issue_unit: "发行机构"
+        circulation: "发行量"
+        material: "材质"
+        weight: "重量"
+        year: "年份"
+        face_value: "面值"
+        pack_spec: "套系(包装规格)"
+        cast_unit: "铸造单位"
+        diameter: "直径"
+        percentage: "成色"
+        quality: "质量"
+        shape: "形状"
+        head: "正面"
+        tail: "反面"
+      bill:
+        version: "版别"
+        issue_at: "发行时间"
+        engrave_year: "版刻年号"
+        face_value: "面值"
+        pack_spec: "套系(包装规格)"
+        head: "正面"
+        tail: "反面"
+        prefix: "字冠"
+        serial_no: "字号"
+        watermark: "水印"
+        print_process: "印刷工艺"
+      front_user:
+        name: "姓名"
+        nickname: "昵称"
+        phone: "手机"
+        status: "状态"
+        authen_code: "认证码"
+        wechat_id: "微信ID"
+        email: "邮箱"
+        head_url: "头像地址"
+>>>>>>> 2da8a3c63d1653aa353599983c2d9f23fee5a56a
   menu:
     permission:
       name: "权限管理"
@@ -322,13 +412,19 @@ zh-CN:
         role: :User
       submenu:
         admin:
-          name: "用户管理"
+          name: "管理员用户管理"
           link: "/users/"
           need_count: false
           needrole:
             can: :read
             role: :User
-        
+        front_user:
+          name: "前台用户管理"
+          link: "/front_users/"
+          need_count: false
+          needrole:
+            can: :read
+            role: :FrontUser
         # role_admin:
         #   name: "角色管理"
         #   link: "/roles/"

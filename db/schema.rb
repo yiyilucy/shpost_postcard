@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20181203065113) do
 
   create_table "catalogs", force: true do |t|
@@ -18,11 +19,102 @@ ActiveRecord::Schema.define(version: 20181203065113) do
     t.string  "catalog_name",                null: false
     t.string  "catalog_type",                null: false
     t.boolean "is_show",      default: true
+=======
+ActiveRecord::Schema.define(version: 20181204070359) do
+
+  create_table "bills", force: true do |t|
+    t.string   "version"
+    t.datetime "issue_at"
+    t.string   "engrave_year"
+    t.string   "face_value"
+    t.string   "pack_spec"
+    t.string   "head"
+    t.string   "tail"
+    t.string   "prefix"
+    t.string   "serial_no"
+    t.string   "watermark"
+    t.string   "print_process"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "coins", force: true do |t|
+    t.string   "theme"
+    t.string   "issue_unit"
+    t.string   "circulation"
+    t.string   "material"
+    t.string   "weight"
+    t.string   "year"
+    t.string   "face_value"
+    t.string   "pack_spec"
+    t.string   "cast_unit"
+    t.string   "diameter"
+    t.string   "percentage"
+    t.string   "quality"
+    t.string   "shape"
+    t.string   "head"
+    t.string   "tail"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "commodities", force: true do |t|
+    t.string   "no",                         null: false
+    t.string   "name",                       null: false
+    t.string   "short_name"
+    t.string   "common_name"
+    t.integer  "catalog_id",                 null: false
+    t.string   "category",                   null: false
+    t.boolean  "is_show",     default: true
+    t.string   "pic_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "detail_id"
+    t.string   "detail_type"
+  end
+
+  add_index "commodities", ["detail_type", "detail_id"], name: "index_commodities_on_detail_type_and_detail_id"
+
+  create_table "front_users", force: true do |t|
+    t.string   "name"
+    t.string   "nickname"
+    t.integer  "phone"
+    t.string   "status",      default: "unauthen", null: false
+    t.string   "authen_code"
+    t.string   "wechat_id",                        null: false
+    t.string   "email"
+    t.string   "head_url",                         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+>>>>>>> 2da8a3c63d1653aa353599983c2d9f23fee5a56a
   end
 
   create_table "permissions", force: true do |t|
     t.string   "module_name"
     t.string   "operation"
+    t.boolean  "is_show",     default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stamps", force: true do |t|
+    t.string   "serial_no"
+    t.string   "format"
+    t.string   "theme"
+    t.string   "version"
+    t.string   "designer"
+    t.string   "ori_author"
+    t.string   "engrave_author"
+    t.datetime "issue_at"
+    t.string   "issue_unit"
+    t.string   "print_unit"
+    t.string   "gum"
+    t.string   "circulation"
+    t.string   "set_amount"
+    t.string   "page_amount"
+    t.string   "perforation"
+    t.string   "specification"
+    t.string   "editor"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

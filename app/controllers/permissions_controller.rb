@@ -2,7 +2,7 @@ class PermissionsController < ApplicationController
   load_and_authorize_resource :permission
 
   def index
-    @permissions = Permission.all
+    @permissions = Permission.where(is_show: true).group(:module_name).order(:module_name).count
     @user = params[:user]
   end
 

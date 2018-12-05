@@ -1,6 +1,5 @@
 ShpostPostcard::Application.routes.draw do
-  
-
+ 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -66,6 +65,9 @@ ShpostPostcard::Application.routes.draw do
   
 
   resources :users do
+    member do
+      get 'reset_pwd'
+    end
     resources :permissions
   end
 
@@ -76,4 +78,16 @@ ShpostPostcard::Application.routes.draw do
       post 'do_permission'
     end
   end
+
+
+  resources :front_users
+
+  resources :bills
+
+  resources :coins
+
+  resources :stamps
+
+  resources :commodities
+  
 end
