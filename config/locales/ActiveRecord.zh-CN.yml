@@ -289,12 +289,11 @@ zh-CN:
       permission:
         one: 权限管理
         other: 权限管理
-<<<<<<< HEAD
+
       catalog:
         one: 商品目录
         other: 商品目录
 
-=======
       commodity:
         one: 商品信息
         other: 商品信息
