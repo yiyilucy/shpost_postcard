@@ -1,7 +1,7 @@
 class Catalog < ActiveRecord::Base
   has_many :commodities
   
-  CATALOG_TYPE = {stamp: "邮票", coin: '硬币', paper: '纸钞'}
+  CATALOG_TYPE = {stamp: "邮票", coin: '硬币', bill: '纸钞'}
   IS_SHOW = {true => '是',false => '否'}
 
   # def is_show_name
@@ -17,7 +17,7 @@ class Catalog < ActiveRecord::Base
   #     name = "邮票"
   #   elsif catalog_type.eql?"coin"
   #     name = "硬币"
-  #   elsif catalog_type.eql?"paper"
+  #   elsif catalog_type.eql?"bill"
   #     name = "纸币"
   #   end
   # end
