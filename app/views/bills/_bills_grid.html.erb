@@ -72,31 +72,31 @@
         bill.commodity.name
     end
     
-    g.column name: commodity_class.human_attribute_name(:catalog_id), attribute: 'id',detach_with_id: :catalog_id_filter, assoc: [:commodity, :catalog],custom_filter: Catalog.accessible_by(current_ability).where(catalog_type: "paper").map{|c| [c.catalog_name,c.id]} do |bill| 
+    g.column name: commodity_class.human_attribute_name(:catalog_id), attribute: 'id',detach_with_id: :catalog_id_filter, assoc: [:commodity, :catalog],custom_filter: Catalog.accessible_by(current_ability).where(catalog_type: "bill").map{|c| [c.catalog_name,c.id]} do |bill| 
       bill.commodity.catalog.try :catalog_name
     end
 
-    g.column name: model_class.human_attribute_name(:version), attribute: 'version',detach_with_id: :version_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "paper", "version").map{|c| [c.name,c.name]} do |bill| 
+    g.column name: model_class.human_attribute_name(:version), attribute: 'version',detach_with_id: :version_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "version").map{|c| [c.name,c.name]} do |bill| 
       bill.version
     end
 
-    g.column name: model_class.human_attribute_name(:engrave_year), attribute: 'engrave_year',detach_with_id: :engrave_year_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "paper", "engrave_year").map{|c| [c.name,c.name]} do |bill| 
+    g.column name: model_class.human_attribute_name(:engrave_year), attribute: 'engrave_year',detach_with_id: :engrave_year_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "engrave_year").map{|c| [c.name,c.name]} do |bill| 
       bill.engrave_year
     end
 
-    g.column name: model_class.human_attribute_name(:face_value), attribute: 'face_value',detach_with_id: :face_value_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "paper", "face_value").map{|c| [c.name,c.name]} do |bill| 
+    g.column name: model_class.human_attribute_name(:face_value), attribute: 'face_value',detach_with_id: :face_value_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "face_value").map{|c| [c.name,c.name]} do |bill| 
       bill.face_value
     end
 
-    g.column name: model_class.human_attribute_name(:pack_spec), attribute: 'pack_spec',detach_with_id: :pack_spec_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "paper", "pack_spec").map{|c| [c.name,c.name]} do |bill| 
+    g.column name: model_class.human_attribute_name(:pack_spec), attribute: 'pack_spec',detach_with_id: :pack_spec_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "pack_spec").map{|c| [c.name,c.name]} do |bill| 
       bill.pack_spec
     end
 
-    g.column name: model_class.human_attribute_name(:prefix), attribute: 'prefix',detach_with_id: :prefix_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "paper", "prefix").map{|c| [c.name,c.name]} do |bill| 
+    g.column name: model_class.human_attribute_name(:prefix), attribute: 'prefix',detach_with_id: :prefix_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "prefix").map{|c| [c.name,c.name]} do |bill| 
       bill.prefix
     end
 
-    g.column name: model_class.human_attribute_name(:serial_no), attribute: 'serial_no',detach_with_id: :serial_no_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "paper", "serial_no").map{|c| [c.name,c.name]} do |bill| 
+    g.column name: model_class.human_attribute_name(:serial_no), attribute: 'serial_no',detach_with_id: :serial_no_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "serial_no").map{|c| [c.name,c.name]} do |bill| 
       bill.serial_no
     end
 

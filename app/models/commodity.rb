@@ -3,7 +3,7 @@ class Commodity < ActiveRecord::Base
   belongs_to :catalog
   has_many :prices, dependent: :destroy
 
-  CATEGORY = {stamp: "邮票", coin: '硬币', paper: '纸钞'}
+  CATEGORY = {stamp: "邮票", coin: '硬币', bill: '纸钞'}
   IS_SHOW = {true => '是',false => '否'}
 
   def all_name

@@ -24,7 +24,7 @@ class BillsController < ApplicationController
     
     respond_to do |format|
       params = bill_params
-      params["commodity_attributes"]["category"] = "paper"
+      params["commodity_attributes"]["category"] = "bill"
 
       if @bill = Bill.create(params)
         @commodity_no = @bill.commodity.no
@@ -43,7 +43,7 @@ class BillsController < ApplicationController
     respond_to do |format|
       params = bill_params
       params["commodity_attributes"]["no"] = @bill.commodity.no
-      params["commodity_attributes"]["category"] = "paper"
+      params["commodity_attributes"]["category"] = "bill"
       # binding.pry
       if @bill.update(params)
         format.html { redirect_to bills_url, notice: I18n.t('controller.update_success_notice', model: '纸钞')}
@@ -153,9 +153,9 @@ class BillsController < ApplicationController
               print_process = rowarr[print_process_index].blank? ? "" : rowarr[print_process_index].to_s
               
               if no.blank? or Commodity.find_by(no: no).blank?
-                Bill.create!(version: version, issue_at: issue_at, engrave_year: engrave_year, face_value: face_value, pack_spec: pack_spec, head: head, tail: tail, prefix: prefix, serial_no: serial_no, watermark: watermark, print_process: print_process, commodity_attributes: {name: name, short_name: short_name, common_name: common_name, catalog_id: catalog_id, category: "paper", is_show: is_show})
+                Bill.create!(version: version, issue_at: issue_at, engrave_year: engrave_year, face_value: face_value, pack_spec: pack_spec, head: head, tail: tail, prefix: prefix, serial_no: serial_no, watermark: watermark, print_process: print_process, commodity_attributes: {name: name, short_name: short_name, common_name: common_name, catalog_id: catalog_id, category: "bill", is_show: is_show})
               elsif !Commodity.find_by(no: no).blank?
-                Commodity.find_by(no: no).detail.update!(version: version, issue_at: issue_at, engrave_year: engrave_year, face_value: face_value, pack_spec: pack_spec, head: head, tail: tail, prefix: prefix, serial_no: serial_no, watermark: watermark, print_process: print_process, commodity_attributes: {name: name, short_name: short_name, common_name: common_name, catalog_id: catalog_id, category: "paper", is_show: is_show})
+                Commodity.find_by(no: no).detail.update!(version: version, issue_at: issue_at, engrave_year: engrave_year, face_value: face_value, pack_spec: pack_spec, head: head, tail: tail, prefix: prefix, serial_no: serial_no, watermark: watermark, print_process: print_process, commodity_attributes: {name: name, short_name: short_name, common_name: common_name, catalog_id: catalog_id, category: "bill", is_show: is_show})
               end
             end
 
@@ -220,7 +220,7 @@ class BillsController < ApplicationController
   end
 
   def filter_bills(bills, params)
-    select_bills = bills.joins(:commodity).joins(:commodity=>[:catalog]).where("commodities.category = ?", "paper").order("catalogs.id, commodities.no")
+    select_bills = bills.joins(:commodity).joins(:commodity=>[:catalog]).where("commodities.category = ?", "bill").order("catalogs.id, commodities.no")
 
     if !params["bills"].blank?
       if !params["bills"]["f"].blank?
@@ -314,7 +314,7 @@ class BillsController < ApplicationController
   end
 
   def price_import
-    redirect_to "/prices/to_import?category=#{'paper'}" and return
+    redirect_to "/prices/to_import?category=#{'bill'}" and return
   end
 
   def price_export

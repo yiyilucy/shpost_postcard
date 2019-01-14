@@ -175,7 +175,7 @@ class CommodityPriceController < ApplicationController
                     redirect_to stamps_url and return
                   elsif params["category"].eql?"coin"
                     redirect_to coins_url and return
-                  elsif params["category"].eql?"paper"
+                  elsif params["category"].eql?"bill"
                     redirect_to bills_url and return
                   end
                 end
@@ -201,7 +201,7 @@ class CommodityPriceController < ApplicationController
                 redirect_to stamps_url
               elsif params["category"].eql?"coin"
                 redirect_to coins_url
-              elsif params["category"].eql?"paper"
+              elsif params["category"].eql?"bill"
                 redirect_to bills_url
               end
             end

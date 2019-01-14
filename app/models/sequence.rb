@@ -41,7 +41,7 @@ class Sequence < ActiveRecord::Base
       prefix = "1"
     elsif obj.category.eql?"coin"
       prefix = "2"
-    elsif obj.category.eql?"paper"  
+    elsif obj.category.eql?"bill"  
       prefix = "3"
     end
 
