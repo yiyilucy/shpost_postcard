@@ -1,25 +1,66 @@
-<h1>Listing bills</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @bills.each do |bill| %>
-      <tr>
-        <td><%= link_to 'Show', bill %></td>
-        <td><%= link_to 'Edit', edit_bill_path(bill) %></td>
-        <td><%= link_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<%- model_class = Bill -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human%></h1>
+</div>
+<%= render partial: 'bills_grid'%>
+<div>
+  <%= form_tag('', name: 'form1') %>
+  <div style="float:right">
+    <% if can? :new, Bill %>
+      <%= link_to t('.new', :default => t("helpers.links.new")),
+                  new_bill_path,
+                  :class => 'btn btn-primary' %>
     <% end %>
-  </tbody>
-</table>
+    <% if can? :import, Bill %>
+      <%= link_to t('.import', :default => t("helpers.links.import")), "/bills/to_import", :class => 'btn btn-primary' %>
+    <% end %>
+    <% if can? :export, Bill %>
+      <%= submit_tag "导出",:class => 'btn btn-primary', onclick: "form1.action='/bills/export.xls';form1.submit();" %>
+    <% end %>  
+    <% if can? :price_import, Bill %>
+      <%= link_to t('.price_import', :default => t("helpers.links.price_import")), "/bills/price_import", :class => 'btn btn-primary' %>
+    <% end %>
+    <% if can? :price_export, Bill %>
+      <%= submit_tag "价格导出",:class => 'btn btn-primary', onclick: "form1.action='/bills/price_export.xls';form1.submit();" %>
+    <% end %>
+  </div>
+  
+  <div class="index-filters">
+    <table>
+    <tr>
+    <td>商品编码:</td>
+    <td><%= grid_filter(@bills_grid, :commodity_no_filter)%></td>
+    <td>商品名称:</td>
+    <td><%= grid_filter(@bills_grid, :name_filter)%></td>
+    <td>商品目录:</td>
+    <td><%= grid_filter(@bills_grid, :catalog_id_filter)%></td>
+    <td>是否显示:</td>
+    <td><%= grid_filter(@bills_grid, :is_show_filter)%></td>
+    <td>版别:</td>
+    <td><%= grid_filter(@bills_grid, :version_filter)%></td>
+    </tr>
+    <tr>
+    <td>版刻年号:</td>
+    <td><%= grid_filter(@bills_grid, :engrave_year_filter)%></td>
+    <td>面值:</td>
+    <td><%= grid_filter(@bills_grid, :face_value_filter)%></td>
+    <td>套系(包装规格):</td>
+    <td><%= grid_filter(@bills_grid, :pack_spec_filter)%></td>
+    <td>字冠:</td>
+    <td><%= grid_filter(@bills_grid, :prefix_filter)%></td>
+    <td>字号:</td>
+    <td><%= grid_filter(@bills_grid, :serial_no_filter)%></td>
+    </tr>
+    <tr>
+    </tr>
+    </table>
+  </div>
+  <div align='right'>
+    <button class="btn btn-primary wg-external-submit-button" data-grid-name="bills">递交</button>
+    <button class="btn btn-primary wg-external-reset-button" data-grid-name="bills">重置</button>
+  </div>  
+  </form>
+</div>
+<div class="clearfix"></div> 
+<%= render_grid(@bills_grid)%>
 
-<br>
-
-<%= link_to 'New Bill', new_bill_path %>

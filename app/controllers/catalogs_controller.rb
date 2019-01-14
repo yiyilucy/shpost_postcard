@@ -1,6 +1,7 @@
 class CatalogsController < ApplicationController
   # before_action :set_product_catalog, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
+  user_logs_filter only: [:create, :update, :destroy], operation: :operation, symbol: :catalog_no
   def index
     # @product_catalogs = ProductCatalog.all
     # respond_with(@product_catalogs)
@@ -23,6 +24,7 @@ class CatalogsController < ApplicationController
     # @product_catalog = ProductCatalog.new(product_catalog_params)
     # @product_catalog.save
     # respond_with(@product_catalog)
+    @operation = "create"
     respond_to do |format|
       if @catalog.save
         format.html { redirect_to @catalog, notice: I18n.t('controller.create_success_notice', model: '商品目录') }
@@ -37,6 +39,7 @@ class CatalogsController < ApplicationController
   def update
     # @product_catalog.update(product_catalog_params)
     # respond_with(@product_catalog)
+    @operation = "update"
     respond_to do |format|
       if @catalog.update(catalog_params)
         format.html { redirect_to @catalog, notice: I18n.t('controller.update_success_notice', model: '商品目录') }
@@ -51,6 +54,7 @@ class CatalogsController < ApplicationController
   def destroy
     # @product_catalog.destroy
     # respond_with(@product_catalog)
+    @operation = "destroy"
     @catalog.destroy
     respond_to do |format|
       format.html { redirect_to catalogs_url }

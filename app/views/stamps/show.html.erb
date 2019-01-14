@@ -1,4 +1,63 @@
-<p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_stamp_path(@stamp) %> |
-<%= link_to 'Back', stamps_path %>
+<%- model_class = Stamp -%>
+<%- commodity_class = Commodity -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+<div>
+<dl class="dl-horizontal">
+  <dt><strong><%= commodity_class.human_attribute_name(:commodity_no) %>:</strong></dt>
+  <dd><%= @stamp.commodity.no %></dd>
+  <dt><strong><%= commodity_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @stamp.commodity.name %></dd>
+  <dt><strong><%= commodity_class.human_attribute_name(:short_name) %>:</strong></dt>
+  <dd><%= @stamp.commodity.short_name %></dd>
+  <dt><strong><%= commodity_class.human_attribute_name(:common_name) %>:</strong></dt>
+  <dd><%= @stamp.commodity.common_name %></dd>
+  <dt><strong><%= commodity_class.human_attribute_name(:catalog_id) %>:</strong></dt>
+  <dd><%=  @stamp.commodity.catalog.blank? ? "" : @stamp.commodity.catalog.catalog_name %></dd>
+  <dt><strong><%= commodity_class.human_attribute_name(:is_show) %>:</strong></dt>
+  <dd><%= Commodity::IS_SHOW[@stamp.commodity.is_show] %></dd>
+  <dt><strong><%= commodity_class.human_attribute_name(:pic_name) %>:</strong></dt>
+  <dd><%= @stamp.commodity.pic_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:serial_no) %>:</strong></dt>
+  <dd><%= @stamp.serial_no %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:format) %>:</strong></dt>
+  <dd><%= @stamp.format %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:theme) %>:</strong></dt>
+  <dd><%= @stamp.theme %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:version) %>:</strong></dt>
+  <dd><%= @stamp.version %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:designer) %>:</strong></dt>
+  <dd><%= @stamp.designer %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:ori_author) %>:</strong></dt>
+  <dd><%= @stamp.ori_author %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:engrave_author) %>:</strong></dt>
+  <dd><%= @stamp.engrave_author %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:issue_at) %>:</strong></dt>
+  <dd><%= @stamp.issue_at.blank? ? "" : @stamp.issue_at.strftime('%Y-%m-%d').to_s %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:issue_unit) %>:</strong></dt>
+  <dd><%= @stamp.issue_unit %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:print_unit) %>:</strong></dt>
+  <dd><%= @stamp.print_unit %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:gum) %>:</strong></dt>
+  <dd><%= @stamp.gum %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:circulation) %>:</strong></dt>
+  <dd><%= @stamp.circulation %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:set_amount) %>:</strong></dt>
+  <dd><%= @stamp.set_amount %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:page_amount) %>:</strong></dt>
+  <dd><%= @stamp.page_amount %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:perforation) %>:</strong></dt>
+  <dd><%= @stamp.perforation %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:specification) %>:</strong></dt>
+  <dd><%= @stamp.specification %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:editor) %>:</strong></dt>
+  <dd><%= @stamp.editor %></dd>
+</dl>
+</div>
+<div>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              stamps_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_stamp_path(@stamp), :class => 'btn btn-default' %>
+</div>

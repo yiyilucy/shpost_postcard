@@ -1,17 +1,140 @@
-<%= form_for(@coin) do |f| %>
-  <% if @coin.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@coin.errors.count, "error") %> prohibited this coin from being saved:</h2>
-
-      <ul>
-      <% @coin.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @coin, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.fields_for :commodity do |c| %>
+    <% if @edit %>
+    <div class="control-group">
+      <%= c.label :commodity_no, :class => 'control-label' %>
+      <div class="controls">
+        <%= @coin.commodity.no %>
+      </div>
+    </div>
+    <% end %>
+    <div class="control-group">
+      <%= c.label :name, :class => 'control-label' %>
+      <div class="controls">
+        <%= c.text_field :name, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= c.label :short_name, :class => 'control-label' %>
+      <div class="controls">
+        <%= c.text_field  :short_name, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= c.label :common_name, :class => 'control-label' %>
+      <div class="controls">
+        <%= c.text_field  :common_name, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= c.label :catalog_id, :class => 'control-label' %>
+      <div class="controls">
+        <%= c.select :catalog_id, Catalog.accessible_by(current_ability).where(catalog_type: "coin").collect {|c| [c.catalog_name,c.id]}, :class => 'text_field' %>
+      </div>
+    </div>
+    
+  <% end %>
+  <div class="control-group">
+    <%= f.label :theme, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :theme, DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "coin", "theme").collect {|c| [c.name,c.name]}, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :issue_unit, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :issue_unit, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :circulation, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :circulation, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :material, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :material, DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "coin", "material").collect {|c| [c.name,c.name]}, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :weight, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :weight, DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "coin", "weight").collect {|c| [c.name,c.name]}, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :year, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :year, DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "coin", "year").collect {|c| [c.name,c.name]}, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :face_value, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :face_value, DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "coin", "face_value").collect {|c| [c.name,c.name]}, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :pack_spec, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :pack_spec, DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "coin", "pack_spec").collect {|c| [c.name,c.name]}, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :cast_unit, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :cast_unit, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :diameter, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :diameter, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :percentage, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :percentage, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :quality, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :quality, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :shape, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :shape, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :head, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :head, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :tail, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :tail, :class => 'text_field' %>
+    </div>
+  </div>
+  <%= f.fields_for :commodity do |c| %>
+    <div class="control-group">
+      <%= c.label :is_show, :class => 'control-label' %>
+    
+      <%=c.check_box :is_show,:class =>'check_box' %>
     </div>
   <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <% if can? :read, Coin %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+              coins_path, :class => 'btn btn-default' %>
+  <% end %>
 <% end %>

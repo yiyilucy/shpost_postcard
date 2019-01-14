@@ -6,10 +6,16 @@
 <%= grid(@user_logs_grid) do |g|
 
     g.column name: model_class.human_attribute_name(:username), attribute: 'name', assoc: :user do |user_log|
-        user_log.user.try :name
-      end
+      user_log.user.try :name
+    end
 
-    g.column name: model_class.human_attribute_name(:operation), attribute: 'operation'
+    g.column name: model_class.human_attribute_name(:object_class), attribute: 'object_class' do |user_log|
+      I18n.t("module_name.#{user_log.object_class}")
+    end
+
+    g.column name: model_class.human_attribute_name(:operation), attribute: 'operation' do |user_log|
+      I18n.t("operation_name.#{user_log.operation}")
+    end
 
     g.column name: model_class.human_attribute_name(:object_symbol), attribute: 'object_symbol'
 

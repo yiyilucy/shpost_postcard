@@ -1,0 +1,2 @@
+module DicContentsHelper
+end

@@ -1,4 +1,6 @@
 class Catalog < ActiveRecord::Base
+  has_many :commodities
+  
   CATALOG_TYPE = {stamp: "邮票", coin: '硬币', paper: '纸钞'}
   IS_SHOW = {true => '是',false => '否'}
 

@@ -1,5 +1,5 @@
 ShpostPostcard::Application.routes.draw do
- 
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -66,7 +66,8 @@ ShpostPostcard::Application.routes.draw do
 
   resources :users do
     member do
-      get 'reset_pwd'
+      get 'to_reset_pwd'
+      patch 'reset_pwd'
     end
     resources :permissions
   end
@@ -82,12 +83,68 @@ ShpostPostcard::Application.routes.draw do
 
   resources :front_users
 
-  resources :bills
+  resources :bills do
+    collection do
+      get 'to_import'
+      post 'import' => 'bills#import'
+      post 'export'
+      get 'price_import'
+      post 'price_import' => 'bills#price_import'
+      post 'price_export'
+    end
+  end
 
-  resources :coins
+  resources :coins do
+    collection do
+      get 'to_import'
+      post 'import' => 'coins#import'
+      post 'export'
+      get 'price_import'
+      post 'price_import' => 'coins#price_import'
+      post 'price_export'
+    end
+  end
 
-  resources :stamps
+  resources :stamps do
+    collection do
+      get 'to_import'
+      post 'import' => 'stamps#import'
+      post 'export'
+      get 'price_import'
+      post 'price_import' => 'stamps#price_import'
+      post 'price_export'
+    end
+  end
 
-  resources :commodities
+  resources :commodities do 
+    resources :prices, :controller => 'commodity_price'
+  end
+
+  resources :prices do
+    collection do
+      get 'to_import'
+      post 'import' => 'prices#import'
+      post 'export'
+    end
+  end
+
+  resources :dic_contents
+
+  resources :dic_titles do 
+    resources :dic_contents
+  end
+
+  resources :import_files do
+    member do 
+      get 'download'
+      post 'download' => 'import_files#download'
+    end
+  end
+
+  resources :commodity_autocom do
+    collection do
+      get 'autocomplete_commodity_name'
+    end
+  end
   
 end

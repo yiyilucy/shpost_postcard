@@ -1,5 +1,6 @@
 class PermissionsController < ApplicationController
   load_and_authorize_resource :permission
+  user_logs_filter only: :do_permission, symbol: :username, object: :permission, operation: :operation
 
   def index
     @permissions = Permission.where(is_show: true).group(:module_name).order(:module_name).count
@@ -10,6 +11,8 @@ class PermissionsController < ApplicationController
   end
 
   def new
+    @permissions = Permission.where(is_show: true).group(:module_name).order(:module_name).count
+    @user = params[:user]
   end
 
   def edit
@@ -32,9 +35,12 @@ class PermissionsController < ApplicationController
   end
 
   def do_permission
+    @operation = "do_permission"
+    @username = nil
     user_id = nil
     if !params[:checkbox].blank? and !params[:user_id].blank?
       user_id = params[:user_id].to_i
+      @username = User.find(user_id).username
       
       ActiveRecord::Base.transaction do
         begin
@@ -61,7 +67,7 @@ class PermissionsController < ApplicationController
         end
       end  
     end
-    redirect_to "/permissions?user=#{user_id}"
+    redirect_to "/permissions/new?user=#{user_id}"
   end
 
   private

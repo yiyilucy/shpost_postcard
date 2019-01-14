@@ -1,0 +1,34 @@
+<%- model_class = Price -%>
+<%- commodity_class = Commodity -%>
+<%= grid(@prices_grid) do |g|
+    g.column name: commodity_class.human_attribute_name(:catalog_id), attribute: 'id', assoc: [:commodity, :catalog] do |price|
+        price.commodity.catalog.try :catalog_name
+    end
+
+    g.column name: commodity_class.human_attribute_name(:commodity_no), attribute: 'no', assoc: :commodity do |price|
+        price.commodity.no
+    end
+
+    g.column name: commodity_class.human_attribute_name(:name), attribute: 'name', assoc: :commodity do |price|
+        price.commodity.name
+    end
+
+    g.column name: model_class.human_attribute_name(:price_date), attribute: 'price_date' do |price|
+      price.price_date.blank? ? "" : price.price_date.strftime("%Y-%m-%d")
+    end
+
+    g.column name: model_class.human_attribute_name(:price), attribute: 'price' do |price|
+      number_with_precision(price.price, precision: 2)
+    end
+
+    g.column name: model_class.human_attribute_name(:is_show), attribute: 'is_show' do |price|
+      Price::IS_SHOW[price.is_show]
+    end
+
+    g.column in_csv: false do |price|
+      ActiveSupport::SafeBuffer.new << 
+        (link_to t('.edit', :default => t("helpers.links.edit")), edit_commodity_price_path(price.commodity, price), :class => 'btn btn-xs btn-primary' if can? :update, price) << ' ' <<
+        (link_to t('.destroy', :default => t("helpers.links.destroy")), commodity_price_path(price.commodity, price), :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'btn btn-xs btn-danger' if can? :destroy, price)
+    end
+  end 
+%>
