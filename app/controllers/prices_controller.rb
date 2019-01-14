@@ -4,9 +4,7 @@ class PricesController < ApplicationController
   user_logs_filter only: [:import, :export], symbol: :file_name, object: :price, operation: :operation
 
   def index
-    @prices_grid = initialize_grid(@prices,
-         :order => 'prices.price_date',
-         :order_direction => 'desc',
+    @prices_grid = initialize_grid(@prices.order("catalogs.id, prices.commodity_id, prices.price_date"),
          :name => 'prices',
          :enable_export_to_csv => true,
          :csv_file_name => 'prices') 
