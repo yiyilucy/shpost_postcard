@@ -40,6 +40,6 @@ class CommoditiesController < ApplicationController
     end
 
     def commodity_params
-      params[:commodity]
+      params[:commodity].permit(:commodity_no, :name, :short_name, :common_name, :catalog_id, :category, :is_show, :pic_name, import_file_attributes: [:id, :file_name, :file_path, :user_id, :size, :category, :file_ext])
     end
 end

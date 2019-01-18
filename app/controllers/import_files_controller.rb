@@ -48,7 +48,41 @@ class ImportFilesController < ApplicationController
       send_data(io.read, :type => "text/excel;charset=utf-8; header=present",              :filename => @file_name)
       io.close
     else
-      redirect_to import_files_path, :notice => '文件不存在，下载失败！'
+      redirect_to commodity_import_files_path(@import_file.symbol_id), :notice => '文件不存在，下载失败！'
+    end
+  end
+
+  def to_import
+    @symbol_id = params["format"].blank? ? nil : params["format"].to_i
+  end
+
+  def import
+    flash_message = "导入失败!"
+    unless request.get?
+      if !params[:symbol_id].blank?
+        object = Commodity.find(params[:symbol_id].to_i)
+        if !object.blank?
+          if ImportFile.where(symbol_id: object.id).count < 10
+            if params[:file]['file'].original_filename.include?('.jpg') or params[:file]['file'].original_filename.include?('.jpeg') or params[:file]['file'].original_filename.include?('.png') or params[:file]['file'].original_filename.include?('.bmp')
+              if file = ImportFile.img_upload_path(params[:file]['file'], object) 
+                @file_name = file.split("/").last
+                file_ext = @file_name.split('.').last
+                size = File.size(file) 
+
+                ImportFile.create! file_name: @file_name, file_path: file, user_id: current_user.id, file_ext: file_ext, size: size, symbol_id: object.id, category: object.category, symbol_type: object.class.to_s
+                flash_message = "导入成功！"
+              end
+            else
+              flash_message = "请导入jpg, jpeg, png, bmp格式图片"
+            end
+          else
+            flash_message = "一个商品最多只可上传10张图片"
+          end
+        end
+      end
+      flash[:notice] = flash_message
+
+      redirect_to commodity_import_files_path(object.id)           
     end
   end
 

@@ -140,6 +140,7 @@
                       edit_coin_path(coin), :class => 'btn btn-xs btn-primary' if can? :update, coin) << ' ' <<
         (link_to t('.destroy', :default => t("helpers.links.destroy")), coin_path(coin), :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'btn btn-xs btn-danger' if can? :destroy, coin) << ' ' <<
         (link_to t('.prices', :default => t("helpers.links.prices")), commodity_prices_path(coin.commodity), :class => 'btn btn-xs btn-primary' if can? :read, Price) << ' ' <<
+        (link_to t('.import_files', :default => t("helpers.links.import_files")), commodity_import_files_path(coin.commodity), :class => 'btn btn-xs btn-primary' if can? :read, Coin) << ' ' <<
       button_tag("详细信息", class: "btn btn-xs btn-primary", name: 'detail', id: "coins_detail_btn")
       end
 

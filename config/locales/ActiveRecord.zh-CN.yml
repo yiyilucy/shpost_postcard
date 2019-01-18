@@ -157,6 +157,7 @@ zh-CN:
       price_export: 价格导出
       dic_contents: 字典内容
       download: 下载
+      import_files: 图片管理
     titles:
       edit: 编辑%{model}
       new: 新增%{model}
@@ -450,9 +451,12 @@ zh-CN:
         file_name: "文件名"
         file_path: "文件存放路径"
         user_id: "用户"
-        object_id: "所属对象"
+        symbol_id: "所属对象id"
+        symbol_type: "所属对象类型"
         size: "文件大小"
         created_at: "导入时间"
+        category: "商品大类"
+        file_ext: "文件后缀名"
   menu:
     permission:
       name: "权限管理"

@@ -382,13 +382,15 @@ class BillsController < ApplicationController
           Dir.mkdir("#{Rails.root}/upload/bill/")          
         end
         filename = "#{Time.now.to_f}_#{file.original_filename}"
-
+        file_ext = filename.split('.').last
         file_path = direct + filename
         File.open(file_path, "wb") do |f|
            f.write(file.read)
         end
 
-        ImportFile.create! file_name: filename, file_path: file_path, user_id: current_user.id
+        size = File.size(file_path) 
+
+        ImportFile.create! file_name: filename, file_path: file_path, user_id: current_user.id, file_ext: file_ext, size: size
         
         file_path
       end

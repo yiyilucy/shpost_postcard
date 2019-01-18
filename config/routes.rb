@@ -118,8 +118,9 @@ ShpostPostcard::Application.routes.draw do
 
   resources :commodities do 
     resources :prices, :controller => 'commodity_price'
+    resources :import_files, :controller => 'commodity_import_file'
   end
-
+  
   resources :prices do
     collection do
       get 'to_import'
@@ -135,6 +136,10 @@ ShpostPostcard::Application.routes.draw do
   end
 
   resources :import_files do
+    collection do
+      get 'to_import'
+      post 'import' => 'import_files#import'
+    end
     member do 
       get 'download'
       post 'download' => 'import_files#download'
