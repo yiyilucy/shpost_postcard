@@ -9,6 +9,7 @@ class CreateImportFiles < ActiveRecord::Migration
       t.string :size
       t.string :category
       t.string :file_ext
+      t.boolean :is_master, default: false
 
       t.timestamps
     end
