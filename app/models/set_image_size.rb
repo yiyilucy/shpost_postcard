@@ -1,9 +1,9 @@
 class SetImageSize < ActiveRecord::Base
-  def set_image_size
+  def self.set_image_size(import_file)
   	big_size = [640, 410]
     small_size = [320, 205]
-    file_path = ImportFile.find(params[:file_path])
-    file_name = ImportFile.find(params[:file_name])
+    file_path = import_file.file_path
+    file_name = import_file.file_name
   	image = MiniMagick::Image.open(file_path)
   	w,d = image[:width], image[:height]
   	unless w < big_size[0] && d < big_size[1]
