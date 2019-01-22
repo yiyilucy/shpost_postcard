@@ -1,17 +1,152 @@
-<%= form_for(@stamp) do |f| %>
-  <% if @stamp.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@stamp.errors.count, "error") %> prohibited this stamp from being saved:</h2>
-
-      <ul>
-      <% @stamp.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @stamp, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.fields_for :commodity do |c| %>
+    <% if @edit %>
+    <div class="control-group">
+      <%= c.label :commodity_no, :class => 'control-label' %>
+      <div class="controls">
+        <%= @stamp.commodity.no %>
+      </div>
+    </div>
+    <% end %>
+    <div class="control-group">
+      <%= c.label :name, :class => 'control-label' %>
+      <div class="controls">
+        <%= c.text_field :name, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= c.label :short_name, :class => 'control-label' %>
+      <div class="controls">
+        <%= c.text_field  :short_name, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= c.label :common_name, :class => 'control-label' %>
+      <div class="controls">
+        <%= c.text_field  :common_name, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= c.label :catalog_id, :class => 'control-label' %>
+      <div class="controls">
+        <%= c.select :catalog_id, Catalog.accessible_by(current_ability).where(catalog_type: "stamp").collect {|c| [c.catalog_name,c.id]}, :class => 'text_field' %>
+      </div>
+    </div>
+    
+  <% end %>
+  <div class="control-group">
+    <%= f.label :serial_no, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :serial_no, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :format, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :format, DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "stamp", "format").collect {|c| [c.name,c.name]}, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :theme, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :theme, DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "stamp", "theme").collect {|c| [c.name,c.name]}, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :version, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :version, DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "stamp", "version").collect {|c| [c.name,c.name]}, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :designer, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :designer, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :ori_author, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :ori_author, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :engrave_author, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :engrave_author, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :issue_at, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :issue_at, :value => "#{@stamp.issue_at.blank? ? "" : @stamp.issue_at.strftime('%Y-%m-%d').to_s}" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :issue_unit, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :issue_unit, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :print_unit, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :print_unit, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :gum, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :gum, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :circulation, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :circulation, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :set_amount, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :set_amount, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :page_amount, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :page_amount, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :perforation, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :perforation, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :specification, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :specification, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :editor, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :editor, :class => 'text_field' %>
+    </div>
+  </div>
+  <%= f.fields_for :commodity do |c| %>
+    <div class="control-group">
+      <%= c.label :is_show, :class => 'control-label' %>
+    
+      <%=c.check_box :is_show,:class =>'check_box' %>
     </div>
   <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <% if can? :read, Stamp %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+              stamps_path, :class => 'btn btn-default' %>
+  <% end %>
 <% end %>

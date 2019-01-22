@@ -1,0 +1,15 @@
+<%- model_class = DicContent -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human%></h1>
+  <%= form_tag('', :method => "get", name: 'form1') do %>
+  <div style="float:right">
+    <% if can? :new, DicContent %>
+      <%= link_to t('.new', :default => t("helpers.links.new")),
+                  "/dic_contents/new?dic_title_id=#{@dic_title_id}",
+                  :class => 'btn btn-primary' %>
+    <% end %>
+     
+  </div>
+  <%= render partial: 'dic_contents_grid' %>
+  <%end %>
+</div>

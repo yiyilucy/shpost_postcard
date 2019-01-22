@@ -1,0 +1,2 @@
+module DicTitlesHelper
+end

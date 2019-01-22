@@ -1,0 +1,149 @@
+<%- model_class = Coin -%>
+<%- commodity_class = Commodity -%>
+<%- price_class = Price -%>
+<%= define_grid(@coins_grid, hide_submit_button: true, hide_reset_button: true, html: {style: "table-layout:fixed;word-wrap:break-word;"}) do |g|
+    g.after_row do |coin, number_of_columns|
+        content_tag(:tr, class: 'extra-row') do
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"商品简称")
+                    buffer += content_tag(:p,coin.commodity.short_name)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"商品俗称")
+                    buffer += content_tag(:p,coin.commodity.common_name)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"发行机构")
+                    buffer += content_tag(:p,coin.issue_unit)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"发行量")
+                    buffer += content_tag(:p,coin.circulation)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"铸造单位")
+                    buffer += content_tag(:p,coin.cast_unit)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"直径")
+                    buffer += content_tag(:p,coin.diameter)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"成色")
+                    buffer += content_tag(:p,coin.percentage)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"质量")
+                    buffer += content_tag(:p,coin.quality)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"形状")
+                    buffer += content_tag(:p,coin.shape)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"正面")
+                    buffer += content_tag(:p,coin.head)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"反面")
+                    buffer += content_tag(:p,coin.tail)
+                    raw buffer
+                       
+                end)
+        end
+    end
+
+
+    g.column name: commodity_class.human_attribute_name(:commodity_no), attribute: 'no',detach_with_id: :commodity_no_filter, assoc: :commodity do |coin|
+        coin.commodity.no
+    end
+
+    g.column name: commodity_class.human_attribute_name(:name), attribute: 'name',detach_with_id: :name_filter, assoc: :commodity do |coin|
+        coin.commodity.name
+    end
+    
+    g.column name: commodity_class.human_attribute_name(:catalog_id), attribute: 'id',detach_with_id: :catalog_id_filter, assoc: [:commodity, :catalog],custom_filter: Catalog.accessible_by(current_ability).where(catalog_type: "coin").map{|c| [c.catalog_name,c.id]} do |coin| 
+      coin.commodity.catalog.try :catalog_name
+    end
+
+    g.column name: model_class.human_attribute_name(:theme), attribute: 'theme',detach_with_id: :theme_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "coin", "theme").map{|c| [c.name,c.name]} do |coin| 
+      coin.theme
+    end
+
+    g.column name: model_class.human_attribute_name(:material), attribute: 'material',detach_with_id: :material_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "coin", "material").map{|c| [c.name,c.name]} do |coin| 
+      coin.material
+    end
+
+    g.column name: model_class.human_attribute_name(:weight), attribute: 'weight',detach_with_id: :weight_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "coin", "weight").map{|c| [c.name,c.name]} do |coin| 
+      coin.weight
+    end
+
+    g.column name: model_class.human_attribute_name(:year), attribute: 'year',detach_with_id: :year_filter
+
+    g.column name: model_class.human_attribute_name(:face_value), attribute: 'face_value',detach_with_id: :face_value_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "coin", "face_value").map{|c| [c.name,c.name]} do |coin| 
+      coin.face_value
+    end
+
+    g.column name: model_class.human_attribute_name(:pack_spec), attribute: 'pack_spec',detach_with_id: :pack_spec_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "coin", "pack_spec").map{|c| [c.name,c.name]} do |coin| 
+      coin.pack_spec
+    end
+
+    g.column name: commodity_class.human_attribute_name(:is_show), attribute: 'is_show',detach_with_id: :is_show_filter, assoc: :commodity do |coin|
+      Commodity::IS_SHOW[coin.commodity.is_show]
+    end
+
+    g.column in_csv: false do |coin|
+      ActiveSupport::SafeBuffer.new << 
+        (link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_coin_path(coin), :class => 'btn btn-xs btn-primary' if can? :update, coin) << ' ' <<
+        (link_to t('.destroy', :default => t("helpers.links.destroy")), coin_path(coin), :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'btn btn-xs btn-danger' if can? :destroy, coin) << ' ' <<
+        (link_to t('.prices', :default => t("helpers.links.prices")), commodity_prices_path(coin.commodity), :class => 'btn btn-xs btn-primary' if can? :read, Price) << ' ' <<
+        (link_to t('.import_files', :default => t("helpers.links.import_files")), commodity_import_files_path(coin.commodity), :class => 'btn btn-xs btn-primary' if can? :read, Coin) << ' ' <<
+      button_tag("详细信息", class: "btn btn-xs btn-primary", name: 'detail', id: "coins_detail_btn")
+      end
+
+  end 
+%>
+

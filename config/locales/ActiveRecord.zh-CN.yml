@@ -150,6 +150,14 @@ zh-CN:
       users: 用户管理
       permissions: 权限管理
       reset_pwd: 重置密码
+      import: 导入
+      export: 导出
+      prices: 价格管理
+      price_import: 价格导入
+      price_export: 价格导出
+      dic_contents: 字典内容
+      download: 下载
+      import_files: 图片管理
     titles:
       edit: 编辑%{model}
       new: 新增%{model}
@@ -218,17 +226,28 @@ zh-CN:
     UserLog: 日志查询
     Catalog: 商品目录管理
     FrontUser: 前台用户
-
-
+    Stamp: 邮票
+    Coin: 硬币
+    Bill: 纸钞
+    Price: 价格管理
+    DicTitle: 商品字典标题
+    DicContent: 商品字典内容
+    ImportFile: 导入文件
   operation_name:
     read: 查看
     create: 新增
     update: 修改
     destroy: 删除
     permission: 查看权限管理
-    do_permission: 修改
+    do_permission: 设置权限
     reset_pwd: 重置密码
-
+    import: 导入
+    export: 导出
+    price_import: 价格导入
+    price_export: 价格导出
+    sign_in: 用户登录
+    sign_out: 用户退出
+    download: 下载
   wice_grid:
     show_filter_tooltip: 显示过滤
     hide_filter_tooltip: 隐藏过滤
@@ -306,10 +325,24 @@ zh-CN:
       bill:
         one: 纸钞信息
         other: 纸钞信息
+      paper:
+        one: 纸钞信息
+        other: 纸钞信息
       front_user:
         one: 前台用户管理
         other: 前台用户管理
-
+      price:
+        one: 价格管理
+        other: 价格管理
+      dic_title:
+        one: 商品字典标题
+        other: 商品字典标题
+      dic_content:
+        one: 商品字典内容
+        other: 商品字典内容
+      import_file:
+        one: 导入文件信息
+        other: 导入文件信息
     attributes:
       user:
         email: "电子邮件"
@@ -336,7 +369,7 @@ zh-CN:
         catalog_type: "目录大类"
         is_show: "是否显示"
       commodity:
-        no: "商品编码"
+        commodity_no: "商品编码"
         name: "商品名称"
         short_name: "商品简称"
         common_name: "商品俗称"
@@ -399,7 +432,31 @@ zh-CN:
         wechat_id: "微信ID"
         email: "邮箱"
         head_url: "头像地址"
-
+      price:
+        commodity_no: "商品编码"
+        commodity_id: "商品"
+        price_date: "价格日期"
+        price: "价格"
+        is_show: "是否显示"
+      dic_title:
+        name: "字典标题名称"
+        category: "所属商品属性"
+        db_field: "对应字段"
+      dic_content:
+        name: "字典内容名称"
+        dic_title_id: "字典标题"
+        is_show: "是否显示"
+        order: "排序"
+      import_file:
+        file_name: "文件名"
+        file_path: "文件存放路径"
+        user_id: "用户"
+        symbol_id: "所属对象id"
+        symbol_type: "所属对象类型"
+        size: "文件大小"
+        created_at: "导入时间"
+        category: "商品大类"
+        file_ext: "文件后缀名"
   menu:
     permission:
       name: "权限管理"
@@ -453,6 +510,60 @@ zh-CN:
           needrole:
             can: :read
             role: :Catalog
+    commodities:
+      name: "商品管理"
+      needrole:
+          can: :read
+          role: :Commodity
+      submenu:
+        stamp:
+          name: "邮票信息"
+          link: "/stamps/"
+          need_count: false
+          needrole:
+            can: :read
+            role: :Stamp
+        coin:
+          name: "硬币信息"
+          link: "/coins/"
+          need_count: false
+          needrole:
+            can: :read
+            role: :Coin
+        bill:
+          name: "纸钞信息"
+          link: "/bills/"
+          need_count: false
+          needrole:
+            can: :read
+            role: :Bill
+        dic_title:
+          name: "商品字典管理"
+          link: "/dic_titles/"
+          need_count: false
+          needrole:
+            can: :read
+            role: :DicTitle
+        price:
+          name: "价格管理"
+          link: "/prices/"
+          need_count: false
+          needrole:
+            can: :read
+            role: :Price
+    import:
+      name: "导入文件信息"
+      needrole:
+          can: :read
+          role: :ImportFile
+      submenu:
+        import_file:
+          name: "导入文件信息"
+          link: "/import_files"
+          need_count: false
+          needrole:
+            can: :read
+            role: :ImportFile
         # interface_log:
         #   name: "接口信息(info)"
         #   link: "/interface_infos"

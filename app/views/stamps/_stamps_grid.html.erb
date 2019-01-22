@@ -1,0 +1,175 @@
+<%- model_class = Stamp -%>
+<%- commodity_class = Commodity -%>
+<%- price_class = Price -%>
+<%= define_grid(@stamps_grid, hide_submit_button: true, hide_reset_button: true, html: {style: "table-layout:fixed;word-wrap:break-word;"}) do |g|
+    g.after_row do |stamp, number_of_columns|
+        content_tag(:tr, class: 'extra-row') do
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"商品简称")
+                    buffer += content_tag(:p,stamp.commodity.short_name)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"商品俗称")
+                    buffer += content_tag(:p,stamp.commodity.common_name)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"原作者")
+                    buffer += content_tag(:p,stamp.ori_author)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"雕作者")
+                    buffer += content_tag(:p,stamp.engrave_author)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"印刷机构")
+                    buffer += content_tag(:p,stamp.print_unit)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"背胶")
+                    buffer += content_tag(:p,stamp.gum)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"发行量")
+                    buffer += content_tag(:p,stamp.circulation)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"全套枚数")
+                    buffer += content_tag(:p,stamp.set_amount)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"整版枚数")
+                    buffer += content_tag(:p,stamp.page_amount)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"齿孔度")
+                    buffer += content_tag(:p,stamp.perforation)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"规格")
+                    buffer += content_tag(:p,stamp.specification)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"责任编辑")
+                    buffer += content_tag(:p,stamp.editor)
+                    raw buffer
+                       
+                end)
+        end
+    end
+
+
+    g.column name: commodity_class.human_attribute_name(:commodity_no), attribute: 'no',detach_with_id: :commodity_no_filter, assoc: :commodity do |stamp|
+        stamp.commodity.no
+    end
+
+    g.column name: commodity_class.human_attribute_name(:name), attribute: 'name',detach_with_id: :name_filter, assoc: :commodity do |stamp|
+        stamp.commodity.name
+    end
+    
+    g.column name: commodity_class.human_attribute_name(:catalog_id), attribute: 'id',detach_with_id: :catalog_id_filter, assoc: [:commodity, :catalog],custom_filter: Catalog.accessible_by(current_ability).where(catalog_type: "stamp").map{|c| [c.catalog_name,c.id]} do |stamp| 
+      stamp.commodity.catalog.try :catalog_name
+    end
+
+    g.column name: model_class.human_attribute_name(:serial_no), attribute: 'serial_no',detach_with_id: :serial_no_filter
+
+    g.column name: model_class.human_attribute_name(:format), attribute: 'format',detach_with_id: :format_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "stamp", "format").map{|c| [c.name,c.name]} do |stamp| 
+      stamp.format
+    end
+
+    g.column name: model_class.human_attribute_name(:theme), attribute: 'theme',detach_with_id: :theme_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "stamp", "theme").map{|c| [c.name,c.name]} do |stamp| 
+      stamp.theme
+    end
+
+    g.column name: model_class.human_attribute_name(:version), attribute: 'version',detach_with_id: :version_filter
+
+    g.column name: model_class.human_attribute_name(:designer), attribute: 'designer',detach_with_id: :designer_filter
+
+    # g.column name: model_class.human_attribute_name(:ori_author), attribute: 'ori_author'
+
+    # g.column name: model_class.human_attribute_name(:engrave_author), attribute: 'engrave_author'
+
+    g.column name: model_class.human_attribute_name(:issue_at), attribute: 'issue_at',detach_with_id: :issue_at_filter do |stamp|
+        stamp.issue_at.blank? ? "" : stamp.issue_at.strftime('%Y-%m-%d').to_s
+    end
+
+    g.column name: model_class.human_attribute_name(:issue_unit), attribute: 'issue_unit',detach_with_id: :issue_unit_filter
+
+    g.column name: commodity_class.human_attribute_name(:is_show), attribute: 'is_show',detach_with_id: :is_show_filter, assoc: :commodity do |stamp|
+      Commodity::IS_SHOW[stamp.commodity.is_show]
+    end
+ 
+
+    # g.column name: model_class.human_attribute_name(:print_unit), attribute: 'print_unit'
+
+    # g.column name: model_class.human_attribute_name(:gum), attribute: 'gum'
+
+    # g.column name: model_class.human_attribute_name(:circulation), attribute: 'circulation'
+
+    # g.column name: model_class.human_attribute_name(:set_amount), attribute: 'set_amount'
+
+    # g.column name: model_class.human_attribute_name(:page_amount), attribute: 'page_amount'
+
+    # g.column name: model_class.human_attribute_name(:perforation), attribute: 'perforation'
+    
+    # g.column name: model_class.human_attribute_name(:specification), attribute: 'specification'
+
+    # g.column name: model_class.human_attribute_name(:editor), attribute: 'editor'
+    
+    g.column in_csv: false do |stamp|
+      ActiveSupport::SafeBuffer.new << 
+        (link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_stamp_path(stamp), :class => 'btn btn-xs btn-primary' if can? :update, stamp) << ' ' <<
+        (link_to t('.destroy', :default => t("helpers.links.destroy")), stamp_path(stamp), :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'btn btn-xs btn-danger' if can? :destroy, stamp) << ' ' <<
+        (link_to t('.prices', :default => t("helpers.links.prices")), commodity_prices_path(stamp.commodity), :class => 'btn btn-xs btn-primary' if can? :read, Price) << ' ' <<
+        (link_to t('.import_files', :default => t("helpers.links.import_files")), commodity_import_files_path(stamp.commodity), :class => 'btn btn-xs btn-primary' if can? :read, Stamp) << ' ' <<
+      button_tag("详细信息", class: "btn btn-xs btn-primary", name: 'detail', id: "stamps_detail_btn")
+      end
+
+  end 
+%>

@@ -8,14 +8,22 @@ class Sequence < ActiveRecord::Base
     # end
   # end
 
-  Batchs = ["Catalog"]
+
+  Batchs = ["Catalog", "Commodity"]
 
   def self.initial
     Batchs.each do |x|
       x.to_s.constantize.class_eval do
         self.before_save do |obj|
-          if obj.catalog_no.blank?
-            obj.catalog_no = Sequence.generate_sequence( obj.class)
+          if x.eql? "Catalog"
+            if obj.catalog_no.blank?
+              obj.catalog_no = Sequence.generate_sequence(obj.class)
+            end
+          end
+          if x.eql? "Commodity"
+            if obj.no.blank?
+              obj.no = Sequence.generate_commodity_sequence(obj)
+            end
           end
           return true
         end
@@ -25,6 +33,19 @@ class Sequence < ActiveRecord::Base
 
   def self.generate_sequence(_class)
     get_count(_class).to_s.rjust(7, '0')
+  end
+
+  def self.generate_commodity_sequence(obj)
+    prefix = ""
+    if obj.category.eql?"stamp"
+      prefix = "1"
+    elsif obj.category.eql?"coin"
+      prefix = "2"
+    elsif obj.category.eql?"bill"  
+      prefix = "3"
+    end
+
+    prefix + get_count(obj.class).to_s.rjust(5, '0')
   end
 
   # def self.generate_barcode(unit, _class, count)
@@ -44,6 +65,8 @@ class Sequence < ActiveRecord::Base
       end
       sequence.count - 1
   end
+
+  Sequence.initial
 end
 
 

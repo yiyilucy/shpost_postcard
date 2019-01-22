@@ -21,8 +21,8 @@
     g.column do |user|
       ActiveSupport::SafeBuffer.new << 
         (link_to t('.edit', :default => t("helpers.links.edit")), edit_user_path(user), :class => 'btn btn-xs btn-primary' if can? :update, user) << ' ' <<
-          (link_to t('.permissions', :default => t("helpers.links.permissions")), "/permissions?user=#{user.id}", :class => 'btn btn-xs btn-primary' if can? :permission, user)<< ' ' <<
-          (link_to t('.reset_pwd', :default => t("helpers.links.reset_pwd")), reset_pwd_user_path(user), :class => 'btn btn-xs btn-primary' if can? :reset_pwd, user)
+          (link_to t('.permissions', :default => t("helpers.links.permissions")), "/permissions/new?user=#{user.id}", :class => 'btn btn-xs btn-primary' if can? :permission, user)<< ' ' <<
+          (link_to t('.reset_pwd', :default => t("helpers.links.reset_pwd")), to_reset_pwd_user_path(user), :class => 'btn btn-xs btn-primary' if can? :reset_pwd, user)
     end
   end 
 %>

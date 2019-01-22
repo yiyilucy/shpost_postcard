@@ -1,25 +1,68 @@
-<h1>Listing stamps</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @stamps.each do |stamp| %>
-      <tr>
-        <td><%= link_to 'Show', stamp %></td>
-        <td><%= link_to 'Edit', edit_stamp_path(stamp) %></td>
-        <td><%= link_to 'Destroy', stamp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<%- model_class = Stamp -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human%></h1>
+</div>
+<%= render partial: 'stamps_grid'%>
+<div>
+  <%= form_tag('', name: 'form1') %>
+  <div style="float:right">
+  	<% if can? :new, Stamp %>
+      <%= link_to t('.new', :default => t("helpers.links.new")),
+                  new_stamp_path,
+                  :class => 'btn btn-primary' %>
     <% end %>
-  </tbody>
-</table>
+    <% if can? :import, Stamp %>
+      <%= link_to t('.import', :default => t("helpers.links.import")), "/stamps/to_import", :class => 'btn btn-primary' %>
+    <% end %>
+    <% if can? :export, Stamp %>
+      <%= submit_tag "导出",:class => 'btn btn-primary', onclick: "form1.action='/stamps/export.xls';form1.submit();" %>
+    <% end %>  
+    <% if can? :price_import, Stamp %>
+      <%= link_to t('.price_import', :default => t("helpers.links.price_import")), "/stamps/price_import", :class => 'btn btn-primary' %>
+    <% end %>
+    <% if can? :price_export, Stamp %>
+      <%= submit_tag "价格导出",:class => 'btn btn-primary', onclick: "form1.action='/stamps/price_export.xls';form1.submit();" %>
+    <% end %>
+  </div>
+  
+  <div class="index-filters">
+    <table>
+    <tr>
+    <td>商品编码:</td>
+    <td><%= grid_filter(@stamps_grid, :commodity_no_filter)%></td>
+    <td>商品名称:</td>
+    <td><%= grid_filter(@stamps_grid, :name_filter)%></td>
+    <td>商品目录:</td>
+    <td><%= grid_filter(@stamps_grid, :catalog_id_filter)%></td>
+    <td>是否显示:</td>
+    <td><%= grid_filter(@stamps_grid, :is_show_filter)%></td>
+    <td>志号:</td>
+    <td><%= grid_filter(@stamps_grid, :serial_no_filter)%></td>    
+    </tr>
+    <tr>
+    <td>版式:</td>
+    <td><%= grid_filter(@stamps_grid, :format_filter)%></td>
+    <td>题材:</td>
+    <td><%= grid_filter(@stamps_grid, :theme_filter)%></td>
+    <td>版别:</td>
+    <td><%= grid_filter(@stamps_grid, :version_filter)%></td>
+    <td>设计者:</td>
+    <td><%= grid_filter(@stamps_grid, :designer_filter)%></td>
+    <td>发行时间:</td>
+    <td><%= grid_filter(@stamps_grid, :issue_at_filter)%></td>
+    <td>发行机构:</td>
+    <td><%= grid_filter(@stamps_grid, :issue_unit_filter)%></td>
+    </tr>
+    <tr>
+    </tr>
+    </table>
+  </div>
+  <div align='right'>
+    <button class="btn btn-primary wg-external-submit-button" data-grid-name="stamps">递交</button>
+    <button class="btn btn-primary wg-external-reset-button" data-grid-name="stamps">重置</button>
+  </div>  
+  </form>
+</div>
+<div class="clearfix"></div> 
+<%= render_grid(@stamps_grid)%>
 
-<br>
-
-<%= link_to 'New Stamp', new_stamp_path %>

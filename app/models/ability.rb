@@ -1,11 +1,15 @@
 class Ability
   include CanCan::Ability
 
+  Sequence.initial
+  
   def initialize(user = nil)
     user ||= User.new
     UserPermission.where(user_id: user).each do |x|
         if !x.permission.blank?
-            can x.permission.operation.to_sym, eval(x.permission.module_name)
+            JSON.parse(x.permission.operation).each do |o|
+                can o.to_sym, eval(x.permission.module_name)
+            end
             # binding.pry
         end
     end
@@ -13,6 +17,8 @@ class Ability
 
     can :update, User, id: user.id
     # if user.superadmin?
+        can :manage, Commodity
+    # end
     #     can :manage, User
     #     can :manage, UserLog
     #     can :manage, Role

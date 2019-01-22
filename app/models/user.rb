@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   validate :password_complexity
 
+
  
   def email_required?
     false
