@@ -1,7 +1,8 @@
 class StampsController < ApplicationController
   load_and_authorize_resource
   user_logs_filter only: [:create, :update, :destroy], symbol: :commodity_no, object: :stamp, operation: :operation
-  user_logs_filter only: [:import, :export, :price_export], symbol: :file_name, object: :stamp, operation: :operation
+  user_logs_filter only: [:import, :export, :price_export, :image_import, :image_download, :image_destroy, :image_set_master, :batch_image_import], symbol: :file_name, object: :stamp, operation: :operation
+  require 'zip'
 
   def index
     @stamps_grid = initialize_grid(Stamp.joins(:commodity).order("commodities.no"),
@@ -72,7 +73,7 @@ class StampsController < ApplicationController
     @operation = "import"
     unless request.get?
       if file = upload_stamp(params[:file]['file'])   
-        @file_name = file.split("/").last  
+        @file_name = File.basename(file)  
         ActiveRecord::Base.transaction do
           begin
             sheet_error = []
@@ -385,6 +386,135 @@ class StampsController < ApplicationController
     xls_report.string  
   end
 
+  def image_index
+    redirect_to image_index_import_files_path(@stamp.commodity)
+  end
+
+  def to_image_import
+    @symbol_id = params[:format].blank? ? nil : params[:format].to_i
+  end
+
+  def image_import
+    @operation = "image_import"
+    symbol = nil
+    flash_message = "上传失败!"
+    @file_name = nil
+    unless request.get?
+      if !params[:symbol_id].blank?
+        symbol = Commodity.find(params[:symbol_id].to_i)
+        if !symbol.blank?
+          # if ImportFile.where(symbol_id: symbol.id).count < 10
+            if params[:file]['file'].original_filename.include?('.jpg') or params[:file]['file'].original_filename.include?('.jpeg') or params[:file]['file'].original_filename.include?('.png') or params[:file]['file'].original_filename.include?('.bmp')
+              if file_path = ImportFile.img_upload_path(params[:file]['file'], symbol, symbol.category)
+                if (File.size(file_path)/1024/1024) <= I18n.t("pic_size")
+                  if file = ImportFile.image_import(file_path, symbol, current_user, symbol.category)
+                    @file_name = file.file_name
+                    flash_message = "上传成功！"
+                  end
+                else
+                  flash_message = "图片大小应小于#{I18n.t("pic_size")}M"
+                end
+              end
+            else
+              flash_message = "请上传jpg, jpeg, png, bmp格式图片"
+            end
+          # else
+          #   flash_message = "一个商品最多只可上传10张图片"
+          # end
+        end
+      end
+      flash[:notice] = flash_message
+
+      redirect_to image_index_import_files_path(symbol)           
+    end
+  end
+
+  def image_download
+    @operation = "image_download"
+
+    if !params[:format].blank?
+      import_file = ImportFile.find(params[:format].to_i)
+      if !import_file.blank?
+        file_path = import_file.file_path
+        @file_name = import_file.file_name
+          
+        if !file_path.blank? and File.exist?(file_path)
+          io = File.open(file_path)
+          send_data(io.read, :type => "text/excel;charset=utf-8; header=present",              :filename => @file_name)
+          io.close
+        else
+          redirect_to image_index_import_files_path(@stamp.commodity), :notice => '文件不存在，下载失败！'
+        end
+      end
+    end
+  end
+
+  def image_destroy
+    @operation = "image_destroy"
+    if !params[:format].blank?
+      import_file = ImportFile.find(params[:format].to_i)
+      if !import_file.blank?
+        @file_name = import_file.file_name
+        ImportFile.image_destroy(import_file)
+      end
+    end
+
+    redirect_to image_index_import_files_path(@stamp.commodity) , :notice => '删除成功'
+  end
+
+  def image_set_master
+    @operation = "image_set_master"
+    
+    if !params[:format].blank?
+      import_file = ImportFile.find(params[:format].to_i)
+      if !import_file.blank?
+        @file_name = import_file.file_name
+        @stamp.commodity.import_files.update_all is_master: false
+        import_file.update is_master: true
+      end
+    end
+
+    redirect_to image_index_import_files_path(@stamp.commodity) , :notice => '设置成功'
+  end
+
+  def to_batch_image_import
+  end
+
+  def batch_image_import
+    @operation = "batch_image_import"
+    zip_direct = "#{Rails.root}/public/pic/stamp/zip/"
+    pic_direct = "#{Rails.root}/public/pic/stamp/"
+    folder_name = []
+    flash_message = "上传失败!"
+    desc = ""
+    
+    unless request.get?
+      if params[:file]['file'].original_filename.include?('.zip')
+        if file_path = ImportFile.img_upload_path(params[:file]['file'], nil, "stamp")
+          if (File.size(file_path)/1024/1024) <=  I18n.t("zip_size")
+            if file = ImportFile.image_import(file_path, nil, current_user, "stamp")
+              @file_name = file.file_name
+              desc = ImportFile.decompress(file_path, zip_direct, pic_direct, current_user, "stamp")
+              flash_message = "上传成功！"
+              if !desc.blank?
+                flash_message = "部分上传失败！"
+                desc = "部分图片上传失败" + desc
+                file.update desc: desc
+              end
+            end
+          else
+            flash_message = "上传文件的总大小应当不超过#{I18n.t("zip_size")}M"
+          end
+        end
+      else
+        flash_message = "请上传zip格式的压缩包"
+      end
+    end
+    flash[:notice] = flash_message
+
+    redirect_to stamps_path
+  end
+
   private
     def set_stamp
       @stamp = Stamp.find(params[:id])
@@ -404,7 +534,7 @@ class StampsController < ApplicationController
           Dir.mkdir("#{Rails.root}/upload/stamp/")          
         end
         filename = "#{Time.now.to_f}_#{file.original_filename}"
-        file_ext = filename.split('.').last
+        file_ext = File.extname(filename)
         file_path = direct + filename
         File.open(file_path, "wb") do |f|
            f.write(file.read)

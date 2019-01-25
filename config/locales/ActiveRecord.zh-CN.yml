@@ -157,7 +157,9 @@ zh-CN:
       price_export: 价格导出
       dic_contents: 字典内容
       download: 下载
-      import_files: 图片管理
+      image_index: 图片管理
+      image_set_master: 置为封面
+      batch_image_import: 批量上传图片
     titles:
       edit: 编辑%{model}
       new: 新增%{model}
@@ -220,6 +222,8 @@ zh-CN:
       long: ! '%Y年%b%d日 %H:%M'
       short: ! '%b%d日 %H:%M'
     pm: 下午
+  pic_size: 5
+  zip_size: 500
   module_name:
     User: 用户管理
     Permission: 权限管理
@@ -233,6 +237,7 @@ zh-CN:
     DicTitle: 商品字典标题
     DicContent: 商品字典内容
     ImportFile: 导入文件
+  
   operation_name:
     read: 查看
     create: 新增
@@ -248,6 +253,11 @@ zh-CN:
     sign_in: 用户登录
     sign_out: 用户退出
     download: 下载
+    image_download: 下载图片
+    image_import: 上传图片
+    image_destroy: 删除图片
+    image_set_master: 置为封面
+    batch_image_import: 批量上传图片
   wice_grid:
     show_filter_tooltip: 显示过滤
     hide_filter_tooltip: 隐藏过滤
@@ -457,6 +467,8 @@ zh-CN:
         created_at: "导入时间"
         category: "商品大类"
         file_ext: "文件后缀名"
+        is_master: "是否设为封面"
+        desc: "备注"
   menu:
     permission:
       name: "权限管理"

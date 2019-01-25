@@ -111,3 +111,7 @@ gem 'rqrcode'
 gem 'rqrcode_png'
 
 gem 'bulk_insert'
+
+gem 'mini_magick'
+
+gem 'rubyzip'

@@ -1,0 +1,15 @@
+<center>
+<br><br>
+<font face="微软雅黑" color='#006030' size=6>图片批量上传</font>   
+
+<br><br><br>
+  
+ 	
+<%= form_tag({:action => 'batch_image_import'}, :multipart => true, name: 'form1') %>
+<font face="微软雅黑" color='#D9B300' size=3>上传文件(请上传zip格式的压缩包,压缩包大小不超过<%= "#{I18n.t("zip_size")}" %>M;图片格式["jpg","jpeg","png","bmp"];单张图片小于<%= "#{I18n.t("pic_size")}" %>M;): 
+<%= file_field("file", "file",onclick: "$('#submit_button').removeAttr('disabled');") %></font> 
+<br><br><br>
+<%= submit_tag "确认导入",:id=>'submit_button',onclick: "form1.submit();this.disabled='disabled';" %>
+</form>
+
+</center>

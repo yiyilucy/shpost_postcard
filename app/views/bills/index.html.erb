@@ -23,6 +23,9 @@
     <% if can? :price_export, Bill %>
       <%= submit_tag "价格导出",:class => 'btn btn-primary', onclick: "form1.action='/bills/price_export.xls';form1.submit();" %>
     <% end %>
+    <% if can? :batch_image_import, Bill %>
+      <%= link_to t('.batch_image_import', :default => t("helpers.links.batch_image_import")), "/bills/to_batch_image_import", :class => 'btn btn-primary' %>
+    <% end %>
   </div>
   
   <div class="index-filters">

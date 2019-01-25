@@ -91,6 +91,17 @@ ShpostPostcard::Application.routes.draw do
       get 'price_import'
       post 'price_import' => 'bills#price_import'
       post 'price_export'
+      get 'to_image_import'
+      post 'image_import' => 'bills#image_import'
+      get 'to_batch_image_import'
+      post 'batch_image_import' => 'bills#batch_image_import'
+    end
+    member do
+      get 'image_index'
+      get 'image_download'
+      post 'image_download' => 'bills#image_download'
+      delete 'image_destroy' => 'bills#image_destroy'
+      post 'image_set_master'
     end
   end
 
@@ -102,6 +113,17 @@ ShpostPostcard::Application.routes.draw do
       get 'price_import'
       post 'price_import' => 'coins#price_import'
       post 'price_export'
+      get 'to_image_import'
+      post 'image_import' => 'coins#image_import'
+      get 'to_batch_image_import'
+      post 'batch_image_import' => 'coins#batch_image_import'
+    end
+    member do
+      get 'image_index'
+      get 'image_download'
+      post 'image_download' => 'coins#image_download'
+      delete 'image_destroy' => 'coins#image_destroy'
+      post 'image_set_master'
     end
   end
 
@@ -113,12 +135,22 @@ ShpostPostcard::Application.routes.draw do
       get 'price_import'
       post 'price_import' => 'stamps#price_import'
       post 'price_export'
+      get 'to_image_import'
+      post 'image_import' => 'stamps#image_import'
+      get 'to_batch_image_import'
+      post 'batch_image_import' => 'stamps#batch_image_import'
+    end
+    member do
+      get 'image_index'
+      get 'image_download'
+      post 'image_download' => 'stamps#image_download'
+      delete 'image_destroy' => 'stamps#image_destroy'
+      post 'image_set_master'
     end
   end
 
   resources :commodities do 
     resources :prices, :controller => 'commodity_price'
-    resources :import_files, :controller => 'commodity_import_file'
   end
   
   resources :prices do
@@ -137,8 +169,7 @@ ShpostPostcard::Application.routes.draw do
 
   resources :import_files do
     collection do
-      get 'to_import'
-      post 'import' => 'import_files#import'
+      get 'image_index'
     end
     member do 
       get 'download'

@@ -10,6 +10,7 @@ class CreateImportFiles < ActiveRecord::Migration
       t.string :category
       t.string :file_ext
       t.boolean :is_master, default: false
+      t.string :desc, :limit => 200
 
       t.timestamps
     end

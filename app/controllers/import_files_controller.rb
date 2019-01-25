@@ -1,6 +1,6 @@
 class ImportFilesController < ApplicationController
   load_and_authorize_resource
-  user_logs_filter only: :download, symbol: :file_name, operation: :operation
+  user_logs_filter only: [:download, :import], symbol: :file_name, operation: :operation, object: :ImportFile
 
   def index
     @import_files_grid = initialize_grid(@import_files,
@@ -33,18 +33,26 @@ class ImportFilesController < ApplicationController
   end
 
   def destroy
+    @operation = "destroy"
+    file_path = @import_file.file_path
+    if File.exist?(file_path)
+      File.delete(file_path)
+    end
+    @import_file.destroy
+      
+    respond_to do |format|
+      format.html { redirect_to import_files_path }
+      format.json { head :no_content }
+    end
   end
 
   def download
     @operation = "download"
-    @file_name = ""
+    @file_name = @import_file.file_name
     file_path = @import_file.file_path
         
     if !file_path.blank? and File.exist?(file_path)
       io = File.open(file_path)
-      filename_before = @import_file.file_path.split('/').last[0,@import_file.file_path.split('/').last.rindex('.')]
-      filename_after = @import_file.file_path.split('.').last
-      @file_name = filename_before + '.' + filename_after
       send_data(io.read, :type => "text/excel;charset=utf-8; header=present",              :filename => @file_name)
       io.close
     else
@@ -52,38 +60,16 @@ class ImportFilesController < ApplicationController
     end
   end
 
-  def to_import
-    @symbol_id = params["format"].blank? ? nil : params["format"].to_i
-  end
-
-  def import
-    flash_message = "导入失败!"
-    unless request.get?
-      if !params[:symbol_id].blank?
-        object = Commodity.find(params[:symbol_id].to_i)
-        if !object.blank?
-          if ImportFile.where(symbol_id: object.id).count < 10
-            if params[:file]['file'].original_filename.include?('.jpg') or params[:file]['file'].original_filename.include?('.jpeg') or params[:file]['file'].original_filename.include?('.png') or params[:file]['file'].original_filename.include?('.bmp')
-              if file = ImportFile.img_upload_path(params[:file]['file'], object) 
-                @file_name = file.split("/").last
-                file_ext = @file_name.split('.').last
-                size = File.size(file) 
-
-                ImportFile.create! file_name: @file_name, file_path: file, user_id: current_user.id, file_ext: file_ext, size: size, symbol_id: object.id, category: object.category, symbol_type: object.class.to_s
-                flash_message = "导入成功！"
-              end
-            else
-              flash_message = "请导入jpg, jpeg, png, bmp格式图片"
-            end
-          else
-            flash_message = "一个商品最多只可上传10张图片"
-          end
-        end
-      end
-      flash[:notice] = flash_message
-
-      redirect_to commodity_import_files_path(object.id)           
+  def image_index
+    @import_files = nil
+    @symbol_id = nil
+    if !params[:format].blank?
+      @symbol_id = params[:format].to_i
+      @import_files = ImportFile.where(symbol_id: @symbol_id )
     end
+    @import_files_grid = initialize_grid(@import_files,
+         :order => 'import_files.created_at',
+         :order_direction => 'desc')
   end
 
   private
