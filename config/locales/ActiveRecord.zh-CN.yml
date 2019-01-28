@@ -520,6 +520,19 @@ zh-CN:
           needrole:
             can: :read
             role: :Catalog
+    # postcard_views:
+    #   name: "前台页面管理"
+    #   needrole:
+    #       can: :read
+    #       role: :PostcardView
+    #   submenu:
+    #     user_log:
+    #       name: "前台页面"
+    #       link: "/postcard_views"
+    #       need_count: false
+    #       needrole:
+    #         can: :read
+    #         role: :PostcardView
     commodities:
       name: "商品管理"
       needrole:
