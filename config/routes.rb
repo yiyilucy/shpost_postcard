@@ -60,9 +60,8 @@ ShpostPostcard::Application.routes.draw do
 
   resources :user_logs, only: [:index, :show, :destroy]
   resources :catalogs
-  
 
-  
+   
 
   resources :users do
     member do
