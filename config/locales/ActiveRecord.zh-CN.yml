@@ -222,8 +222,6 @@ zh-CN:
       long: ! '%Y年%b%d日 %H:%M'
       short: ! '%b%d日 %H:%M'
     pm: 下午
-  pic_size: 5
-  zip_size: 500
   module_name:
     User: 用户管理
     Permission: 权限管理
