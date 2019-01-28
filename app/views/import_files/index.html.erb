@@ -20,7 +20,11 @@
 
     g.column name: model_class.human_attribute_name(:file_ext), attribute: 'file_ext'
 
-    g.column name: model_class.human_attribute_name(:size), attribute: 'size'
+    g.column name: model_class.human_attribute_name(:size), attribute: 'size' do |import_file|
+      import_file.size.blank? ? "" : (import_file.size.to_i/1024).round(0).to_s + "k"
+    end
+
+    g.column name: model_class.human_attribute_name(:desc), attribute: 'desc'
 
     g.column name: model_class.human_attribute_name(:created_at), attribute: 'created_at'do |import_file|
        import_file.created_at.localtime.to_s(:db)

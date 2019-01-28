@@ -103,7 +103,7 @@ class CommodityPriceController < ApplicationController
     @operation = "import"
     unless request.get?
       if file = upload_price(params[:file]['file'])  
-        @file_name = file.split("/").last     
+        @file_name = File.basename(file)     
         ActiveRecord::Base.transaction do
           begin
             sheet_error = []
