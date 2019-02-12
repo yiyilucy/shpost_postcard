@@ -1,5 +1,40 @@
-<h1>New permission</h1>
+<%- model_class = Permission -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human%></h1> 
+</div>
+<div>
+  <%= form_tag('', name: 'form1') %>
+  <div class="findprintindex-btns">
+    <% if can? :do_permission, Permission %>
+      <%= link_to t('.back', :default => t("helpers.links.back")),
+              users_path, :class => 'btn btn-default'  %>
+      <%= submit_tag "确定",:class => 'btn btn-primary', onclick: "form1.action='/permissions/do_permission';form1.submit();" %>    
+    <% end %>
+    <%= hidden_field_tag('user_id',@user) %>
+  </div>
+  <div>
+    <% @permissions.each do |x| %>
+      <div>
+        <table class="table table-striped">      
+        <thead>
+          <tr>
+            <th><%= I18n.t("module_name.#{x[0]}") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% p = Permission.where(module_name: x[0], is_show: true).order(:operation) %>
+          <% until p.blank? do %>
+          <tr>
+          <% p.pop(4).each do |y| %>   
+            <td width="25%"><%= check_box("checkbox","permission_"+y.id.to_s, checked: UserPermission.find_by(user_id: (@user.blank? ? nil : @user), permission_id: y.id).blank? ? false : true)%><%= y.operation_name %></td>        
+          <% end %>
+          </tr>
+          <% end %>
+        </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
+  </form>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', permissions_path %>

@@ -1,0 +1,21 @@
+<%- model_class = DicTitle -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human%></h1>
+</div>
+
+<%= grid(@dic_titles_grid) do |g|
+
+    g.column name: model_class.human_attribute_name(:name), attribute: 'name'
+
+    g.column name: model_class.human_attribute_name(:category), attribute: 'category',custom_filter: DicTitle::CATEGORY.invert do |dic_title|
+      DicTitle::CATEGORY[dic_title.category.to_sym]
+    end
+
+    g.column name: model_class.human_attribute_name(:db_field), attribute: 'db_field'
+
+    g.column do |dic_title|
+      ActiveSupport::SafeBuffer.new << 
+        (link_to t('.dic_contents', :default => t("helpers.links.dic_contents")), dic_title_dic_contents_path(dic_title), :class => 'btn btn-xs btn-primary' if can? :read, DicContent)
+    end
+  end 
+%>

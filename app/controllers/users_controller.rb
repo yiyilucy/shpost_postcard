@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   load_and_authorize_resource :user
 
-  user_logs_filter only: [:create, :destroy], symbol: :username#, object: :user, operation: '新增用户'
+  user_logs_filter only: [:create, :update, :destroy, :reset_pwd], symbol: :username, object: :user, operation: :operation
 
   # GET /users
   # GET /users.json
@@ -28,6 +28,9 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    # @operation = I18n.t("operation_name.#{"create"}")
+    @operation = "create"
+
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: I18n.t('controller.create_success_notice', model: '用户') }
@@ -42,6 +45,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    @operation = "update"
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: I18n.t('controller.update_success_notice', model: '用户') }
@@ -56,6 +60,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
+    @operation = "destroy"
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url }
@@ -63,7 +68,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def to_reset_pwd
+  end
+
   def reset_pwd
+    @operation = "reset_pwd"
+    respond_to do |format|
+      if @user.update(user_params)
+        format.html { redirect_to users_url, notice: "密码重置成功" }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'reset_pwd' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
  

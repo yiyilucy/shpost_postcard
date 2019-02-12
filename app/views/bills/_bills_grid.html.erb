@@ -1,0 +1,119 @@
+<%- model_class = Bill -%>
+<%- commodity_class = Commodity -%>
+<%- price_class = Price -%>
+<%= define_grid(@bills_grid, hide_submit_button: true, hide_reset_button: true, html: {style: "table-layout:fixed;word-wrap:break-word;"}) do |g|
+    g.after_row do |bill, number_of_columns|
+        content_tag(:tr, class: 'extra-row') do
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"商品简称")
+                    buffer += content_tag(:p,bill.commodity.short_name)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"商品俗称")
+                    buffer += content_tag(:p,bill.commodity.common_name)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"发行时间")
+                    buffer += content_tag(:p,bill.issue_at.blank? ? "" : bill.issue_at.strftime("%Y-%m-%d"))
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"正面")
+                    buffer += content_tag(:p,bill.head)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"反面")
+                    buffer += content_tag(:p,bill.tail)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"水印")
+                    buffer += content_tag(:p,bill.watermark)
+                    raw buffer
+                       
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"印刷工艺")
+                    buffer += content_tag(:p,bill.print_process)
+                    raw buffer
+                       
+                end)
+        end
+    end
+
+
+    g.column name: commodity_class.human_attribute_name(:commodity_no), attribute: 'no',detach_with_id: :commodity_no_filter, assoc: :commodity do |bill|
+        bill.commodity.no
+    end
+
+    g.column name: commodity_class.human_attribute_name(:name), attribute: 'name',detach_with_id: :name_filter, assoc: :commodity do |bill|
+        bill.commodity.name
+    end
+    
+    g.column name: commodity_class.human_attribute_name(:catalog_id), attribute: 'id',detach_with_id: :catalog_id_filter, assoc: [:commodity, :catalog],custom_filter: Catalog.accessible_by(current_ability).where(catalog_type: "bill").map{|c| [c.catalog_name,c.id]} do |bill| 
+      bill.commodity.catalog.try :catalog_name
+    end
+
+    g.column name: model_class.human_attribute_name(:version), attribute: 'version',detach_with_id: :version_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "version").map{|c| [c.name,c.name]} do |bill| 
+      bill.version
+    end
+
+    g.column name: model_class.human_attribute_name(:engrave_year), attribute: 'engrave_year',detach_with_id: :engrave_year_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "engrave_year").map{|c| [c.name,c.name]} do |bill| 
+      bill.engrave_year
+    end
+
+    g.column name: model_class.human_attribute_name(:face_value), attribute: 'face_value',detach_with_id: :face_value_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "face_value").map{|c| [c.name,c.name]} do |bill| 
+      bill.face_value
+    end
+
+    g.column name: model_class.human_attribute_name(:pack_spec), attribute: 'pack_spec',detach_with_id: :pack_spec_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "pack_spec").map{|c| [c.name,c.name]} do |bill| 
+      bill.pack_spec
+    end
+
+    g.column name: model_class.human_attribute_name(:prefix), attribute: 'prefix',detach_with_id: :prefix_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "prefix").map{|c| [c.name,c.name]} do |bill| 
+      bill.prefix
+    end
+
+    g.column name: model_class.human_attribute_name(:serial_no), attribute: 'serial_no',detach_with_id: :serial_no_filter, custom_filter: DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "serial_no").map{|c| [c.name,c.name]} do |bill| 
+      bill.serial_no
+    end
+
+    g.column name: commodity_class.human_attribute_name(:is_show), attribute: 'is_show',detach_with_id: :is_show_filter, assoc: :commodity do |bill|
+      Commodity::IS_SHOW[bill.commodity.is_show]
+    end
+
+    g.column in_csv: false do |bill|
+      ActiveSupport::SafeBuffer.new << 
+        (link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_bill_path(bill), :class => 'btn btn-xs btn-primary' if can? :update, bill) << ' ' <<
+        (link_to t('.destroy', :default => t("helpers.links.destroy")), bill_path(bill), :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'btn btn-xs btn-danger' if can? :destroy, bill) << ' ' <<
+        (link_to t('.prices', :default => t("helpers.links.prices")), commodity_prices_path(bill.commodity), :class => 'btn btn-xs btn-primary' if can? :read, Price) << ' ' <<
+        (link_to t('.image_index', :default => t("helpers.links.image_index")), image_index_bill_path(bill), :class => 'btn btn-xs btn-primary' if can? :read, Bill) << ' ' <<
+      button_tag("详细信息", class: "btn btn-xs btn-primary", name: 'detail', id: "bills_detail_btn")
+      end
+
+  end 
+%>
+

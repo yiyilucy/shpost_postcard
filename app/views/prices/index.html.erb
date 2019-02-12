@@ -1,0 +1,49 @@
+<%- model_class = Price -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human%></h1>
+</div>
+<%= render partial: 'prices_grid'%>
+<div>
+  <%= form_tag('', name: 'form1') %>
+    <div style="float:right">
+      <% if can? :new, Price %>
+        <%= link_to t('.new', :default => t("helpers.links.new")),
+                    new_price_path,
+                    :class => 'btn btn-primary' %>
+      <% end %>
+      <% if can? :import, Price %>
+        <%= link_to t('.import', :default => t("helpers.links.import")), "/prices/to_import", :class => 'btn btn-primary' %>
+      <% end %>
+      <% if can? :export, Price %>
+        <%= submit_tag "导出",:class => 'btn btn-primary', onclick: "form1.action='/prices/export.xls';form1.submit();" %>
+      <% end %>     
+    </div>
+    <div class="index-filters">
+      <table>
+      <tr>
+        <td width='7%'>商品目录:</td>
+        <td width='7%'><%= grid_filter(@prices_grid, :catalog_id_filter)%></td>
+        <td width='7%'>商品编码:</td>
+        <td width='7%'><%= grid_filter(@prices_grid, :commodity_no_filter)%></td>
+        <td width='7%'>商品名称:</td>
+        <td width='7%'><%= grid_filter(@prices_grid, :commodity_name_filter)%></td>
+        <td width='7%'>价格日期:</td>
+        <td width='7%'><%= grid_filter(@prices_grid, :price_date_filter)%></td>
+        <td width='7%'>价格:</td>
+        <td width='7%'><%= grid_filter(@prices_grid, :price_filter)%></td>
+        <td width='7%'>是否显示:</td>
+        <td width='7%'><%= grid_filter(@prices_grid, :is_show_filter)%></td>
+      </tr>
+      <tr>
+      </tr>
+      </table>
+    </div>
+    <div align='right'>
+      <button class="btn btn-primary wg-external-submit-button" data-grid-name="prices">递交</button>
+      <button class="btn btn-primary wg-external-reset-button" data-grid-name="prices">重置</button>
+    </div>  
+  </form>
+</div>
+<div class="clearfix"></div> 
+<%= render_grid(@prices_grid)%>
+

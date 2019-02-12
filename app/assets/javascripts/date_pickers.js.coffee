@@ -7,5 +7,20 @@ ready = ->
     changeMonth:true,
     changeYear:true
   });
+  $('#stamp_issue_at').datepicker({
+    showAnim:"blind",
+    changeMonth:true,
+    changeYear:true
+  });
+  $('#bill_issue_at').datepicker({
+    showAnim:"blind",
+    changeMonth:true,
+    changeYear:true
+  });
+  $('#price_price_date').datepicker({
+    showAnim:"blind",
+    changeMonth:true,
+    changeYear:true
+  });
 $(document).ready(ready)
 $(document).on('page:load', ready)

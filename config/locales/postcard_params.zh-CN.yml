@@ -1,0 +1,12 @@
+zh-CN:
+  pic_upload_param:
+    pic_size: '5'
+    zip_size: '500'
+  image_util_param:
+    big_size_width: 640
+    big_size_height: 410
+    small_size_width: 320
+    small_size_height: 205
+    image_resize_big: "640x410"
+    image_resize_small: "320x205"
+    image_quality: "75%"

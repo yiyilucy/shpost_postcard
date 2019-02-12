@@ -1,0 +1,15 @@
+<%- model_class = Price -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human%></h1>
+  <%= form_tag('', :method => "get", name: 'form1') do %>
+  <div style="float:right">
+    <% if can? :new, Price %>
+      <%= link_to t('.new', :default => t("helpers.links.new")),
+                  new_commodity_price_path(@commodity),
+                  :class => 'btn btn-primary' %>
+    <% end %>
+    <button class="btn btn-primary wg-external-csv-export-button" data-grid-name="prices" >导出</button>    
+  </div>
+  <%= render partial: 'prices_grid' %>
+  <%end %>
+</div>

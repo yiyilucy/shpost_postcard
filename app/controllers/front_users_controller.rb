@@ -1,5 +1,6 @@
 class FrontUsersController < ApplicationController
   load_and_authorize_resource
+  user_logs_filter only: :update, operation: :operation, symbol: :name
 
   def index
      @front_users_grid = initialize_grid(@front_users,
@@ -34,6 +35,7 @@ class FrontUsersController < ApplicationController
   end
 
   def update
+    @operation = "update"
     respond_to do |format|
       if @front_user.update(front_user_params)
         format.html { redirect_to @front_user, notice: I18n.t('controller.update_success_notice', model: '前台用户')}

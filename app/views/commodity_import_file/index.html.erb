@@ -1,0 +1,38 @@
+<%- model_class = ImportFile -%>
+<div class="page-header">
+  <h1><%="图片管理"%></h1>
+  <div style="float:right">
+    <% if can? :to_import, ImportFile %>
+      <%= link_to "上传",to_import_import_files_path(@symbol_id), :class => 'btn btn-primary' %>                 
+    <% end %>
+  </div>
+</div>
+
+<%= grid(@import_files_grid) do |g|
+    g.column name: model_class.human_attribute_name(:file_name), attribute: 'file_name'
+
+    g.column name: model_class.human_attribute_name(:user_id), attribute: 'id', assoc: :user do |import_file|
+      import_file.user.try :name
+    end
+
+    g.column name: model_class.human_attribute_name(:file_ext), attribute: 'file_ext'
+
+    g.column name: model_class.human_attribute_name(:size), attribute: 'size'
+
+    g.column name: model_class.human_attribute_name(:created_at), attribute: 'created_at' do |import_file|
+       import_file.created_at.localtime.to_s(:db)
+    end
+
+    g.column do |import_file|
+       image_tag("/pic/#{import_file.category}/#{import_file.file_name}", height: '50', width: '50')
+    end
+
+    g.column do |import_file|
+      ActiveSupport::SafeBuffer.new << 
+      (link_to t('.download', :default => t("helpers.links.download")), download_import_file_path(import_file),:method => 'post', :class => 'btn btn-xs btn-primary' if (can? :download, import_file)) << ' ' <<
+        (link_to t('.destroy', :default => t("helpers.links.destroy")), commodity_import_file_path(@symbol_id, import_file), :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'btn btn-xs btn-danger' if can? :destroy, import_file)
+      
+      end
+
+  end 
+%>

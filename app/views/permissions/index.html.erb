@@ -26,7 +26,7 @@
           <% until p.blank? do %>
           <tr>
           <% p.pop(4).each do |y| %>   
-            <td><%= check_box("checkbox","permission_"+y.id.to_s, checked: UserPermission.find_by(user_id: (@user.blank? ? nil : @user), permission_id: y.id).blank? ? false : true)%><%= I18n.t("operation_name.#{y.operation}") %></td>        
+            <td width="25%"><%= check_box("checkbox","permission_"+y.id.to_s, checked: UserPermission.find_by(user_id: (@user.blank? ? nil : @user), permission_id: y.id).blank? ? false : true)%><%= I18n.t("operation_name.#{y.operation}") %></td>        
           <% end %>
           </tr>
           <% end %>

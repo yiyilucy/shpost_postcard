@@ -1,17 +1,117 @@
-<%= form_for(@bill) do |f| %>
-  <% if @bill.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
-
-      <ul>
-      <% @bill.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @bill, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.fields_for :commodity do |c| %>
+    <% if @edit %>
+    <div class="control-group">
+      <%= c.label :commodity_no, :class => 'control-label' %>
+      <div class="controls">
+        <%= @bill.commodity.no %>
+      </div>
+    </div>
+    <% end %>
+    <div class="control-group">
+      <%= c.label :name, :class => 'control-label' %>
+      <div class="controls">
+        <%= c.text_field :name, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= c.label :short_name, :class => 'control-label' %>
+      <div class="controls">
+        <%= c.text_field  :short_name, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= c.label :common_name, :class => 'control-label' %>
+      <div class="controls">
+        <%= c.text_field  :common_name, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= c.label :catalog_id, :class => 'control-label' %>
+      <div class="controls">
+        <%= c.select :catalog_id, Catalog.accessible_by(current_ability).where(catalog_type: "bill").collect {|c| [c.catalog_name,c.id]}, :class => 'text_field' %>
+      </div>
+    </div>
+    
+  <% end %>
+  <div class="control-group">
+    <%= f.label :version, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :version, DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "version").collect {|c| [c.name,c.name]}, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :issue_at, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :issue_at, :value => "#{@bill.issue_at.blank? ? "" : @bill.issue_at.strftime('%Y-%m-%d').to_s}" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :engrave_year, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :engrave_year, DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "engrave_year").collect {|c| [c.name,c.name]}, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :face_value, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :face_value, DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "face_value").collect {|c| [c.name,c.name]}, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :pack_spec, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :pack_spec, DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "pack_spec").collect {|c| [c.name,c.name]}, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :head, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :head, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :tail, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :tail, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :prefix, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :prefix, DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "prefix").collect {|c| [c.name,c.name]}, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :serial_no, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :serial_no, DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "serial_no").collect {|c| [c.name,c.name]}, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :watermark, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :watermark, DicContent.joins(:dic_title).where("dic_titles.category = ? and dic_titles.db_field = ?", "bill", "watermark").collect {|c| [c.name,c.name]}, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :print_process, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :print_process, :class => 'text_field' %>
+    </div>
+  </div>
+  
+  <%= f.fields_for :commodity do |c| %>
+    <div class="control-group">
+      <%= c.label :is_show, :class => 'control-label' %>
+    
+      <%=c.check_box :is_show,:class =>'check_box' %>
     </div>
   <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <% if can? :read, Bill %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+              bills_path, :class => 'btn btn-default' %>
+  <% end %>
 <% end %>

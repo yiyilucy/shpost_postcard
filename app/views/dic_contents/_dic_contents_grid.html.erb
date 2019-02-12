@@ -1,0 +1,17 @@
+<%- model_class = DicContent -%>
+<%= grid(@dic_contents_grid) do |g|
+    g.column name: model_class.human_attribute_name(:name), attribute: 'name'
+
+    g.column name: model_class.human_attribute_name(:is_show), attribute: 'is_show' do |dic_content|
+      DicContent::IS_SHOW[dic_content.is_show]
+    end
+
+    g.column name: model_class.human_attribute_name(:order), attribute: 'order'
+
+    g.column do |dic_content|
+      ActiveSupport::SafeBuffer.new << 
+        (link_to t('.edit', :default => t("helpers.links.edit")), edit_dic_content_path(dic_content), :class => 'btn btn-xs btn-primary' if can? :update, dic_content) << ' ' <<
+        (link_to t('.destroy', :default => t("helpers.links.destroy")), dic_content_path(dic_content), :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'btn btn-xs btn-danger' if can? :destroy, dic_content)
+    end
+  end 
+%>

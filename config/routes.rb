@@ -1,5 +1,5 @@
 ShpostPostcard::Application.routes.draw do
- 
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -60,13 +60,13 @@ ShpostPostcard::Application.routes.draw do
 
   resources :user_logs, only: [:index, :show, :destroy]
   resources :catalogs
-  
 
-  
+   
 
   resources :users do
     member do
-      get 'reset_pwd'
+      get 'to_reset_pwd'
+      patch 'reset_pwd'
     end
     resources :permissions
   end
@@ -82,12 +82,104 @@ ShpostPostcard::Application.routes.draw do
 
   resources :front_users
 
-  resources :bills
+  resources :bills do
+    collection do
+      get 'to_import'
+      post 'import' => 'bills#import'
+      post 'export'
+      get 'price_import'
+      post 'price_import' => 'bills#price_import'
+      post 'price_export'
+      get 'to_image_import'
+      post 'image_import' => 'bills#image_import'
+      get 'to_batch_image_import'
+      post 'batch_image_import' => 'bills#batch_image_import'
+    end
+    member do
+      get 'image_index'
+      get 'image_download'
+      post 'image_download' => 'bills#image_download'
+      delete 'image_destroy' => 'bills#image_destroy'
+      post 'image_set_master'
+    end
+  end
 
-  resources :coins
+  resources :coins do
+    collection do
+      get 'to_import'
+      post 'import' => 'coins#import'
+      post 'export'
+      get 'price_import'
+      post 'price_import' => 'coins#price_import'
+      post 'price_export'
+      get 'to_image_import'
+      post 'image_import' => 'coins#image_import'
+      get 'to_batch_image_import'
+      post 'batch_image_import' => 'coins#batch_image_import'
+    end
+    member do
+      get 'image_index'
+      get 'image_download'
+      post 'image_download' => 'coins#image_download'
+      delete 'image_destroy' => 'coins#image_destroy'
+      post 'image_set_master'
+    end
+  end
 
-  resources :stamps
+  resources :stamps do
+    collection do
+      get 'to_import'
+      post 'import' => 'stamps#import'
+      post 'export'
+      get 'price_import'
+      post 'price_import' => 'stamps#price_import'
+      post 'price_export'
+      get 'to_image_import'
+      post 'image_import' => 'stamps#image_import'
+      get 'to_batch_image_import'
+      post 'batch_image_import' => 'stamps#batch_image_import'
+    end
+    member do
+      get 'image_index'
+      get 'image_download'
+      post 'image_download' => 'stamps#image_download'
+      delete 'image_destroy' => 'stamps#image_destroy'
+      post 'image_set_master'
+    end
+  end
 
-  resources :commodities
+  resources :commodities do 
+    resources :prices, :controller => 'commodity_price'
+  end
+  
+  resources :prices do
+    collection do
+      get 'to_import'
+      post 'import' => 'prices#import'
+      post 'export'
+    end
+  end
+
+  resources :dic_contents
+
+  resources :dic_titles do 
+    resources :dic_contents
+  end
+
+  resources :import_files do
+    collection do
+      get 'image_index'
+    end
+    member do 
+      get 'download'
+      post 'download' => 'import_files#download'
+    end
+  end
+
+  resources :commodity_autocom do
+    collection do
+      get 'autocomplete_commodity_name'
+    end
+  end
   
 end

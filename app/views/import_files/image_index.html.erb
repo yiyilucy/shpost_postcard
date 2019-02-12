@@ -1,0 +1,70 @@
+<%- model_class = ImportFile -%>
+<div class="page-header">
+  <h1><%="图片管理"%></h1>
+  <div style="float:right">
+    <% category = params[:format].blank? ? nil : Commodity.find(params[:format].to_i).category %>
+    <% if category.eql?"stamp" %>
+      <% if can? :image_import, Stamp %>
+        <%= link_to "上传",to_image_import_stamps_path(@symbol_id), :class => 'btn btn-primary' %>                 
+      <% end %>
+    <% elsif category.eql?"coin" %>
+      <% if can? :image_import, Coin %>
+      <%= link_to "上传",to_image_import_coins_path(@symbol_id), :class => 'btn btn-primary' %>                 
+      <% end %>
+    <% elsif category.eql?"bill" %>
+      <% if can? :image_import, Bill %>
+      <%= link_to "上传",to_image_import_bills_path(@symbol_id), :class => 'btn btn-primary' %>                 
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<%= grid(@import_files_grid) do |g|
+    # g.column do |import_file|
+    #   radio_button_tag("ifid","#{import_file.id}",false) 
+    # end
+
+    g.column name: model_class.human_attribute_name(:file_name), attribute: 'file_name'
+
+    g.column name: model_class.human_attribute_name(:user_id), attribute: 'id', assoc: :user do |import_file|
+      import_file.user.try :name
+    end
+
+    g.column name: model_class.human_attribute_name(:file_ext), attribute: 'file_ext'
+
+    g.column name: model_class.human_attribute_name(:size), attribute: 'size' do |import_file|
+      import_file.size.blank? ? "" : (import_file.size.to_i/1024).round(0).to_s + "k"
+    end
+
+    g.column name: model_class.human_attribute_name(:created_at), attribute: 'created_at' do |import_file|
+       import_file.created_at.localtime.to_s(:db)
+    end
+
+    g.column name: model_class.human_attribute_name(:is_master), attribute: 'is_master' do |import_file|
+      ImportFile::IS_MASTER[import_file.is_master]
+    end
+
+    g.column do |import_file|
+       link_to image_tag("/pic/#{import_file.category}/#{ File.basename(import_file.file_name, File.extname(import_file.file_name)) + "_big.jpg"}", height: '50', width: '50'), image_path("/pic/#{import_file.category}/#{import_file.file_name}"), target: '_blank'
+    end
+
+    g.column do |import_file|
+      if category.eql?"stamp"
+      ActiveSupport::SafeBuffer.new << 
+        (link_to t('.download', :default => t("helpers.links.download")), image_download_stamp_path(import_file.symbol.blank? ? nil : import_file.symbol.detail, import_file),:method => 'post', :class => 'btn btn-xs btn-primary' if (can? :image_download, Stamp)) << ' ' <<
+        (link_to t('.destroy', :default => t("helpers.links.destroy")), image_destroy_stamp_path(import_file.symbol.blank? ? nil : import_file.symbol.detail, import_file), :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'btn btn-xs btn-danger' if can? :image_destroy, Stamp) << ' ' <<
+        (link_to t('.image_set_master', :default => t("helpers.links.image_set_master")), image_set_master_stamp_path(import_file.symbol.blank? ? nil : import_file.symbol.detail, import_file),:method => 'post', :data => { :confirm => "确定置为封面？" }, :class => 'btn btn-xs btn-primary' if (can? :image_set_master, Stamp))
+      elsif category.eql?"coin"
+        (link_to t('.download', :default => t("helpers.links.download")), image_download_coin_path(import_file.symbol.blank? ? nil : import_file.symbol.detail, import_file),:method => 'post', :class => 'btn btn-xs btn-primary' if (can? :image_download, Coin)) << ' ' <<
+        (link_to t('.destroy', :default => t("helpers.links.destroy")), image_destroy_coin_path(import_file.symbol.blank? ? nil : import_file.symbol.detail, import_file), :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'btn btn-xs btn-danger' if can? :image_destroy, Coin) << ' ' <<
+        (link_to t('.image_set_master', :default => t("helpers.links.image_set_master")), image_set_master_coin_path(import_file.symbol.blank? ? nil : import_file.symbol.detail, import_file),:method => 'post', :data => { :confirm => "确定置为封面？" }, :class => 'btn btn-xs btn-primary' if (can? :image_set_master, Coin))
+      elsif category.eql?"bill"
+        (link_to t('.download', :default => t("helpers.links.download")), image_download_bill_path(import_file.symbol.blank? ? nil : import_file.symbol.detail, import_file),:method => 'post', :class => 'btn btn-xs btn-primary' if (can? :image_download, Bill)) << ' ' <<
+        (link_to t('.destroy', :default => t("helpers.links.destroy")), image_destroy_bill_path(import_file.symbol.blank? ? nil : import_file.symbol.detail, import_file), :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'btn btn-xs btn-danger' if can? :image_destroy, Bill) << ' ' <<
+        (link_to t('.image_set_master', :default => t("helpers.links.image_set_master")), image_set_master_bill_path(import_file.symbol.blank? ? nil : import_file.symbol.detail, import_file),:method => 'post', :data => { :confirm => "确定置为封面？" }, :class => 'btn btn-xs btn-primary' if (can? :image_set_master, Bill))
+      end
+    end
+
+  end 
+%>
+
