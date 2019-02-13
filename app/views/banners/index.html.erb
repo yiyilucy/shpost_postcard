@@ -1,0 +1,40 @@
+<%- model_class = Banner -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human%></h1>
+  <div style="float:right">
+    <% if can? :new, Banner %>
+      <%= link_to t('.new', :default => t("helpers.links.new")),
+                  new_banner_path,
+                  :class => 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>
+
+<%= grid(@banners_grid) do |g|
+
+    g.column name: model_class.human_attribute_name(:title), attribute: 'title'
+
+    g.column name: model_class.human_attribute_name(:link), attribute: 'link'
+
+    g.column name: model_class.human_attribute_name(:pic_name), attribute: 'pic_name'
+
+    g.column name: model_class.human_attribute_name(:is_show), attribute: 'is_show' do |banner|
+      Banner::IS_SHOW[banner.is_show]
+    end
+
+    g.column name: model_class.human_attribute_name(:order), attribute: 'order',custom_filter: Banner::ORDER.invert do |banner| 
+      banner.order
+    end
+
+    g.column do |banner|
+       link_to image_tag(banner.import_file.img_relative_path(false), height: '70', width: '90'), image_path(banner.import_file.img_relative_path(false)), target: '_blank'
+    end
+
+    g.column do |banner|
+      ActiveSupport::SafeBuffer.new << 
+        (link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_banner_path(banner), :class => 'btn btn-xs btn-primary' if can? :edit, banner) << ' ' <<
+        (link_to t('.destroy', :default => t("helpers.links.destroy")), banner_path(banner), :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'btn btn-xs btn-danger' if can? :destroy, banner)
+    end
+  end 
+%>

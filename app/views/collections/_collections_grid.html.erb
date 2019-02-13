@@ -1,0 +1,53 @@
+<%- model_class = Collection -%>
+<%- commodity_class = Commodity -%>
+<%- front_user_class = FrontUser -%>
+<% @sum = 0 
+   @count = 0
+%>
+<%= define_grid(@collections_grid, hide_submit_button: true, hide_reset_button: true, html: {style: "table-layout:fixed;word-wrap:break-word;"}) do |g|
+    if !@front_user_id
+      g.column name: front_user_class.human_attribute_name(:name), attribute: 'name', detach_with_id: :front_user_name_filter, assoc: :front_user do |collection|
+          collection.front_user.name
+      end
+    end
+
+    g.column name: commodity_class.human_attribute_name(:category), attribute: 'category', detach_with_id: :commodity_category_filter, assoc: :commodity,custom_filter: Commodity::CATEGORY.invert do |collection|
+        Commodity::CATEGORY[collection.commodity.category.to_sym]
+    end
+
+    g.column name: commodity_class.human_attribute_name(:catalog_id), attribute: 'id', detach_with_id: :catalog_id_filter, assoc: [:commodity, :catalog],custom_filter: Catalog.all.map{|c| [c.catalog_name,c.id]} do |collection| 
+      collection.commodity.catalog.try :catalog_name
+    end
+
+    g.column name: commodity_class.human_attribute_name(:commodity_no), attribute: 'no', detach_with_id: :commodity_no_filter, assoc: :commodity do |collection|
+        collection.commodity.no
+    end
+
+    g.column name: commodity_class.human_attribute_name(:name), attribute: 'name', detach_with_id: :commodity_name_filter, assoc: :commodity do |collection|
+        collection.commodity.name
+    end
+
+    g.column name: model_class.human_attribute_name(:created_at), attribute: 'created_at', detach_with_id: :created_at_filter do |collection|
+      collection.created_at.blank? ? "" : collection.created_at.strftime("%Y-%m-%d")
+    end
+
+    g.column name: model_class.human_attribute_name(:amount), attribute: 'amount', detach_with_id: :amount_filter do |collection|
+        collection.amount
+    end
+
+    g.column name: model_class.human_attribute_name(:cost), attribute: 'cost', detach_with_id: :cost_filter do |collection|
+        collection.cost
+    end
+
+    g.column name: model_class.human_attribute_name(:desc), attribute: 'desc', detach_with_id: :desc_filter do |collection|
+        collection.desc
+    end
+
+    g.column do |collection|
+        @sum += collection.amount*collection.cost
+        @count += collection.amount
+        ''
+    end
+
+  end 
+%>

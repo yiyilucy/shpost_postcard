@@ -1,0 +1,56 @@
+<%- model_class = Collection -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human%></h1>
+</div>
+<%= render partial: 'collections_grid'%>
+<div>
+  <%= form_tag('', name: 'form1') %>
+    <div style="float:right">
+      <% if can? :export, Collection %>
+        <%= submit_tag "导出",:class => 'btn btn-primary', onclick: "form1.action='/collections/export.xls';form1.submit();" %>
+      <% end %>     
+    </div>
+    <div class="index-filters">
+       <table>
+      <tr>
+        <td>商品大类:</td>
+        <td><%= grid_filter(@collections_grid, :commodity_category_filter)%></td>
+        <td>商品目录:</td>
+        <td><%= grid_filter(@collections_grid, :catalog_id_filter)%></td>
+        <td>商品编码:</td>
+        <td><%= grid_filter(@collections_grid, :commodity_no_filter)%></td>
+        <td>商品名称:</td>
+        <td><%= grid_filter(@collections_grid, :commodity_name_filter)%></td>  
+      </tr>
+      <tr>
+        <td>收藏日期:</td>
+        <td><%= grid_filter(@collections_grid, :created_at_filter)%></td>
+        <td>数量:</td>
+        <td><%= grid_filter(@collections_grid, :amount_filter)%></td>
+        <td>成本:</td>
+        <td><%= grid_filter(@collections_grid, :cost_filter)%></td>
+        <td>备注:</td>
+        <td><%= grid_filter(@collections_grid, :desc_filter)%></td>
+      </tr>
+      </table>
+    </div>
+    <div align='right'>
+      <button class="btn btn-primary wg-external-submit-button" data-grid-name="collections">递交</button>
+      <button class="btn btn-primary wg-external-reset-button" data-grid-name="collections">重置</button>
+    </div>  
+    <%= hidden_field_tag('front_user_id',@front_user_id.blank? ? nil : @front_user_id) %>
+  </form>
+</div>
+<div class="clearfix"></div> 
+<%= render_grid(@collections_grid)%>
+
+<div>
+  <table>
+    <tr>
+      <td width='50'><font-size:12px><strong>总市值:</strong></font></td>
+      <td width='250'><font-size:12px><strong><%=@sum %></strong></font></td>
+      <td width='50'><font-size:12px><strong>汇总数:</strong></font></td>
+      <td width='250'><font-size:12px><strong><%=@count %></strong></font></td>
+    </tr>
+  </table>
+</div>

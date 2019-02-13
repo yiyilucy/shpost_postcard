@@ -3,7 +3,7 @@ class PermissionsController < ApplicationController
   user_logs_filter only: :do_permission, symbol: :username, object: :permission, operation: :operation
 
   def index
-    @permissions = Permission.where(is_show: true).group(:module_name).order(:module_name).count
+    @permissions = Permission.where(is_show: true).group(:module_name).order(:created_at).count
     @user = params[:user]
   end
 
@@ -11,7 +11,7 @@ class PermissionsController < ApplicationController
   end
 
   def new
-    @permissions = Permission.where(is_show: true).group(:module_name).order(:module_name).count
+    @permissions = Permission.where(is_show: true).group(:module_name).order(:created_at).count
     @user = params[:user]
   end
 

@@ -1,0 +1,61 @@
+<%- model_class = Banner -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+<div>
+<%= form_tag('', :multipart => true, name: 'form1') %>
+<%= hidden_field_tag('symbol_id',@banner.blank? ? nil : @banner.id) %>
+<div>
+  <table>
+  <tr>
+    <td><%= label_tag(:title, "标题") %></td>
+  </tr>
+  <tr>
+    <td><%= text_field_tag(:title, @banner.title) %></td>
+  </tr>
+  <tr>
+    <td><%= label_tag(:link, "链接") %></td>
+  </tr>
+  <tr>
+    <td><%= text_field_tag(:link, @banner.link) %></td>
+  </tr>
+  <tr>
+    <td><%= label_tag(:order, "排序") %></td>
+  </tr>
+  <tr>
+    <td ><%= select_tag "order", options_for_select(["请选择", "1", "2","3", "4", "5" ], @banner.order.to_s) %></td>
+  </tr>
+  <tr>
+    <td><%= label_tag(:is_show, "是否显示") %><%= check_box_tag 'is_show', @banner.blank? ? nil : @banner.id, checked = @banner.is_show %></td>
+  </tr>
+  </table>
+  <table>
+  
+  <% img = @banner.blank? ? nil : @banner.pic_name %>
+  <% if !img.blank? %>
+  <tr>
+    <td><%= label_tag(:pic_name, "图片") %></td>
+  </tr>
+  <tr>
+    <td><%= image_tag(@banner.import_file.img_relative_path(false), height: '70', width: '90')%></td>
+  </tr>
+  <% end %>
+  
+  <tr>
+    <td><strong>上传照片: </strong><br/></td><td width='93%'></td>
+  </tr>
+  <tr>
+    <td><%= file_field("file", "file",onclick: "$('#submit_button').removeAttr('disabled');") %></td>
+    <td>(图片格式["jpg","jpeg","png","bmp"];小于5M;最大分辨率640*360)</td>
+  </tr>
+  </table>
+  <table>
+  <tr>
+    <td width='7%'>
+      <%= submit_tag "更新横幅信息",:id=>'submit_button', :class => 'btn btn-primary', onclick: "form1.action='/banners/do_update';form1.submit();this.disabled='disabled';" %></td>
+    <td width='93%'><%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                banners_path, :class => 'btn btn-default' %></td>
+  </tr>
+</table>
+</div>
+</form>

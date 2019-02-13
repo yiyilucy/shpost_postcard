@@ -55,6 +55,10 @@ class FrontUsersController < ApplicationController
     end
   end
 
+  def collection_index
+    redirect_to collection_index_collections_path(@front_user)
+  end
+
   private
     def set_front_user
       @front_user = FrontUser.find(params[:id])

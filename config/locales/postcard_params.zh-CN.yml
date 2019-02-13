@@ -1,7 +1,7 @@
 zh-CN:
   pic_upload_param:
-    pic_size: '5'
-    zip_size: '500'
+    pic_size: 5
+    zip_size: 500
   image_util_param:
     big_size_width: 640
     big_size_height: 410
