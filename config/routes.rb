@@ -58,6 +58,14 @@ ShpostPostcard::Application.routes.draw do
 
   devise_for :users, controllers: { sessions: "users/sessions" }
 
+  # devise_for :front_users, controllers: { sessions: "front_users/sessions" }
+  devise_for :front_users
+  as :front_user do
+    get 'front_users/sign_in' => 'front_users/sessions#new', :as => :new_front_user_session
+    post 'front_users/sign_in' => 'devise/sessions#create', :as => :front_user_session
+    delete 'front_users/sign_out' => 'devise/sessions#destroy', :as => :destroy_front_user_session
+  end
+
   resources :user_logs, only: [:index, :show, :destroy]
   resources :catalogs
 
