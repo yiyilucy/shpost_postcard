@@ -2,12 +2,15 @@ class ImportFile < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :symbol, polymorphic: true
 
-	CATEGORY = {stamp: "邮票", coin: '硬币', bill: '纸钞'}
+	CATEGORY = {stamp: '邮票', coin: '硬币', bill: '纸钞', banner: '横幅'}
 
 	IS_MASTER = {true => '是',false => '否'}
 
 	def self.img_upload_path(file, symbol, category)
 		if !file.original_filename.empty?
+			filename = "#{Time.now.to_i}_#{file.original_filename}"
+			direct = "#{Rails.root}/public/pic/#{category}/"
+
 	  	    if !File.exist?("#{Rails.root}/public/pic/")
 	          Dir.mkdir("#{Rails.root}/public/pic/")          
 	        end
@@ -15,14 +18,17 @@ class ImportFile < ActiveRecord::Base
 	          Dir.mkdir("#{Rails.root}/public/pic/#{category}/") 
 	        end
 		    if !symbol.blank?
-		    	direct = "#{Rails.root}/public/pic/#{category}/"
-		    	filename = "#{symbol.id}_#{Time.now.to_f}_#{file.original_filename}"
+		    	if !File.exist?("#{Rails.root}/public/pic/#{category}/#{symbol.id}/")
+		          Dir.mkdir("#{Rails.root}/public/pic/#{category}/#{symbol.id}/") 
+		        end
+		    	direct = "#{direct}#{symbol.id}/"
 		    else
-		    	if !File.exist?("#{Rails.root}/public/pic/#{category}/zip/")
-		    		Dir.mkdir("#{Rails.root}/public/pic/#{category}/zip/") 
-		    	end
-		    	direct = "#{Rails.root}/public/pic/#{category}/zip/"
-		    	filename = "#{Time.now.to_f}_#{file.original_filename}"
+		    	if !category.eql?"banner"
+		    		if !File.exist?("#{Rails.root}/public/pic/#{category}/zip/")
+			    		Dir.mkdir("#{Rails.root}/public/pic/#{category}/zip/") 
+			    	end
+			    	direct = "#{direct}zip/"
+			    end
 		    end
 
 		    file_path = direct + filename
@@ -34,22 +40,26 @@ class ImportFile < ActiveRecord::Base
 	end
 
 	def self.image_import(file_path, symbol, user, category)
-		file_name = File.basename(file_path)
+		ori_file_name = File.basename(file_path)
+		file_name = File.basename(file_path, "r:ISO-8859-1")
         file_ext = File.extname(file_name)
         size = File.size(file_path) 
 
-        import_file = ImportFile.create! file_name: file_name, file_path: file_path, user_id: user.id, file_ext: file_ext, size: size, symbol_id: symbol.blank? ? nil : symbol.id, category: category, symbol_type: symbol.blank? ? nil : symbol.class.to_s
+        import_file = ImportFile.create! file_name: file_name, file_path: File.join(file_path.split(ori_file_name), file_name), user_id: user.id, file_ext: file_ext, size: size, symbol_id: symbol.blank? ? nil : symbol.id, category: category, symbol_type: symbol.blank? ? nil : symbol.class.to_s
 
         if symbol
-         	SetImageSize.set_image_size(import_file)
+        	if ImportFile.find_by(symbol_id: symbol.id, is_master: true).blank?
+	        	ImportFile.where(symbol_id: symbol.id).order(:created_at).first.update is_master: true
+	        end
+         	ImageUtil.image_util(import_file)
         end
 
         return import_file
     end
 
-	def self.image_destroy(import_file)
-		file_path = import_file.file_path
-		file_name = import_file.file_name
+	def image_destroy!
+		file_path = self.file_path
+		file_name = self.file_name
 		extname = File.extname(file_name)
 	  	base_name = File.basename(file_name, extname)
 	  	big_name = File.join(base_name + "_big.jpg")
@@ -67,20 +77,23 @@ class ImportFile < ActiveRecord::Base
 	    if File.exist?(small_path)
 	      File.delete(small_path)
 	    end
-	    import_file.destroy
+	    self.destroy!
 	end
 
 	def self.decompress(file_path, zip_direct, pic_direct, user, category)
 		commodity_no = []
 		desc = ""
 		
-		Zip::File.open(file_path) do |zip|  
+		Zip::File.open(file_path, "r:ISO-8859-1") do |zip|  
             zip.each do |folder| 
             	folder.extract(File.join(zip_direct,folder::name))  
                 commodity_no << (folder::name).split('/')[0]
             end
             commodity_no.uniq.each do |f|
             	symbol = Commodity.find_by(no: f)
+            	if !File.exist?("#{pic_direct}#{symbol.id}/")
+					Dir.mkdir("#{pic_direct}#{symbol.id}/") 
+				end
             	if !symbol.blank? and symbol.category.eql?category             
 	                Dir.foreach(folder_direct = File.join(zip_direct,f)) do |pic|
 	                	if pic !="." and pic !=".."
@@ -88,14 +101,14 @@ class ImportFile < ActiveRecord::Base
 	                			desc += ",图片"+pic+"格式不正确"
 	                			next
 	                		end
-	                		if (File.size(File.join(folder_direct,pic))/1024/1024) > I18n.t("pic_size")
-	                			desc += ",图片"+pic+"大于#{I18n.t("pic_size")}M"
+	                		if (File.size(File.join(folder_direct,pic))/1024/1024) > I18n.t("pic_upload_param.pic_size")
+	                			desc += ",图片"+pic+"大于#{I18n.t("pic_upload_param.pic_size")}M"
 	                			next
 	                		end	
-		                    FileUtils.cp_r(File.join(folder_direct,pic), pic_direct)
-		                    new_pic_name = "#{symbol.id}_#{Time.now.to_f}_#{pic}"
-		                    File.rename("#{pic_direct}#{pic}", "#{pic_direct}#{new_pic_name}")
-		                    self.image_import(File.join(pic_direct,new_pic_name), symbol, user, symbol.category)
+		                    FileUtils.cp_r(File.join(folder_direct,pic), "#{pic_direct}#{symbol.id}/")
+		                    new_pic_name = "#{Time.now.to_i}_#{pic}"
+		                    File.rename("#{pic_direct}#{symbol.id}/#{pic}", "#{pic_direct}#{symbol.id}/#{new_pic_name}")
+		                    self.image_import(File.join("#{pic_direct}#{symbol.id}/",new_pic_name), symbol, user, symbol.category)
 		                end
 	                end
 	            else
@@ -105,6 +118,18 @@ class ImportFile < ActiveRecord::Base
             end
         end
         return desc
+	end
+
+	def img_relative_path(is_big)
+		file_path = self.file_path
+		start = file_path.index("/pic")
+		relative_path = file_path[start, file_path.length-1]
+		if is_big
+			ext_index = relative_path.rindex(".")
+			relative_path = relative_path[0, ext_index]+"_big.jpg"
+		end
+
+		return relative_path
 	end
 
 	

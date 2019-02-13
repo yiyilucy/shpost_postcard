@@ -17,7 +17,8 @@
     g.column in_csv: false do |front_user|
       ActiveSupport::SafeBuffer.new << 
       (link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_front_user_path(front_user), :class => 'btn btn-xs btn-primary' if can? :update, front_user)
+                      edit_front_user_path(front_user), :class => 'btn btn-xs btn-primary' if can? :update, front_user) << ' ' <<
+      (link_to t('.collection_index', :default => t("helpers.links.collection_index")), collection_index_front_user_path(front_user), :class => 'btn btn-xs btn-primary' if can? :collection_index, front_user)
       end
 
   end 

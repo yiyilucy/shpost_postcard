@@ -277,10 +277,10 @@ class StampsController < ApplicationController
         end
         if !params_f["issue_at"].blank?
           if !params_f["issue_at"]["fr"].blank?
-            select_stamps = select_stamps.where("stamps.issue_at >= ?",params_f["issue_at"]["fr"])
+            select_stamps = select_stamps.where("stamps.issue_at >= ?",params_f["issue_at"]["fr"].to_time)
           end
           if !params_f["issue_at"]["to"].blank?
-            select_stamps = select_stamps.where("stamps.issue_at <= ?",params_f["issue_at"]["to"]+" 23:59:59")
+            select_stamps = select_stamps.where("stamps.issue_at <= ?",params_f["issue_at"]["to"].to_time+1.day)
           end
         end
         if !params_f["issue_unit"].blank?
@@ -406,13 +406,13 @@ class StampsController < ApplicationController
           # if ImportFile.where(symbol_id: symbol.id).count < 10
             if params[:file]['file'].original_filename.include?('.jpg') or params[:file]['file'].original_filename.include?('.jpeg') or params[:file]['file'].original_filename.include?('.png') or params[:file]['file'].original_filename.include?('.bmp')
               if file_path = ImportFile.img_upload_path(params[:file]['file'], symbol, symbol.category)
-                if (File.size(file_path)/1024/1024) <= I18n.t("pic_size")
+                if (File.size(file_path)/1024/1024) <= I18n.t("pic_upload_param.pic_size")
                   if file = ImportFile.image_import(file_path, symbol, current_user, symbol.category)
                     @file_name = file.file_name
                     flash_message = "上传成功！"
                   end
                 else
-                  flash_message = "图片大小应小于#{I18n.t("pic_size")}M"
+                  flash_message = "图片大小应小于#{I18n.t("pic_upload_param.pic_size")}M"
                 end
               end
             else
@@ -455,7 +455,7 @@ class StampsController < ApplicationController
       import_file = ImportFile.find(params[:format].to_i)
       if !import_file.blank?
         @file_name = import_file.file_name
-        ImportFile.image_destroy(import_file)
+        import_file.image_destroy!
       end
     end
 
@@ -491,7 +491,7 @@ class StampsController < ApplicationController
     unless request.get?
       if params[:file]['file'].original_filename.include?('.zip')
         if file_path = ImportFile.img_upload_path(params[:file]['file'], nil, "stamp")
-          if (File.size(file_path)/1024/1024) <=  I18n.t("zip_size")
+          if (File.size(file_path)/1024/1024) <=  I18n.t("pic_upload_param.zip_size")
             if file = ImportFile.image_import(file_path, nil, current_user, "stamp")
               @file_name = file.file_name
               desc = ImportFile.decompress(file_path, zip_direct, pic_direct, current_user, "stamp")
@@ -503,7 +503,7 @@ class StampsController < ApplicationController
               end
             end
           else
-            flash_message = "上传文件的总大小应当不超过#{I18n.t("zip_size")}M"
+            flash_message = "上传文件的总大小应当不超过#{I18n.t("pic_upload_param.zip_size")}M"
           end
         end
       else

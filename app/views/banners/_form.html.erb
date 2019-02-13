@@ -1,0 +1,39 @@
+<%= form_for @banner, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <div class="control-group">
+      <%= f.label :title, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :title, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :link, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :link, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :order, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select(:order, {"1" => "1", "2" => "2", "3" => "3", "4" => "4", "5" => "5"})%>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :is_show, :class => 'control-label' %>
+    
+      <%= f.check_box :is_show,:class =>'check_box' %>
+    </div>
+    <div id="img">
+    <% img = @banner.blank? ? nil : @banner.pic_name %>
+    <% if !img.blank? %>
+    <%= image_tag(@banner.import_file.img_relative_path(false), height: '70', width: '90')%>
+    <% end %>
+    </div>
+    <div id="up"> 
+      <strong>上传照片(图片格式["jpg","jpeg","png","bmp"];小于5M;最大分辨率640*360): </strong><br/>
+      <%= file_field("file", "file",onclick: "$('#submit_button').removeAttr('disabled');") %>
+    </div>
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                banners_path, :class => 'btn btn-default' %>
+<% end %>

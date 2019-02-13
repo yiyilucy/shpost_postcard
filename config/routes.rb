@@ -1,5 +1,7 @@
 ShpostPostcard::Application.routes.draw do
 
+  
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -80,7 +82,11 @@ ShpostPostcard::Application.routes.draw do
   end
 
 
-  resources :front_users
+  resources :front_users do
+    member do
+      get 'collection_index'
+    end
+  end
 
   resources :bills do
     collection do
@@ -181,5 +187,21 @@ ShpostPostcard::Application.routes.draw do
       get 'autocomplete_commodity_name'
     end
   end
+
+  resources :banners do 
+    collection do
+      post 'do_create'
+      post 'do_update'
+    end
+  end
+
+  resources :collections do
+    collection do
+      post 'export'
+      get 'collection_index'
+    end
+  end
+
+
   
 end

@@ -160,6 +160,7 @@ zh-CN:
       image_index: 图片管理
       image_set_master: 置为封面
       batch_image_import: 批量上传图片
+      collection_index: 藏品管理
     titles:
       edit: 编辑%{model}
       new: 新增%{model}
@@ -235,7 +236,8 @@ zh-CN:
     DicTitle: 商品字典标题
     DicContent: 商品字典内容
     ImportFile: 导入文件
-  
+    Banner: 横幅管理
+    Collection: 藏品管理
   operation_name:
     read: 查看
     create: 新增
@@ -351,6 +353,12 @@ zh-CN:
       import_file:
         one: 导入文件信息
         other: 导入文件信息
+      banner:
+        one: 横幅管理
+        other: 横幅管理
+      collection: 
+        one: 藏品管理
+        other: 藏品管理
     attributes:
       user:
         email: "电子邮件"
@@ -467,6 +475,19 @@ zh-CN:
         file_ext: "文件后缀名"
         is_master: "是否设为封面"
         desc: "备注"
+      banner:
+        title: "标题"
+        link: "链接"
+        is_show: "是否显示"
+        order: "排序"
+        pic_name: "图片文件名"
+      collection:
+        commodity_id: "商品"
+        front_user_id: "微信用户"
+        amount: "数量"
+        cost: "成本"
+        desc: "备注"
+        created_at: "收藏日期"
   menu:
     permission:
       name: "权限管理"
@@ -494,19 +515,6 @@ zh-CN:
         #   needrole:
         #     can: :read
         #     role: :User
-    logs:
-      name: "日志查询"
-      needrole:
-          can: :read
-          role: :UserLog
-      submenu:
-        user_log:
-          name: "日志查询"
-          link: "/user_logs"
-          need_count: false
-          needrole:
-            can: :read
-            role: :UserLog
     catalogs:
       name: "商品目录管理"
       needrole:
@@ -574,6 +582,26 @@ zh-CN:
           needrole:
             can: :read
             role: :Price
+        collection:
+          name: "藏品管理"
+          link: "/collections/"
+          need_count: false
+          needrole:
+            can: :read
+            role: :Collection
+    banner:
+      name: "横幅管理"
+      needrole:
+          can: :read
+          role: :Banner
+      submenu:
+        banner:
+          name: "横幅管理"
+          link: "/banners"
+          need_count: false
+          needrole:
+            can: :read
+            role: :Banner
     import:
       name: "导入文件信息"
       needrole:
@@ -587,6 +615,20 @@ zh-CN:
           needrole:
             can: :read
             role: :ImportFile
+    logs:
+      name: "日志查询"
+      needrole:
+          can: :read
+          role: :UserLog
+      submenu:
+        user_log:
+          name: "日志查询"
+          link: "/user_logs"
+          need_count: false
+          needrole:
+            can: :read
+            role: :UserLog
+    
         # interface_log:
         #   name: "接口信息(info)"
         #   link: "/interface_infos"

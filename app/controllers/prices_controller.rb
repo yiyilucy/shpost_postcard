@@ -270,7 +270,7 @@ class PricesController < ApplicationController
             select_prices = select_prices.where("prices.price_date >= ?", Date.parse(params_f["price_date"]["fr"]).to_time)
           end
           if !params_f["price_date"]["to"].blank?
-            select_prices = select_prices.where("prices.price_date <= ?",Date.parse(params_f["price_date"]["to"]).to_time)
+            select_prices = select_prices.where("prices.price_date <= ?",Date.parse(params_f["price_date"]["to"]).to_time+1.day)
           end
         end
         # binding.pry
