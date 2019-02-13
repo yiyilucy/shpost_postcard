@@ -5,9 +5,9 @@ class FrontUsers::SessionsController < Devise::SessionsController
   def new
     front_user = FrontUser.find_by(wechat_id: 'test')
     front_user ||= FrontUser.create(wechat_id: 'test', head_url: 'nil')
-    # sign_in front_user
+    sign_in front_user
     # binding.pry
-    redirect_to '/users/'
+    redirect_to '/front_users/'
     # super
   end
 
