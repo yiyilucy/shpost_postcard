@@ -62,7 +62,47 @@ ShpostPostcard::Application.routes.draw do
 
   resources :user_logs, only: [:index, :show, :destroy]
   resources :catalogs
+  resources :postcard_views do
+    collection do
+      get 'index'
+      get 'list_tab'
+      get 'list_normal'
+      get 'product'
+      get 'appraisal'
+      get 'news'
+      get 'value'
+      # get 'sorting_edit'
+      get 'sorting'
+      # get 'sorting_collection'
+      # get 'list_normal_collection'
+      get 'follow'
+      get 'product_follow'
+      # get 'product_sorting'
+    end
+  end
 
+  resources :sortings do
+    collection do
+      get 'product_sorting'
+      get 'sorting_edit'
+      get 'sorting_collection'
+      get 'list_normal_collection'
+
+    end
+  end
+
+  resources :follows do
+    collection do
+      get 'product_follow'
+    end
+  end
+
+  resources :list_tabs do
+    collection do
+      get 'product'
+      get 'list_normal'
+    end
+  end
    
 
   resources :users do

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>产品详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="/assets/front_page/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="/assets/front_page/editApp.css" />
+		<script src="/assets/front_page/mui.min.js"></script>
+		<script src="/assets/front_page/jquery-3.3.1.min.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">庆祝中国人民政治协商会议第一届全体会议</h1>
+		</header>
+		
+		<div class="mui-content mui-fullscreen">
+			<div class="mui-slider productImg" style="max-height: 300px;">
+				<div class="mui-slider-group mui-slider-loop">
+					<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="/assets/front_page/p5.jpg" /></a></div>
+					<div class="mui-slider-item"><a href="#"><img src="/assets/front_page/p1.jpg" /></a></div>
+					<div class="mui-slider-item"><a href="#"><img src="/assets/front_page/p2.jpg" /></a></div>
+					<div class="mui-slider-item"><a href="#"><img src="/assets/front_page/p3.jpg" /></a></div>
+					<div class="mui-slider-item"><a href="#"><img src="/assets/front_page/p4.jpg" /></a></div>
+					<div class="mui-slider-item"><a href="#"><img src="/assets/front_page/p5.jpg" /></a></div>
+					<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../images/p1.jpg" /></a></div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+			
+			<div class="mui-card">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<label class="rowTitle">志号</label><p class="rowContent">纪1</p>
+					</li>
+					<li class="mui-table-view-cell">
+						<label class="rowTitle">名称</label><p class="rowContent">庆祝中国人民政治协商会议第一届全体会议</p>
+					</li>
+					<li class="mui-table-view-cell">
+						<label class="rowTitle">当前价格</label><p class="rowContent">¥130.00</p>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="mui-card">
+				<a href="/postcard_views/index" type="button" class="productBtn mui-btn mui-btn-danger mui-btn-block" style="width: 50%; float: left; border-radius: 0;">
+					<span class="mui-icon iconfont icon-guanzhu3" style="font-size: 18px;"></span> 取消关注
+				</a>
+				<a href="/sortings/sorting_edit" type="button" class="productBtn mui-btn mui-btn-danger mui-btn-block mui-btn-outlined" style="width: 50%; float: left; border-radius: 0;">
+					<span class="mui-icon iconfont icon-zhengli2" style="font-size: 18px;"></span> 添加藏品
+				</a>
+			</div>
+			
+			<div class="mui-card">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-collapse">
+						<a class="mui-navigate-right" href="#">藏品价格趋势</a>
+						<div class="mui-collapse-content">
+							<div class="chart" id="lineChart"></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="mui-card">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<label class="rowTitle">基本信息</label>
+					</li>
+					
+					<li class="mui-table-view-cell">
+						<label class="rowTitle">设计者</label><p class="rowContent">钟灵 、张仃、孙传哲</p>
+					</li>
+					<li class="mui-table-view-cell">
+						<label class="rowTitle">年代</label><p class="rowContent">新中国邮票</p>
+					</li>
+					<li class="mui-table-view-cell">
+						<label class="rowTitle">类别</label><p class="rowContent">“纪”字头邮票</p>
+					</li>
+					<li class="mui-table-view-cell">
+						<label class="rowTitle">题材</label><p class="rowContent">政治,文化艺术</p>
+					</li>
+					<li class="mui-table-view-cell">
+						<label class="rowTitle">志编号</label><p class="rowContent">纪1</p>
+					</li>
+					<li class="mui-table-view-cell">
+						<label class="rowTitle">整版枚数</label><p class="rowContent">100(10x10)</p>
+					</li>
+					<li class="mui-table-view-cell">
+						<label class="rowTitle">全套枚数</label><p class="rowContent">4</p>
+					</li>
+					<li class="mui-table-view-cell">
+						<label class="rowTitle">发行日期</label><p class="rowContent">1949-10-8</p>
+					</li>
+					<li class="mui-table-view-cell">
+						<label class="rowTitle">背胶</label><p class="rowContent">无背胶</p>
+					</li>
+					<li class="mui-table-view-cell">
+						<label class="rowTitle">印刷机构</label><p class="rowContent">上海商务印书馆</p>
+					</li>
+					<li class="mui-table-view-cell">
+						<label class="rowTitle">发行机构</label><p class="rowContent">华北邮政总局</p>
+					</li>
+				</ul>
+			</div>
+			<div class="mui-card">
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner">
+						本身没有背胶。 <br />
+						为了庆祝中国人民政治协商会议第一届全体会议胜利召开,我国华北邮政总局以“中华人民邮政”名义，发行了这套邮票，这是新中国成立后发行的第一套纪念邮票。由于建国之初，东北地区流通的币值尚未用人民币收兑，因此，另发行同图东北币值邮票。并于1955年1月10日再版。全套4枚邮票图案相同，均为天安门前人流如潮，热烈欢庆；天安门上宫灯高悬，迎风飘舞，灯面上那枚硕大的人民政协会徽分外醒目，充分表现出会议的庄严，拉开了新中国辉煌灿烂的序幕。
+    纪1原版和再版的辨别。
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="/assets/front_page/libs/echarts-all.js"></script>
+		<script type="text/javascript">
+			var dom = document.getElementById("lineChart");
+			var myChart = echarts.init(dom);
+			var app = {};
+			option = null;
+			app.title = '多 X 轴示例';
+			
+			var colors = ['#37a2da', '#ff9f7f', '#675bba'];
+			
+			
+			option = {
+			    color: colors,
+			
+			    tooltip: {
+			        trigger: 'none',
+			        axisPointer: {
+			            type: 'cross'
+			        }
+			    },
+			    legend: {
+			        data:['2017同比', '2018现价']
+			    },
+			    grid: {
+			        top: 70,
+			        bottom: 50
+			    },
+			    xAxis: [
+			        {
+			            type: 'category',
+			            axisTick: {
+			                alignWithLabel: true
+			            },
+			            axisLine: {
+			                onZero: false,
+			                lineStyle: {
+			                    color: colors[1]
+			                }
+			            },
+			            axisPointer: {
+			                label: {
+			                    formatter: function (params) {
+			                        return '价格  ' + params.value
+			                            + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+			                    }
+			                }
+			            },
+			            data: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
+			        },
+			        {
+			            type: 'category',
+			            axisTick: {
+			                alignWithLabel: true
+			            },
+			            axisLine: {
+			                onZero: false,
+			                lineStyle: {
+			                    color: colors[0]
+			                }
+			            },
+			            axisPointer: {
+			                label: {
+			                    formatter: function (params) {
+			                        return '价格  ' + params.value
+			                            + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+			                    }
+			                }
+			            },
+			            data: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
+			        }
+			    ],
+			    yAxis: [
+			        {
+			            type: 'value'
+			        }
+			    ],
+			    series: [
+			        {
+			            name:'2017同比',
+			            type:'line',
+			            xAxisIndex: 1,
+			            smooth: true,
+			            data: [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 130]
+			        },
+			        {
+			            name:'2018现价',
+			            type:'line',
+			            smooth: true,
+			            data: [220, 182, 191, 234, 290, 330, 310, 101, 134, 90, 230, 210]
+			        }
+			    ]
+			};
+			;
+			if (option && typeof option === "object") {
+			    myChart.setOption(option, true);
+			}
+       </script>
+	</body>
+</html>

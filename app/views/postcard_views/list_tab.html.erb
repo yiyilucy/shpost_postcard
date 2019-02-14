@@ -1,0 +1,106 @@
+<!doctype html>
+<html >
+
+	<head>
+		<meta charset="UTF-8">
+		<title>带左侧TAB列表</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="/assets/front_page/mui.css" rel="stylesheet" />
+		<link href="/assets/front_page/Edit.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<script src="/assets/front_page/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<!--导航-->
+		<header class="mui-bar mui-bar-nav">
+		    <a id="intro" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">邮币目录大全</h1>
+		</header>
+		<!--身体-->
+		<div class="mui-content mui-fullscreen">
+			<!--搜索-->
+			<!--<div class="mui-bar" style="background-color: #FFFFFF;">
+				<div class="mui-input-row mui-search">
+	    			<input type="search" class="mui-input-clear" placeholder="输入志号、名称、俗称等信息进行搜索">
+				</div>
+			</div>
+			<!--搜索+筛选-->
+			<div class="mui-bar mui-row " style="background-color: #FFFFFF;">
+				<div class="mui-input-row mui-search mui-col-xs-9">
+	    			<input type="search" class="mui-input-clear" placeholder="搜索志号、名称、俗称等信息">
+				</div>
+				<div class="mui-col-xs-3">
+					<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" style="float: right; line-height: 1;">筛选</button> 	
+				</div>
+			</div>
+			<!--左侧TAB列表-->
+			<div class="mui-row mui-fullscreen">
+				<div class="mui-col-xs-3">
+					<div id="segmentedControls" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+						<a class="mui-control-item mui-active" href="#content1">邮票</a>
+						<a  class="mui-control-item" href="#content2">硬币</a>
+						<a  class="mui-control-item" href="#content3">纸钞</a>
+					</div>
+				</div>
+				<div class="mui-col-xs-9" style="border-left: 1px solid #c8c7cc;">
+					<div id="content1" class="mui-control-content mui-active">
+						<ul  class="mui-table-view">
+							<% @stamp_catalogs.each do |x|
+							%>
+								<li  class="mui-table-view-cell"><a id="intro" href="/list_tabs/list_normal"> 
+								<%= x %>
+								</a></li>
+							<% end %>
+						</ul>
+					</div>
+					<div id="content2" class="mui-control-content mui-active">
+						<ul class="mui-table-view">
+						    <% @coin_catalogs.each do |x|
+							%>
+						        <li  class="mui-table-view-cell"><a id="intro" href="list_2">
+						        <%= x %>			 	
+						        </a></li>	
+						    <% end %>
+						</ul>
+					</div>
+					<div id="content3" class="mui-control-content mui-active">
+						<ul class="mui-table-view">
+						    <% @bill_catalogs.each do |x|
+							%>
+							    <li  class="mui-table-view-cell"><a id="intro" href="list_2"> 
+							    <%= x %>
+							    </a></li>
+							<% end %>
+						</ul>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		<!--底部导航-->
+		<nav class="mui-bar mui-bar-tab">
+		    <a id="intro" class="mui-tab-item" href="index" target="_blank">
+		        <span class="mui-icon mui-icon-home"></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    <a id="intro" class="mui-tab-item">
+		        <span class="mui-icon mui-icon-weixin"></span>
+		        <span class="mui-tab-label">公众号</span>
+		    </a>
+		    <a id="intro" class="mui-tab-item">
+		        <span class="mui-icon mui-icon-star"></span>
+		        <span class="mui-tab-label">上邮汇</span>
+		    </a>
+		    <a id="intro" class="mui-tab-item">
+		        <span class="mui-icon mui-icon-contact"></span>
+		        <span class="mui-tab-label">我的</span>
+		    </a>
+		</nav>
+
+	</body>
+
+</html>

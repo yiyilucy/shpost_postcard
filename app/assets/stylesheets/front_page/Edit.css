@@ -1,0 +1,130 @@
+﻿a{
+    text-decoration: none;
+    color: #ff4040;
+}
+a:active {
+    color: #cc0000;
+}
+/*扩展icon图标*/
+@font-face {font-family: "iconfont";
+    src:url('/assets/iconfont.ttf') format('truetype'); /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+}
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+}
+.icon-gonggao:before { content: "\e681"; }
+
+.icon-zixun2:before { content: "\e615"; }
+
+.icon-zhengli2:before { content: "\e600"; }
+
+.icon-jianping2:before { content: "\e621"; }
+
+.icon-guanzhu3:before { content: "\e6ac"; }
+
+.icon-guanzhu1:before { content: "\e613"; }
+
+.icon-jianping1:before { content: "\e62a"; }
+
+.icon-guanzhu2:before { content: "\e78e"; }
+
+.icon-zixun1:before { content: "\e633"; }
+
+.icon-shizhi2:before { content: "\e955"; }
+
+.icon-mulu:before { content: "\e61c"; }
+
+.icon-shizh1:before { content: "\e60a"; }
+
+.icon-zhengli1:before { content: "\e67f"; }
+
+.icon-syh:before { content: "\e603"; }
+/*九宫格*/
+.mui-grid-view.mui-grid-9.indexGrid9{
+	background-color: #fafafa;
+}
+.indexGrid9.mui-table-view:after{
+	height: 0;
+}
+/*底部导航*/
+.mui-bar {
+    position: fixed;
+    z-index: 10;
+    right: 0;
+    left: 0;
+    height: 44px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-bottom: 0;
+    background-color: #f7f7f7;
+    -webkit-box-shadow: 0 0 1px rgba(0,0,0,.55);
+    box-shadow: 0 0 1px rgba(0,0,0,.55);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.mui-bar-tab .mui-tab-item.mui-active {
+    color: #ff4040;
+}
+/*search*/
+.mui-search .mui-placeholder {
+    font-size: 14px;
+}
+.mui-bar .mui-btn {
+    padding: 6px 16px 7px;
+}
+/*tabList*/
+.mui-row.mui-fullscreen>[class*="mui-col-"] {
+	height: 100%;
+}
+.mui-fullscreen {
+	padding-top: 88px;
+	padding-bottom: 50px;
+}
+.mui-col-xs-3,
+.mui-control-content,.mui-control-content .mui-table-view {
+	overflow-y: auto;
+	height: 100%;
+}
+.mui-segmented-control .mui-control-item {
+	line-height: 50px;
+	width: 100%;
+}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+	background-color: #fff;
+}
+.mui-segmented-control .mui-control-item {
+    line-height: 50px;
+    width: 100%;
+}
+.mui-segmented-control {
+    font-size: 15px;
+    font-weight: 400;
+}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+    color: #ff4040;
+    background-color: #FFFFFF;
+}
+.mui-segmented-control .mui-control-item{
+	width: 100%;
+}
+.mui-table-view-cell {
+    line-height: 29px;
+}
+.mui-table-view:after {
+    height: 0;
+}
+/*结果列表*/
+.mui-row.mui-fullscreen h5{
+	padding: 11px 15px;
+	font-size: 17px;
+}    
+.mui-table-view-cell>a:not(.mui-btn) span{
+    color:#ff4040;
+    margin-right: 8px;
+}
+.mui-navigate-right:after, .mui-push-right:after {
+    right: 6px;
+}

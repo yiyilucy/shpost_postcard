@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>邮币助手</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="/assets/front_page/mui.css" rel="stylesheet" />
+		<link href="/assets/front_page/editApp.css" rel="stylesheet" />
+	     
+	</head>
+
+	<body>
+	<!-- <style>
+	  html {
+            background-color: #447d9a;
+            background-image: url(banner_4.jpg) ;
+            background-repeat: repeat-x;
+            background-position: 100% 50%;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+	</style> -->
+		<div class="mui-slider">
+			<div class="mui-slider-group mui-slider-loop">
+				<!--支持循环，需要重复图片节点，图片412341-->
+				<% @banners.each do |x|%>
+
+				<div class="mui-slider-item mui-slider-item-duplicate">
+				  <a href="<%= x.link%>"><img src="<%= x.import_file.try(:img_relative_path, false) %>" /></a>
+				</div>
+				<% end %>
+			</div>
+			<div class="mui-slider-indicator">
+				<div class="mui-indicator mui-active"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+			</div>
+		</div>
+		<script src="/assets/front_page/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				swipeBack:true //启用右滑关闭功能L
+			});
+			var gallery = mui('.mui-slider');
+			gallery.slider({
+			  interval:3000//自动轮播周期，若为0则不自动播放，默认为0；
+			});
+		</script>
+		<!-- <select id="intro">
+		</select> -->
+		<ul class="mui-table-view mui-grid-view mui-grid-9 indexGrid9">
+			<li class="mui-table-view-cell mui-media mui-col-xs-6">
+			    <!-- <a id="intro" onclick="window.open('/postcard_views/sorting')"> -->
+			    <a id="intro" href="/postcard_views/sorting">
+			        <span class="mui-icon iconfont icon-zhengli2" style="color: #ff409a;"></span>
+			        <div class="mui-media-body">我要整理</div>
+			    </a>
+			</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-6">
+			    <!-- <a id="intro" onclick="window.open('/postcard_views/value')"> -->
+			    <a id="intro" href="/postcard_views/value">
+			        <span class="mui-icon iconfont icon-shizhi2" style="color: #40d9ff;"></span>
+			        <div class="mui-media-body">我的市值</div>
+			    </a>
+			</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-6">
+			    <!-- <a id="intro" onclick="window.open('/postcard_views/list_tab')"> -->
+			    <a id="intro" href="/postcard_views/list_tab">
+			        <span class="mui-icon iconfont icon-mulu" style="color: #ffb540;"></span>
+			        <div class="mui-media-body">目录大全</div>
+			    </a>
+			</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-6">
+			    <!-- <a id="intro" onclick="window.open('/postcard_views/follow')" > -->
+			    <a id="intro" href="/postcard_views/follow">
+			        <span class="mui-icon iconfont icon-guanzhu3" style="color: #ff4040;"></span>
+			        <div class="mui-media-body">我的关注</div>
+			    </a>
+			</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-6">
+			    <!-- <a id="intro" onclick="window.open('/postcard_views/appraisal')"> -->
+			    <a id="intro" href="/postcard_views/appraisal">
+			        <span class="mui-icon iconfont icon-jianping1" style="color: #b540ff;"></span>
+			        <div class="mui-media-body">我要鉴评</div>
+			    </a>
+			</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-6">
+			    <!-- <a id="intro" onclick="window.open('/postcard_views/news')"> -->
+			    <a id="intro" href="/postcard_views/news">
+			        <span class="mui-icon iconfont icon-zixun1" style="color: #4083ff;"></span>
+			        <div class="mui-media-body">资讯公告</div>
+			    </a>
+			</li>
+		</ul>
+
+		<!--底部导航-->
+		<nav class="mui-bar mui-bar-tab">
+		    <a id="intro" class="mui-tab-item mui-active">
+		        <span class="mui-icon mui-icon-home"></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    <a id="intro" class="mui-tab-item">
+		        <span class="mui-icon iconfont icon-syh"></span>
+		        <span class="mui-tab-label">上邮汇</span>
+		    </a>
+		    <a id="intro" class="mui-tab-item" id="setting">
+		        <span class="mui-icon mui-icon-contact"></span>
+		        <span class="mui-tab-label">我的</span>
+		    </a>
+		</nav>
+	        
+			
+	</body>
+
+</html>
