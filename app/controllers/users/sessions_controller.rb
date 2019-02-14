@@ -15,7 +15,7 @@ class Users::SessionsController < Devise::SessionsController
     # @operation = "sign_out"
   	@user_log = UserLog.create(user: current_user, operation: 'sign_out', object_class: 'User', object_primary_key: current_user.id)
   	super do |resource|
-  		session[:current_storage] = nil
+  		# session[:current_storage] = nil
   	end
   end
 end

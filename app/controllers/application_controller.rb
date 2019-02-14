@@ -8,7 +8,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :configure_charsets
-  before_filter :authenticate_user!
+
+  before_filter :authenticate_login!
+
+  def authenticate_login!
+    if current_user.blank? && current_front_user.blank?
+      authenticate_user!
+    end
+  end
 
   def self.user_logs_filter *args
     after_filter args.first.select{|k,v| k == :only || k == :expert} do |controller|
@@ -17,7 +24,19 @@ class ApplicationController < ActionController::Base
   end
 
   def current_ability
-    @current_ability ||= Ability.new(current_user)
+    if !current_user.blank?
+      @current_ability ||= Ability.new(current_user)
+    elsif !current_front_user.blank?
+      @current_ability ||= FrontUserAbility.new(current_front_user)
+    end
+  end
+
+  def after_sign_out_path_for(resource_or_scope)
+    if resource_or_scope.eql? :user
+      :new_user_session
+    else
+      :new_front_user_session
+    end
   end
 
   def configure_charsets
