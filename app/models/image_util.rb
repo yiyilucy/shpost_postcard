@@ -4,7 +4,7 @@ class ImageUtil
   	big_size_height = I18n.t("image_util_param.big_size_height")
     small_size_width = I18n.t("image_util_param.small_size_width")
     small_size_height = I18n.t("image_util_param.small_size_height")
-    file_path = import_file.file_path
+    file_path = "#{Rails.root}#{import_file.file_path}"
     file_name = import_file.file_name
   	image = MiniMagick::Image.open(file_path)
   	w,d = image[:width], image[:height]

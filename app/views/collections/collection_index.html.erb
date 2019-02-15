@@ -41,16 +41,16 @@
     <%= hidden_field_tag('front_user_id',@front_user_id.blank? ? nil : @front_user_id) %>
   </form>
 </div>
-<div class="clearfix"></div> 
-<%= render_grid(@collections_grid)%>
-
 <div>
   <table>
     <tr>
-      <td width='50'><font-size:12px><strong>总市值:</strong></font></td>
-      <td width='250'><font-size:12px><strong><%=@sum %></strong></font></td>
-      <td width='50'><font-size:12px><strong>汇总数:</strong></font></td>
-      <td width='250'><font-size:12px><strong><%=@count %></strong></font></td>
+      <td width='80'><font size="3"><strong>总市值:</strong></font></td>
+      <td width='250'><font size="3"><strong><%=@cost %></strong></font></td>
+      <td width='80'><font size="3"><strong>汇总数:</strong></font></td>
+      <td width='250'><font size="3"><strong><%=@amount %></strong></font></td>
     </tr>
   </table>
 </div>
+<div class="clearfix"></div> 
+<%= render_grid(@collections_grid)%>
+

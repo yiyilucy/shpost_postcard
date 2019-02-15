@@ -381,7 +381,7 @@ class BillsController < ApplicationController
           # if ImportFile.where(symbol_id: symbol.id).count < 10
             if params[:file]['file'].original_filename.include?('.jpg') or params[:file]['file'].original_filename.include?('.jpeg') or params[:file]['file'].original_filename.include?('.png') or params[:file]['file'].original_filename.include?('.bmp')
               if file_path = ImportFile.img_upload_path(params[:file]['file'], symbol, symbol.category)
-                if (File.size(file_path)/1024/1024) <= I18n.t("pic_upload_param.pic_size")
+                if (File.size(Rails.root.to_s + file_path)/1024/1024) <= I18n.t("pic_upload_param.pic_size")
                   if file = ImportFile.image_import(file_path, symbol, current_user, symbol.category)
                     @file_name = file.file_name
                     flash_message = "上传成功！"
@@ -410,7 +410,7 @@ class BillsController < ApplicationController
     if !params[:format].blank?
       import_file = ImportFile.find(params[:format].to_i)
       if !import_file.blank?
-        file_path = import_file.file_path
+        file_path = import_file.absolute_path
         @file_name = import_file.file_name
           
         if !file_path.blank? and File.exist?(file_path)
@@ -458,7 +458,7 @@ class BillsController < ApplicationController
   def batch_image_import
     @operation = "batch_image_import"
     zip_direct = "#{Rails.root}/public/pic/bill/zip/"
-    pic_direct = "#{Rails.root}/public/pic/bill/"
+    pic_direct = "/public/pic/bill/"
     folder_name = []
     flash_message = "上传失败!"
     desc = ""
@@ -466,7 +466,7 @@ class BillsController < ApplicationController
     unless request.get?
       if params[:file]['file'].original_filename.include?('.zip')
         if file_path = ImportFile.img_upload_path(params[:file]['file'], nil, "bill")
-          if (File.size(file_path)/1024/1024) <=  I18n.t("pic_upload_param.zip_size")
+          if (File.size(Rails.root.to_s + file_path)/1024/1024) <=  I18n.t("pic_upload_param.zip_size")
             if file = ImportFile.image_import(file_path, nil, current_user, "bill")
               @file_name = file.file_name
               desc = ImportFile.decompress(file_path, zip_direct, pic_direct, current_user, "bill")
@@ -512,13 +512,14 @@ class BillsController < ApplicationController
         filename = "#{Time.now.to_f}_#{file.original_filename}"
         file_ext = filename.split('.').last
         file_path = direct + filename
+        relative_path = "/upload/bill/" + filename
         File.open(file_path, "wb") do |f|
            f.write(file.read)
         end
 
         size = File.size(file_path) 
 
-        ImportFile.create! file_name: filename, file_path: file_path, user_id: current_user.id, file_ext: file_ext, size: size
+        ImportFile.create! file_name: filename, file_path: relative_path, user_id: current_user.id, file_ext: file_ext, size: size
         
         file_path
       end

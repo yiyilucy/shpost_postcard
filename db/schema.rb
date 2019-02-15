@@ -11,16 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20181203065113) do
+ActiveRecord::Schema.define(version: 20190214062355) do
 
-  create_table "catalogs", force: true do |t|
-    t.string  "catalog_no",                  null: false
-    t.string  "catalog_name",                null: false
-    t.string  "catalog_type",                null: false
-    t.boolean "is_show",      default: true
-=======
-ActiveRecord::Schema.define(version: 20181204070359) do
+  create_table "banners", force: true do |t|
+    t.string   "title"
+    t.string   "link"
+    t.boolean  "is_show",    default: true
+    t.integer  "order",      default: 1
+    t.string   "pic_name",                  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "bills", force: true do |t|
     t.string   "version"
@@ -36,6 +37,13 @@ ActiveRecord::Schema.define(version: 20181204070359) do
     t.string   "print_process"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "catalogs", force: true do |t|
+    t.string  "catalog_no",                  null: false
+    t.string  "catalog_name",                null: false
+    t.string  "catalog_type",                null: false
+    t.boolean "is_show",      default: true
   end
 
   create_table "coins", force: true do |t|
@@ -58,6 +66,16 @@ ActiveRecord::Schema.define(version: 20181204070359) do
     t.datetime "updated_at"
   end
 
+  create_table "collections", force: true do |t|
+    t.integer  "commodity_id",                           null: false
+    t.integer  "front_user_id",                          null: false
+    t.integer  "amount",                                 null: false
+    t.decimal  "cost",          precision: 10, scale: 2, null: false
+    t.string   "desc"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "commodities", force: true do |t|
     t.string   "no",                         null: false
     t.string   "name",                       null: false
@@ -75,24 +93,83 @@ ActiveRecord::Schema.define(version: 20181204070359) do
 
   add_index "commodities", ["detail_type", "detail_id"], name: "index_commodities_on_detail_type_and_detail_id"
 
-  create_table "front_users", force: true do |t|
-    t.string   "name"
-    t.string   "nickname"
-    t.integer  "phone"
-    t.string   "status",      default: "unauthen", null: false
-    t.string   "authen_code"
-    t.string   "wechat_id",                        null: false
-    t.string   "email"
-    t.string   "head_url",                         null: false
+  create_table "dic_contents", force: true do |t|
+    t.string   "name",                        null: false
+    t.integer  "dic_title_id",                null: false
+    t.boolean  "is_show",      default: true
+    t.integer  "order",        default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
->>>>>>> 2da8a3c63d1653aa353599983c2d9f23fee5a56a
   end
+
+  create_table "dic_titles", force: true do |t|
+    t.string   "name",       null: false
+    t.string   "category",   null: false
+    t.string   "db_field",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "front_users", force: true do |t|
+    t.string   "sex"
+    t.string   "nickname"
+    t.integer  "phone"
+    t.string   "status",              default: "unauthen", null: false
+    t.string   "authen_code"
+    t.string   "open_id",                                  null: false
+    t.string   "email"
+    t.string   "headimgurl",                               null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",       default: 0,          null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "country"
+    t.string   "province"
+    t.string   "city"
+  end
+
+  create_table "import_files", force: true do |t|
+    t.string   "file_name",                               null: false
+    t.string   "file_path",               default: "",    null: false
+    t.integer  "user_id"
+    t.integer  "symbol_id"
+    t.string   "symbol_type"
+    t.string   "size"
+    t.string   "category"
+    t.string   "file_ext"
+    t.boolean  "is_master",               default: false
+    t.string   "desc",        limit: 200
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "import_files", ["symbol_type", "symbol_id"], name: "index_import_files_on_symbol_type_and_symbol_id"
 
   create_table "permissions", force: true do |t|
     t.string   "module_name"
     t.string   "operation"
-    t.boolean  "is_show",     default: true
+    t.boolean  "is_show",        default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "operation_name"
+  end
+
+  create_table "prices", force: true do |t|
+    t.integer  "commodity_id",                null: false
+    t.datetime "price_date"
+    t.float    "price"
+    t.boolean  "is_show",      default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sequences", force: true do |t|
+    t.string   "entity"
+    t.integer  "count"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -115,13 +192,6 @@ ActiveRecord::Schema.define(version: 20181204070359) do
     t.string   "perforation"
     t.string   "specification"
     t.string   "editor"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "sequences", force: true do |t|
-    t.string   "entity"
-    t.integer  "count"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -27,7 +27,9 @@
     end
 
     g.column do |banner|
-       link_to image_tag(banner.import_file.img_relative_path(false), height: '70', width: '90'), image_path(banner.import_file.img_relative_path(false)), target: '_blank'
+      if !banner.import_file.blank?
+        link_to image_tag(banner.import_file.img_relative_path(false), height: '70', width: '90'), image_path(banner.import_file.img_relative_path(false)), target: '_blank'
+      end
     end
 
     g.column do |banner|

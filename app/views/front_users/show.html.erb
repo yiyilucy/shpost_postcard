@@ -4,16 +4,22 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @front_user.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:nickname) %>:</strong></dt>
   <dd><%= @front_user.nickname %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:sex) %>:</strong></dt>
+  <dd><%= FrontUser::SEX[@front_user.sex.to_sym] %></dd>
   <dt><strong><%= model_class.human_attribute_name(:phone) %>:</strong></dt>
   <dd><%= @front_user.phone %></dd>
   <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
   <dd><%= @front_user.email %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:wechat_id) %>:</strong></dt>
-  <dd><%= @front_user.wechat_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:country) %>:</strong></dt>
+  <dd><%= @front_user.country %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:province) %>:</strong></dt>
+  <dd><%= @front_user.province %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:city) %>:</strong></dt>
+  <dd><%= @front_user.city %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:open_id) %>:</strong></dt>
+  <dd><%= @front_user.open_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
   <dd><%= FrontUser::STATUS[@front_user.status.to_sym] %></dd>
 </dl>
