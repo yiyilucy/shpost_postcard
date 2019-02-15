@@ -1,4 +1,4 @@
-a{
+a {
     text-decoration: none;
     color: #ff4040;
 }
@@ -248,11 +248,11 @@ a:active {
 }
 .submitBtn{
 	position: absolute !important;
-	bottom: 0px !important;
+	bottom: 46px !important;
 	z-index: 99 !important;
 	margin: 0 !important;
 	padding: 0 !important;
-	line-height: 48px;
+	line-height: 36px;
 	font-size: 18px;
 	border-radius: 0;
 }

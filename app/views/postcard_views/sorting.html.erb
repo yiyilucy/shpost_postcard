@@ -6,8 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <link href="/assets/front_page/mui.css" rel="stylesheet" />
-		<!-- <link href="/assets/front_page/Edit.css" rel="stylesheet" /> -->
+		<link href="/assets/front_page/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="/assets/front_page/editApp.css" />
 		<script src="/assets/front_page/mui.min.js"></script>
 		<script src="/assets/front_page/jquery-3.3.1.min.js"></script>
@@ -45,7 +44,7 @@
 							<button type="button" class="listIconLeft mui-btn">
 								删除
 					        </button>
-							<button onclick="window.open('/sortings/sorting_edit','_self')" type="button" class="listIconRight mui-btn">
+							<button onclick="window.open('sorting-edit.html','_self')" type="button" class="listIconRight mui-btn">
 								编辑
 					        </button>
 						</li>
@@ -65,7 +64,7 @@
 						</li>
 						<li class="mui-table-view-cell mui-media">
 							<a class="mui-navigate-right paddingRight">
-								<img class="mui-media-object mui-pull-left" src="../assets/front_page/products/p2.jpg">
+								<img class="mui-media-object mui-pull-left" src="/assets/front_page/products/p2.jpg">
 								<div class="mui-media-body">
 									<p class='mui-ellipsis'>2018版熊猫1公斤金币</p>
 								</div>
@@ -179,10 +178,10 @@
 				</div>
 
 				<nav class="mui-bar bottomBtn">
-					<button type="button" onclick="window.open('/postcard_views/list_tab','_self')" class="mui-btn mui-btn-danger">
+					<button type="button" onclick="window.open('list-tab-popin.html','_self')" class="mui-btn mui-btn-danger">
 						新增藏品
 					</button>
-					<button type="button" onclick="window.open('/sortings/sorting_collection','_self')" class="mui-btn mui-btn-warning">
+					<button type="button" onclick="window.open('sorting-collection.html','_self')" class="mui-btn mui-btn-warning">
 						藏品分析
 					</button>
 				</nav>
@@ -207,9 +206,8 @@
 							<div class="content" style="background: #fff;">
 								<div style="padding: 0px 10px;">
 									<div class="mui-segmented-control mui-segmented-control-inverted">
-										<a class="mui-control-item mui-active" href="#">邮票</a>
-										<a class="mui-control-item" href="#">硬币</a>
-										<a class="mui-control-item" href="#">纸钞</a>
+										<a class="mui-control-item mui-active" href="#">当前</a>
+										<a class="mui-control-item" href="#">全部</a>
 									</div>
 									<div style="height: calc(100vh - 120px); touch-action: none;">
 									</div>
@@ -220,6 +218,7 @@
 					<div id='pk_loginway_content' for='pk_loginway' class='aside_content'>
 						<div class='mui-scroll'>
 							<div class="content" style="background: #fff;">
+								<button type="button" class="mui-btn mui-btn-danger mui-btn-block submitBtn">确定</button>
 								<div style="padding: 0px 10px;">
 									<div class="mui-segmented-control mui-segmented-control-inverted">
 										<a class="mui-control-item mui-active" href="#item1">邮票</a>
