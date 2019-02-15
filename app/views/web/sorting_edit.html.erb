@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>编辑藏品</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/editApp.css" />
+		<script src="../js/mui.min.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">编辑藏品</h1>
+		</header>
+		
+		<div class="mui-content">
+			<form class="mui-input-group" style="margin-top: 15px;">
+				<div class="mui-input-row">
+					<label>数量</label>
+					<input type="text" class="mui-input-clear" placeholder="输入藏品数量">
+				</div>
+				<div class="mui-input-row">
+					<label>成本</label>
+					<input type="text" class="mui-input-clear" placeholder="输入藏品成本">
+				</div>
+				<div class="mui-input-row">
+					<label>备注</label>
+				</div>
+				<div class="mui-input-row" style="height: 150px;">
+					<textarea id="textarea" rows="5" placeholder="请输入备注内容"></textarea>
+				</div>
+			</form>
+			<div class="mui-button-row editBtn">
+				<button type="button" class="mui-btn mui-btn-danger" onclick="window.open('../index.html','_self')">确认</button>
+				<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="window.open('sorting.html','_self')">取消</button>
+			</div>
+		</div>
+	</body>
+
+</html>

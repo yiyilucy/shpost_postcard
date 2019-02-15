@@ -1,0 +1,445 @@
+a {
+    text-decoration: none;
+    color: #ff4040;
+}
+a:active {
+    color: #cc0000;
+}
+.mui-btn-negative, .mui-btn-danger, .mui-btn-red
+{
+    color: #fff;
+    border: 1px solid #ff4040;
+    background-color: #ff4040;
+}
+.mui-btn-negative:enabled:active, .mui-btn-negative.mui-active:enabled, .mui-btn-danger:enabled:active, .mui-btn-danger.mui-active:enabled, .mui-btn-red:enabled:active, .mui-btn-red.mui-active:enabled
+{
+    color: #fff;
+    border: 1px solid #ff0000;
+    background-color: #ff0000;
+}
+.mui-btn-outlined.mui-btn-negative, .mui-btn-outlined.mui-btn-danger, .mui-btn-outlined.mui-btn-red
+{
+    color: #ff4040;
+}
+.mui-btn-outlined
+{
+    background-color: transparent;
+}
+.mui-btn-outlined.mui-btn-negative, .mui-btn-outlined.mui-btn-danger, .mui-btn-outlined.mui-btn-red
+{
+    color: #ff4040;
+}
+
+/*扩展icon图标*/
+@font-face {font-family: "iconfont";
+    src:url('/assets/iconfont.ttf') format('truetype'); /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+}
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+}
+.icon-gonggao:before { content: "\e681"; }
+
+.icon-zixun2:before { content: "\e615"; }
+
+.icon-zhengli2:before { content: "\e600"; }
+
+.icon-jianping2:before { content: "\e621"; }
+
+.icon-guanzhu3:before { content: "\e6ac"; }
+
+.icon-guanzhu1:before { content: "\e613"; }
+
+.icon-jianping1:before { content: "\e62a"; }
+
+.icon-guanzhu2:before { content: "\e78e"; }
+
+.icon-zixun1:before { content: "\e633"; }
+
+.icon-shizhi2:before { content: "\e955"; }
+
+.icon-mulu:before { content: "\e61c"; }
+
+.icon-shizh1:before { content: "\e60a"; }
+
+.icon-zhengli1:before { content: "\e67f"; }
+
+.icon-syh:before { content: "\e603"; }
+/*九宫格*/
+.mui-grid-view.mui-grid-9.indexGrid9{
+	background-color: #FFFFFF;
+}
+.indexGrid9.mui-table-view:after{
+	height: 0;
+}
+/*底部导航*/
+.mui-bar {
+    position: fixed;
+    z-index: 10;
+    right: 0;
+    left: 0;
+    height: 44px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-bottom: 0;
+    background-color: #f7f7f7;
+    -webkit-box-shadow: 0 0 1px rgba(0,0,0,.25);
+    box-shadow: 0 0 1px rgba(0,0,0,.25);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.mui-bar-tab .mui-tab-item.mui-active {
+    color: #ff4040;
+}
+/*选项卡列表*/
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+	color: #FF4040;	
+}
+
+.mui-off-canvas-left, .mui-off-canvas-right {
+    width: 90%;
+}
+.mui-off-canvas-left, .mui-off-canvas-right {
+    width: 100%;
+    top: 44px;
+}
+.mui-off-canvas-wrap.mui-slide-in .mui-off-canvas-right {
+    background-color: #fff;
+    background: none !important;
+}
+/**/
+.mui-row.mui-fullscreen>[class*="mui-col-"] {
+	height: 100%;
+}
+.mui-col-xs-3,
+.mui-control-content {
+	overflow-y: auto;
+	height: 100%;
+}
+.mui-segmented-control .mui-control-item {
+	width: 100%;
+}
+
+.aside_content {
+	margin-top: 82px;
+}
+.cml-table-view-cell {
+	padding: 3px 2px;
+}
+.mui-table-view-cell .ct-right-text {
+	position: absolute;
+	font-size: 12px;
+	height: 16px;
+	line-height: 16px;
+	right: 40px;
+	top: 50%;
+	margin-top: -8px;
+}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+	background-color: #fff;
+}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active.tabBG{
+	background: none !important;
+}
+/**/
+/*普通列表*/
+.mui-col-xs-12 h5{
+	margin: 0;
+	padding: 0 15px;
+	border-top: 1px solid #DDDDDD;
+	color: #6d6d72;
+	font-size: 15px;
+	line-height: 36px;
+}
+.mui-col-xs-12 .redMark{
+	color: #FF4040;
+	margin-right: 10px;
+}
+.grayLine{
+	color: #CCCCCC !important;
+}
+.grayLine .redMark{
+	color: #CCCCCC;
+}
+.check:after{
+	content: '\e472' !important;
+	color: #007aff !important;
+	font-size: 30px !important;
+    font-weight: 600 !important;
+    right: 9px !important;
+}
+.mui-segmented-control .tabHeight{
+	line-height: 50px;
+}
+/*搜索筛选弹出页*/
+.mui-off-canvas-wrap .mui-bar{
+	box-shadow: 0 0 1px rgba(0,0,0,.25) !important;
+	background: #F7F7F7 !important;
+}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+	border-bottom: 2px solid #ff4040;
+}
+.popinWrap {
+	top: 88px !important;
+	background: #FFFFFF;
+}
+.popinWrapSearch {
+	top: 44px !important;
+	background: #FFFFFF;
+}
+.popinBackdrop{
+	top: 89px !important;
+}
+.popinScroll{
+	top: 79px !important;
+}
+.popinScrollItem{
+	padding-bottom: 80px !important;
+}
+.popinBtnClose{
+	padding: 0;
+	margin: 0;
+	border-radius: 0;
+	font-size: 16px;
+	line-height: 36px;
+}
+.popinCheck label{
+	padding: 0;
+}
+.popinCheck input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before{
+	color: #FF4040;
+}
+/*.mui-popover .mui-scroll .mui-table-view {
+     max-height:none;
+     overflow-y: auto; 
+}*/
+.popoverScrollItem{
+	padding-top: 44px !important;
+	padding-bottom: 80px !important;
+}
+.filterBtn button{
+	float: right; 
+	line-height: 1;
+	padding: 6px 20px 7px !important;
+}
+.filterBtn a{
+	float: right; 
+	line-height: 1;
+	padding: 6px 20px 7px !important;
+}
+.filterBtnA {
+	float: right; 
+	line-height: 1;
+	padding: 6px 20px 7px !important;
+}
+.tabBar{
+	position: absolute !important;
+	top: 0px !important;
+	z-index: 99 !important;
+	height: 45px !important;
+	font-size: 16px;
+	border-radius: 0;
+	background: #FFFFFF;
+}
+.tabBar a{
+	line-height: 44px !important;
+}
+.submitBtn{
+	position: absolute !important;
+	bottom: 46px !important;
+	z-index: 99 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	line-height: 36px;
+	font-size: 18px;
+	border-radius: 0;
+}
+.mui-popover {
+	width: 90%;
+}
+.mui-popover .mui-scroll-wrapper {
+    margin: 0;
+    border-radius: 3px;
+}
+/*产品详情页面*/
+.productImg {
+	background: #121212;
+}
+.productImg .mui-slider-item {
+	text-align: center;
+}
+.productImg .mui-slider-item img {
+	width: auto !important;
+}
+.mui-table-view-cell .rowTitle {
+    font-family: 'Helvetica Neue',Helvetica,sans-serif;
+    float: left;
+    width: 25%;
+    display: block;
+    font-weight: bolder;
+}
+.mui-table-view-cell .rowContent {
+    font-family: 'Helvetica Neue',Helvetica,sans-serif;
+    float: left;
+    width: 75%;
+    display: block;
+    color: #000000;
+}
+.productBtn {
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+	line-height: 44px;
+}
+/*图表*/
+.chart {
+	height: 250px;
+	width: 325px;
+	margin: 0px auto;
+	padding: 0px;
+}
+/*整理首页*/
+.paddingRight{
+	padding-right: 130px !important;
+}
+.paddingRight80{
+	padding-right: 80px !important;
+}
+.paddingRight30{
+	padding-right: 30px !important;
+}
+.paddingRight p, .paddingRight80 p, .paddingRight30 p {
+	line-height: 42px;
+	color: #333;
+}
+.profileItem{
+	position: fixed;
+	width: 100%;
+	z-index: 996;
+}
+.listIconLeft, .listIconRight {
+	display: flex;
+	z-index: 9;
+	margin-right: 20px ;
+	padding: 6px 6px;
+}
+.listIconRight{
+	margin-right:70px ;
+}
+.bottomBtn{
+	
+	bottom: 0;
+    display: table;
+    width: 100%;
+    height: 50px;
+    padding: 0;
+    table-layout: fixed;
+    border-top: 0;
+    border-bottom: 0;
+    -webkit-touch-callout: none;
+}
+.bottomBtn button {
+    display: table-cell;
+    overflow: hidden;
+    width: 50%;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 18px;
+    top: 0 !important;
+    border-radius: 0;
+}
+/*整理修改*/
+.mui-button-row.editBtn{
+	padding-top: 15px;
+}
+.mui-button-row.editBtn button{
+	width: 40%;
+	height: 44px;
+	font-size: 16px;
+}
+/*整理分析*/
+.collectionItem{
+	padding-left: 15px !important;
+	padding-top: 0 !important;
+	padding-bottom: 0;
+	border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+}
+.percentWrap {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    background-color: #efeff4;
+}
+.parcntDisplay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background-color: #88dbfd;
+}
+.percentText {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #57b0ff;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: right;
+    padding: 0 15px;
+}
+/*市值列表*/
+.valueCheck p{
+	color: #333333 !important;
+	padding-right: 80px;
+}
+.valueCheck span{
+	line-height: 1;
+	right: 35px;
+	top: 35%;
+	position: absolute;
+	display: inline-block;
+}
+.mui-table-view-cell span.up{
+	color: #FF4040;
+}
+.mui-table-view-cell span.down{
+	color: #33cc99;
+}
+.mui-table-view-cell span.bigFont{
+	font-size: 18px !important;
+}
+.valueCheck span.up{
+	color: #FF4040;
+}
+.valueCheck span.down{
+	color: #33cc99;
+}
+.valueItem{
+	padding: 0 !important;
+}
+.valueItem .mui-table-view{
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+}
+.valueItem .rowTitle{
+	color: #333 !important;
+	font-weight: 100;
+}
+/*我要鉴评*/
+.titleAppraisal{
+	font-size: 16px;
+	font-weight: bolder;
+	margin: 20px 10px 10px;
+}
+/*资讯公告*/
+.newsTitle {
+	position:absolute;
+	top: 0px;
+	z-index: 999;
+}

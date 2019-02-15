@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>我要整理</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="/assets/front_page/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="/assets/front_page/editApp.css" />
+		<script src="/assets/front_page/mui.min.js"></script>
+		<script src="/assets/front_page/jquery-3.3.1.min.js"></script>
+	</head>
+
+	<body>
+		<div class="mui-off-canvas-wrap mui-slide-in">
+			<div class="mui-inner-wrap">
+				<header class="mui-bar mui-bar-nav">
+					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<h1 class="mui-title">我要整理</h1>
+				</header>
+				
+				<div class="mui-bar mui-row filterBtn" style="background: #FFFFFF !important; top: 44px;">
+					<a id="offCanvasShow" href="#" style="position: absolute; width: 72%; z-index: 9999; height: 44px; line-height: 44px;" class="cml-aside" for="pk_operator">
+						<span style="display: none;">显示侧面选项卡</span>
+					</a>
+					<div class="mui-input-row mui-search mui-col-xs-9">
+						<input type="search" class="mui-input-clear" placeholder="搜索志号、名称、俗称等信息">
+					</div>
+					<div class="mui-col-xs-3">
+						<div class="mui-btn mui-btn-danger mui-btn-outlined cml-aside filterBtnA" for="pk_loginway">筛选</div>
+					</div>
+				</div>
+				
+				<div class="mui-content mui-row mui-fullscreen" style="height: 100% !important; overflow-y: auto;">
+					<ul class="mui-table-view mui-table-view-chevron" style="padding-top: 30px; padding-bottom: 50px;">
+						<li class="mui-table-view-cell mui-media">
+							<a class="mui-navigate-right paddingRight" href="/sortings/product_sorting">
+								<img class="mui-media-object mui-pull-left" src="/assets/front_page/products/p4.jpg">
+								<div class="mui-media-body">
+									<p class='mui-ellipsis'>纪1 庆祝中国人民政治协商会议第一届全体会议（原版）</p>
+								</div>
+							</a>
+							<button type="button" class="listIconLeft mui-btn">
+								删除
+					        </button>
+							<button onclick="window.open('sorting-edit.html','_self')" type="button" class="listIconRight mui-btn">
+								编辑
+					        </button>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a class="mui-navigate-right paddingRight">
+								<img class="mui-media-object mui-pull-left" src="/assets/front_page/products/p1.jpg">
+								<div class="mui-media-body">
+									<p class='mui-ellipsis'>庚申年</p>
+								</div>
+							</a>
+							<button type="button" class="listIconLeft mui-btn">
+								删除
+					        </button>
+							<button type="button" class="listIconRight mui-btn">
+								编辑
+					        </button>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a class="mui-navigate-right paddingRight">
+								<img class="mui-media-object mui-pull-left" src="/assets/front_page/products/p2.jpg">
+								<div class="mui-media-body">
+									<p class='mui-ellipsis'>2018版熊猫1公斤金币</p>
+								</div>
+							</a>
+							<button type="button" class="listIconLeft mui-btn">
+								删除
+					        </button>
+							<button type="button" class="listIconRight mui-btn">
+								编辑
+					        </button>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a class="mui-navigate-right paddingRight">
+								<img class="mui-media-object mui-pull-left" src="/assets/front_page/products/p3.jpg">
+								<div class="mui-media-body">
+									<p class='mui-ellipsis'>古币车工 第三套人民币贰圆券（车床工人－古币水印）</p>
+								</div>
+							</a>
+							<button type="button" class="listIconLeft mui-btn">
+								删除
+					        </button>
+							<button type="button" class="listIconRight mui-btn">
+								编辑
+					        </button>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a class="mui-navigate-right paddingRight">
+								<img class="mui-media-object mui-pull-left" src="/assets/front_page/products/p5.jpg">
+								<div class="mui-media-body">
+									<p class='mui-ellipsis'>纪16 抗目战争十五周年纪念</p>
+								</div>
+							</a>
+							<button type="button" class="listIconLeft mui-btn">
+								删除
+					        </button>
+							<button type="button" class="listIconRight mui-btn">
+								编辑
+					        </button>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a class="mui-navigate-right paddingRight">
+								<img class="mui-media-object mui-pull-left" src="/assets/front_page/products/p6.jpg">
+								<div class="mui-media-body">
+									<p class='mui-ellipsis'>J1 万国邮政联盟成立一百周年纪念</p>
+								</div>
+							</a>
+							<button type="button" class="listIconLeft mui-btn">
+								删除
+					        </button>
+							<button type="button" class="listIconRight mui-btn">
+								编辑
+					        </button>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a class="mui-navigate-right paddingRight">
+								<img class="mui-media-object mui-pull-left" src="/assets/front_page/products/p7.jpg">
+								<div class="mui-media-body">
+									<p class='mui-ellipsis'>建国30周年1/2盎司圆形金质纪念币(天安门)</p>
+								</div>
+							</a>
+							<button type="button" class="listIconLeft mui-btn">
+								删除
+					        </button>
+							<button type="button" class="listIconRight mui-btn">
+								编辑
+					        </button>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a class="mui-navigate-right paddingRight">
+								<img class="mui-media-object mui-pull-left" src="/assets/front_page/products/p8.jpg">
+								<div class="mui-media-body">
+									<p class='mui-ellipsis'>中国辛酉（鸡）年15克圆形银质纪念币</p>
+								</div>
+							</a>
+							<button type="button" class="listIconLeft mui-btn">
+								删除
+					        </button>
+							<button type="button" class="listIconRight mui-btn">
+								编辑
+					        </button>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a class="mui-navigate-right paddingRight">
+								<img class="mui-media-object mui-pull-left" src="/assets/front_page/products/p9.jpg">
+								<div class="mui-media-body">
+									<p class='mui-ellipsis'>长号一分 第二套人民币壹分券（汽车）（长号码）</p>
+								</div>
+							</a>
+							<button type="button" class="listIconLeft mui-btn">
+								删除
+					        </button>
+							<button type="button" class="listIconRight mui-btn">
+								编辑
+					        </button>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a class="mui-navigate-right paddingRight">
+								<img class="mui-media-object mui-pull-left" src="/assets/front_page/products/p10.jpg">
+								<div class="mui-media-body">
+									<p class='mui-ellipsis'>1元工农 第一套人民币壹圆券（工人与农民）</p>
+								</div>
+							</a>
+							<button type="button" class="listIconLeft mui-btn">
+								删除
+					        </button>
+							<button type="button" class="listIconRight mui-btn">
+								编辑
+					        </button>
+						</li>
+					</ul>
+				</div>
+
+				<nav class="mui-bar bottomBtn">
+					<button type="button" onclick="window.open('list-tab-popin.html','_self')" class="mui-btn mui-btn-danger">
+						新增藏品
+					</button>
+					<button type="button" onclick="window.open('sorting-collection.html','_self')" class="mui-btn mui-btn-warning">
+						藏品分析
+					</button>
+				</nav>
+				
+				<div class="mui-off-canvas-backdrop"></div>
+			</div>
+			
+			<!--弹出菜单-->
+			<aside id='aside' class='mui-off-canvas-right'>
+				<button id="offCanvasHide" type="button" class="mui-btn mui-btn-danger mui-btn-block popinBtnClose" style="z-index: 9; top: 44px;">关闭侧滑菜单</button>
+				<div class='mui-scroll-wrapper'>
+					<div id='pk_operator_content' for='pk_operator' class='aside_content'>
+						<div class="mui-bar mui-row" style="position: fixed !important; top: 0 !important;  z-index: 10 !important;">
+							<div class="mui-input-row mui-search mui-col-xs-9">
+				    				<input type="search" class="mui-input-clear" placeholder="搜索志号、名称、俗称等信息">
+							</div>
+							<div class="mui-col-xs-3 filterBtn">
+								<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">搜索</button> 	
+							</div>
+						</div>
+						<div class='mui-scroll'>
+							<div class="content" style="background: #fff;">
+								<div style="padding: 0px 10px;">
+									<div class="mui-segmented-control mui-segmented-control-inverted">
+										<a class="mui-control-item mui-active" href="#">当前</a>
+										<a class="mui-control-item" href="#">全部</a>
+									</div>
+									<div style="height: calc(100vh - 120px); touch-action: none;">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id='pk_loginway_content' for='pk_loginway' class='aside_content'>
+						<div class='mui-scroll'>
+							<div class="content" style="background: #fff;">
+								<button type="button" class="mui-btn mui-btn-danger mui-btn-block submitBtn">确定</button>
+								<div style="padding: 0px 10px;">
+									<div class="mui-segmented-control mui-segmented-control-inverted">
+										<a class="mui-control-item mui-active" href="#item1">邮票</a>
+										<a class="mui-control-item" href="#item2">硬币</a>
+										<a class="mui-control-item" href="#item3">纸钞</a>
+									</div>
+								</div>
+								<div style="height: calc(100vh - 120px); touch-action: none;">
+									<div id="item1" class="mui-control-content mui-active">
+										<ul class="mui-table-view popinScrollItem">
+											<li class="mui-table-view-cell">
+												<label style="font-weight: bolder;">版式</label>
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>套票</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>大版</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>小版</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>赠送版</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>小型张/小全张</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>小本票</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>大本册</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>其他</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell">
+												<label style="font-weight: bolder;">题材</label>
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>动物</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>植物</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>人物</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>文化</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>政治</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>经济</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>建筑</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>风光</label><input name="" value="" type="checkbox">
+											</li>
+										</ul>
+									</div>
+									<div id="item2" class="mui-control-content">
+										<ul class="mui-table-view popinScrollItem">
+											<li class="mui-table-view-cell">
+												<label style="font-weight: bolder;">选项卡二标题</label>
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>套票</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>大版</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>小版</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>赠送版</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>小型张/小全张</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>小本票</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>大本册</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>其他</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell">
+												<label style="font-weight: bolder;">题材</label>
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>动物</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>植物</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>人物</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>文化</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>政治</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>经济</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>建筑</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>风光</label><input name="" value="" type="checkbox">
+											</li>
+										</ul>
+									</div>
+									<div id="item3" class="mui-control-content">
+										<ul class="mui-table-view popinScrollItem">
+											<li class="mui-table-view-cell">
+												<label style="font-weight: bolder;">选项卡三标题</label>
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>套票</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>大版</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>小版</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>赠送版</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>小型张/小全张</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>小本票</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>大本册</label><input name="" value="" type="checkbox">
+											</li>
+											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
+												<label>其他</label><input name="" value="" type="checkbox">
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</aside>
+			
+		</div>
+		<script type='text/javascript'>
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+
+			(function($) {
+				$('#scroll').scroll({
+					indicators: true //是否显示滚动条
+				});
+
+			})(mui);
+
+			mui('.filterBtn').on('tap', '.cml-aside', function() {
+				//获取id
+				var targetid = $(this).attr('for')
+				var title = $('#' + targetid + '_title').html();
+				$('#aside_title').html(title);
+
+				var asides = document.getElementsByClassName('aside_content');
+				for(var i = 0; i < asides.length; i++) {
+					var forid = asides[i].getAttribute('for');
+					if(forid && forid == targetid) {
+						$(asides[i]).attr('style', 'display: block;');
+					} else {
+						$(asides[i]).attr('style', 'display: none;');
+					}
+				}
+				mui('#aside').offCanvas('show');
+
+			});
+
+			document.getElementById('offCanvasHide').addEventListener('tap', function() {
+				mui('#aside').offCanvas('close');
+			});
+		</script>
+	</body>
+
+</html>
