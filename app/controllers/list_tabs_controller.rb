@@ -9,6 +9,10 @@ class ListTabsController < ApplicationController
   end
 
   def list_normal
+    @commodities = Commodity.where(catalog_id:params[:format].to_i)
+  	
+    @catalogs = Catalog.find(params[:format].to_i)
+    
     render layout: false
   end
   

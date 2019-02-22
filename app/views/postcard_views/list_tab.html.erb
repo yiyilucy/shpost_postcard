@@ -14,7 +14,7 @@
 	</head>
 
 	<body>
-		<div class="mui-off-canvas-wrap mui-slide-in">
+	    <div class="mui-off-canvas-wrap mui-slide-in">
 			<div class="mui-inner-wrap">
 				<header class="mui-bar mui-bar-nav">
 					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
@@ -23,7 +23,7 @@
 				
 				<div class="mui-content mui-row mui-fullscreen">
 					<div class="mui-bar mui-row filterBtn" style="background: #FFFFFF !important;">
-						<a id="offCanvasShow" href="#" style="position: absolute; width: 72%; z-index: 9999; height: 44px;line-height: 44px;" class="cml-aside" for="pk_operator">
+						<a id="offCanvasShow" href="#" style="position: absolute; left: 0; width: 72%; z-index: 9999; height: 44px;line-height: 44px;" class="cml-aside" for="pk_operator">
 							<span style="display: none;">显示侧面选项卡</span>
 						</a>
 						<div class="mui-input-row mui-search mui-col-xs-9">
@@ -46,28 +46,30 @@
 							<ul class="mui-table-view">
 							    <% @stamp_catalogs.each do |x|
 							%>
-								 <li  class="mui-table-view-cell"><a id="intro" href="/list_tabs/list_normal"> 
-								 <%= x %>
-								 </a></li>
+							    <li  class="mui-table-view-cell">
+							    <%= link_to "#{x.catalog_name}", list_normal_list_tabs_path(x.id) %>
+								 </li>
 							    <% end %>
 							</ul>
 						</div>
 						<div id="content2" class="mui-control-content">
 							<ul class="mui-table-view">
-								<li class="mui-table-view-cell">贵金属纪念币</li>
-								<li class="mui-table-view-cell">流通纪念币</li>
-								<li class="mui-table-view-cell">中国流通硬币</li>
+							    <% @coin_catalogs.each do |x|
+							%>
+								 <li  class="mui-table-view-cell">
+								 <%= link_to "#{x.catalog_name}", list_normal_list_tabs_path(x.id) %>
+								 </li>
+							    <% end %>
 							</ul>
 						</div>
 						<div id="content3" class="mui-control-content">
 							<ul class="mui-table-view">
-								<li class="mui-table-view-cell">一版人民币</li>
-								<li class="mui-table-view-cell">二版人民币</li>
-								<li class="mui-table-view-cell">三版人民币</li>
-								<li class="mui-table-view-cell">四版人民币</li>
-								<li class="mui-table-view-cell">五版人民币</li>
-								<li class="mui-table-view-cell">连体钞</li>
-								<li class="mui-table-view-cell">纪念钞</li>
+							    <% @bill_catalogs.each do |x|
+							%>
+								 <li  class="mui-table-view-cell">
+								 <%= link_to "#{x.catalog_name}", list_normal_list_tabs_path(x.id) %>
+								 </li>
+							    <% end %>
 							</ul>
 						</div>
 					</div>
