@@ -8,8 +8,8 @@ class ImportFile < ActiveRecord::Base
 
 	def self.img_upload_path(file, symbol, category)
 		if !file.original_filename.empty?
+			direct = "/public/pic/#{category}/"
 			filename = "#{Time.now.to_i}_#{file.original_filename}"
-			direct = "#{Rails.root}/public/pic/#{category}/"
 
 	  	    if !File.exist?("#{Rails.root}/public/pic/")
 	          Dir.mkdir("#{Rails.root}/public/pic/")          
@@ -32,7 +32,7 @@ class ImportFile < ActiveRecord::Base
 		    end
 
 		    file_path = direct + filename
-		    File.open(file_path, "wb") do |f|
+		    File.open(Rails.root.to_s + file_path, "wb") do |f|
 		      f.write(file.read)
 		    end
 		    file_path
@@ -43,7 +43,7 @@ class ImportFile < ActiveRecord::Base
 		ori_file_name = File.basename(file_path)
 		file_name = File.basename(file_path, "r:ISO-8859-1")
         file_ext = File.extname(file_name)
-        size = File.size(file_path) 
+        size = File.size(Rails.root.to_s + file_path) 
 
         import_file = ImportFile.create! file_name: file_name, file_path: File.join(file_path.split(ori_file_name), file_name), user_id: user.id, file_ext: file_ext, size: size, symbol_id: symbol.blank? ? nil : symbol.id, category: category, symbol_type: symbol.blank? ? nil : symbol.class.to_s
 
@@ -58,7 +58,7 @@ class ImportFile < ActiveRecord::Base
     end
 
 	def image_destroy!
-		file_path = self.file_path
+		file_path = Rails.root.to_s + self.file_path
 		file_name = self.file_name
 		extname = File.extname(file_name)
 	  	base_name = File.basename(file_name, extname)
@@ -83,6 +83,7 @@ class ImportFile < ActiveRecord::Base
 	def self.decompress(file_path, zip_direct, pic_direct, user, category)
 		commodity_no = []
 		desc = ""
+		file_path = Rails.root.to_s + file_path
 		
 		Zip::File.open(file_path, "r:ISO-8859-1") do |zip|  
             zip.each do |folder| 
@@ -91,8 +92,8 @@ class ImportFile < ActiveRecord::Base
             end
             commodity_no.uniq.each do |f|
             	symbol = Commodity.find_by(no: f)
-            	if !File.exist?("#{pic_direct}#{symbol.id}/")
-					Dir.mkdir("#{pic_direct}#{symbol.id}/") 
+            	if !File.exist?("#{Rails.root}#{pic_direct}#{symbol.id}/")
+					Dir.mkdir("#{Rails.root}#{pic_direct}#{symbol.id}/") 
 				end
             	if !symbol.blank? and symbol.category.eql?category             
 	                Dir.foreach(folder_direct = File.join(zip_direct,f)) do |pic|
@@ -105,9 +106,9 @@ class ImportFile < ActiveRecord::Base
 	                			desc += ",图片"+pic+"大于#{I18n.t("pic_upload_param.pic_size")}M"
 	                			next
 	                		end	
-		                    FileUtils.cp_r(File.join(folder_direct,pic), "#{pic_direct}#{symbol.id}/")
+		                    FileUtils.cp_r(File.join(folder_direct,pic), "#{Rails.root}#{pic_direct}#{symbol.id}/")
 		                    new_pic_name = "#{Time.now.to_i}_#{pic}"
-		                    File.rename("#{pic_direct}#{symbol.id}/#{pic}", "#{pic_direct}#{symbol.id}/#{new_pic_name}")
+		                    File.rename("#{Rails.root}#{pic_direct}#{symbol.id}/#{pic}", "#{Rails.root}#{pic_direct}#{symbol.id}/#{new_pic_name}")
 		                    self.image_import(File.join("#{pic_direct}#{symbol.id}/",new_pic_name), symbol, user, symbol.category)
 		                end
 	                end
@@ -130,6 +131,10 @@ class ImportFile < ActiveRecord::Base
 		end
 
 		return relative_path
+	end
+
+	def absolute_path
+		self.file_path.blank? ? nil : Rails.root.to_s + self.file_path
 	end
 
 	

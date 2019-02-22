@@ -1,6 +1,6 @@
 class FrontUsersController < ApplicationController
   load_and_authorize_resource
-  user_logs_filter only: :update, operation: :operation, symbol: :name
+  user_logs_filter only: :update, operation: :operation, symbol: :nickname
 
   def index
      @front_users_grid = initialize_grid(@front_users,
@@ -65,6 +65,6 @@ class FrontUsersController < ApplicationController
     end
 
     def front_user_params
-      params.require(:front_user).permit(:name, :nickname, :phone, :email)
+      params.require(:front_user).permit(:sex, :nickname, :phone, :email, :country, :province, :city)
     end
 end

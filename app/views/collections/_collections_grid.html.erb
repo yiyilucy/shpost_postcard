@@ -1,13 +1,10 @@
 <%- model_class = Collection -%>
 <%- commodity_class = Commodity -%>
 <%- front_user_class = FrontUser -%>
-<% @sum = 0 
-   @count = 0
-%>
 <%= define_grid(@collections_grid, hide_submit_button: true, hide_reset_button: true, html: {style: "table-layout:fixed;word-wrap:break-word;"}) do |g|
     if !@front_user_id
-      g.column name: front_user_class.human_attribute_name(:name), attribute: 'name', detach_with_id: :front_user_name_filter, assoc: :front_user do |collection|
-          collection.front_user.name
+      g.column name: front_user_class.human_attribute_name(:nickname), attribute: 'nickname', detach_with_id: :front_user_nickname_filter, assoc: :front_user do |collection|
+          collection.front_user.nickname
       end
     end
 
@@ -43,11 +40,6 @@
         collection.desc
     end
 
-    g.column do |collection|
-        @sum += collection.amount*collection.cost
-        @count += collection.amount
-        ''
-    end
-
+    
   end 
 %>

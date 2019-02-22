@@ -44,7 +44,7 @@ class BannersController < ApplicationController
 
         if params[:file]['file'].original_filename.include?('.jpg') or params[:file]['file'].original_filename.include?('.jpeg') or params[:file]['file'].original_filename.include?('.png') or params[:file]['file'].original_filename.include?('.bmp')
           if file_path = ImportFile.img_upload_path(params[:file]['file'], nil, "banner")
-            if (File.size(file_path)/1024/1024) <= I18n.t("pic_upload_param.pic_size")
+            if (File.size(Rails.root.to_s + file_path)/1024/1024) <= I18n.t("pic_upload_param.pic_size")
               if file = ImportFile.image_import(file_path, nil, current_user, "banner")
                 pic_name = file.file_name
                 if banner = Banner.create!(title: @title, link: link, order: order, is_show: is_show, pic_name: pic_name)
@@ -99,7 +99,7 @@ class BannersController < ApplicationController
     if !params[:file].blank? and !params[:file][:file].blank?
       if params[:file]['file'].original_filename.include?('.jpg') or params[:file]['file'].original_filename.include?('.jpeg') or params[:file]['file'].original_filename.include?('.png') or params[:file]['file'].original_filename.include?('.bmp')
         if file_path = ImportFile.img_upload_path(params[:file]['file'], nil, "banner")
-          if (File.size(file_path)/1024/1024) <= I18n.t("pic_upload_param.pic_size")
+          if (File.size(Rails.root.to_s + file_path)/1024/1024) <= I18n.t("pic_upload_param.pic_size")
             @banner.import_file.image_destroy!
             if file = ImportFile.image_import(file_path, nil, current_user, "banner")
               @banner.pic_name = file.file_name
@@ -126,7 +126,7 @@ class BannersController < ApplicationController
   def destroy
     @operation = "destroy"
     @title = @banner.title
-    @banner.import_file.image_destroy!
+    @banner.import_file.image_destroy! 
     @banner.destroy
     respond_to do |format|
       format.html { redirect_to banners_url }

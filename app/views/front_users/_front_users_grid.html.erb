@@ -1,14 +1,22 @@
 <%- model_class = FrontUser -%>
 <%= grid(@front_users_grid) do |g|
-    g.column name: model_class.human_attribute_name(:name), attribute: 'name'
-
     g.column name: model_class.human_attribute_name(:nickname), attribute: 'nickname'
+
+    g.column name: model_class.human_attribute_name(:sex), attribute: 'sex',custom_filter: FrontUser::SEX.invert do |front_user|
+      front_user.sex.blank? ? "" : FrontUser::SEX[front_user.sex.to_sym]
+    end
 
     g.column name: model_class.human_attribute_name(:phone), attribute: 'phone'
 
     g.column name: model_class.human_attribute_name(:email), attribute: 'email'
 
-    g.column name: model_class.human_attribute_name(:wechat_id), attribute: 'wechat_id'
+    g.column name: model_class.human_attribute_name(:open_id), attribute: 'open_id'
+
+    g.column name: model_class.human_attribute_name(:country), attribute: 'country'
+
+    g.column name: model_class.human_attribute_name(:province), attribute: 'province'
+
+    g.column name: model_class.human_attribute_name(:city), attribute: 'city'
 
     g.column name: model_class.human_attribute_name(:status), attribute: 'status',custom_filter: FrontUser::STATUS.invert do |front_user|
     	FrontUser::STATUS[front_user.status.to_sym]

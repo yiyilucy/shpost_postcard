@@ -13,8 +13,8 @@
     <div class="index-filters">
       <table>
       <tr>
-        <td>微信用户:</td>
-        <td><%= grid_filter(@collections_grid, :front_user_name_filter)%></td>
+        <td>昵称:</td>
+        <td><%= grid_filter(@collections_grid, :front_user_nickname_filter)%></td>
         <td>商品大类:</td>
         <td><%= grid_filter(@collections_grid, :commodity_category_filter)%></td>
         <td>商品目录:</td>
@@ -42,16 +42,16 @@
     </div>  
   </form>
 </div>
-<div class="clearfix"></div> 
-<%= render_grid(@collections_grid)%>
-
 <div>
   <table>
     <tr>
-      <td width='50'><font-size:12px><strong>总市值:</strong></font></td>
-      <td width='250'><font-size:12px><strong><%=@sum %></strong></font></td>
-      <td width='50'><font-size:12px><strong>汇总数:</strong></font></td>
-      <td width='250'><font-size:12px><strong><%=@count %></strong></font></td>
+      <td width='80'><font size="3"><strong>总市值:</strong></font></td>
+      <td width='250'><font size="3"><strong><%=@cost %></strong></font></td>
+      <td width='80'><font size="3"><strong>汇总数:</strong></font></td>
+      <td width='250'><font size="3"><strong><%=@amount %></strong></font></td>
     </tr>
   </table>
 </div>
+<div class="clearfix"></div> 
+<%= render_grid(@collections_grid)%>
+

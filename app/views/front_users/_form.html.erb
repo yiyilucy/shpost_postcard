@@ -1,14 +1,14 @@
 <%= form_for @front_user, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
-    <%= f.label :name, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :name, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
     <%= f.label :nickname, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field  :nickname, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :sex, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select(:sex, {"男" => "male", "女" => "female"})%>
     </div>
   </div>
   <div class="control-group">
@@ -21,6 +21,24 @@
     <%= f.label :email, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field  :email, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :country, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :country, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :province, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :province, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :city, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field  :city, :class => 'text_field' %>
     </div>
   </div>
    

@@ -6,6 +6,8 @@ class CollectionsController < ApplicationController
   def index
      @collections_grid = initialize_grid(@collections.joins(:commodity).joins({commodity: :catalog}).order("collections.front_user_id, commodities.category, catalogs.id, collections.created_at"),
          :name => 'collections')
+     @amount = @collections.sum(:amount)
+     @cost = @collections.sum(:cost)
   end
 
   def collection_index
@@ -15,6 +17,8 @@ class CollectionsController < ApplicationController
     
       @collections_grid = initialize_grid(@collections.joins(:commodity).joins({commodity: :catalog}).order("collections.front_user_id, commodities.category, catalogs.id, collections.created_at"),
          :name => 'collections')
+      @amount = @collections.sum(:amount)
+      @cost = @collections.sum(:cost)
     end
   end
 

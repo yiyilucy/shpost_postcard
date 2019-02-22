@@ -51,12 +51,15 @@ class ImportFilesController < ApplicationController
     @file_name = @import_file.file_name
     file_path = @import_file.file_path
         
-    if !file_path.blank? and File.exist?(file_path)
-      io = File.open(file_path)
-      send_data(io.read, :type => "text/excel;charset=utf-8; header=present",              :filename => @file_name)
-      io.close
-    else
-      redirect_to commodity_import_files_path(@import_file.symbol_id), :notice => '文件不存在，下载失败！'
+    if !file_path.blank?
+      file_path = Rails.root.to_s + file_path 
+      if File.exist?(file_path)
+        io = File.open(file_path)
+        send_data(io.read, :type => "text/excel;charset=utf-8; header=present",              :filename => @file_name)
+        io.close
+      else
+        redirect_to commodity_import_files_path(@import_file.symbol_id), :notice => '文件不存在，下载失败！'
+      end
     end
   end
 
