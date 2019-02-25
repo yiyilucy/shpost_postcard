@@ -50,7 +50,7 @@
               <ul class="nav navbar-nav pull-right">
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">
                   <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                  <%= current_front_user.wechat_id %><b class="caret"></b></a>
+                  <%= current_front_user.open_id %><b class="caret"></b></a>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                     
                     <li><%= link_to t('devise.navigation.sign_out'), destroy_front_user_session_path, :method => :delete %></li>

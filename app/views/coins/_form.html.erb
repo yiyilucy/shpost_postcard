@@ -131,6 +131,12 @@
     
       <%=c.check_box :is_show,:class =>'check_box' %>
     </div>
+    <div class="control-group">
+      <%= c.label :desc, :class => 'control-label' %>
+      <div class="controls">
+        <%= c.text_field :desc, :class => 'text_field' %>
+      </div>
+    </div>
   <% end %>
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <% if can? :read, Coin %>

@@ -18,26 +18,29 @@
 		</header>
 		
 		<div class="mui-content">
-			<form class="mui-input-group" style="margin-top: 15px;">
-				<div class="mui-input-row">
-					<label>数量</label>
-					<input type="text" class="mui-input-clear" placeholder="输入藏品数量">
-				</div>
-				<div class="mui-input-row">
-					<label>成本</label>
-					<input type="text" class="mui-input-clear" placeholder="输入藏品成本">
-				</div>
-				<div class="mui-input-row">
-					<label>备注</label>
-				</div>
-				<div class="mui-input-row" style="height: 150px;">
-					<textarea id="textarea" rows="5" placeholder="请输入备注内容"></textarea>
-				</div>
-			</form>
-			<div class="mui-button-row editBtn">
-				<button type="button" class="mui-btn mui-btn-danger" onclick="window.open('/postcard_views/index')">确认</button>
-				<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="window.open('/postcard_views/sorting')">取消</button>
+			<div class="mui-input-group" style="margin-top: 15px;" enctype="multipart/form-data">
+				<%= form_tag("/collections/#{@collection.id}", method: "post")%>
+					<input name="_method" type="hidden" value="patch" />
+					<div class="mui-input-row">
+						<label>数量</label>
+						<input id="amount" name="amount" type="text" class="mui-input-clear" placeholder="输入藏品数量" value = <%=@collection.amount %>  style="height:40px;line-height:40px">
+					</div>
+					<div class="mui-input-row">
+						<label>成本</label>
+						<input id="cost" name="cost" type="text" class="mui-input-clear" placeholder="输入藏品成本" value = <%=@collection.cost %> style="height:40px;line-height:40px">
+					</div>
+					<div class="mui-input-row">
+						<label>备注</label>
+					</div>
+					<div class="mui-input-row" style="height: 150px;">
+						<textarea name="desc" rows="5" placeholder="请输入备注内容"><%=@collection.desc %></textarea>
+					</div>
 			</div>
+					<div class="mui-button-row editBtn">
+						<button type="submit" class="mui-btn mui-btn-danger" >确定</button>
+						<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="window.open('/postcard_views/sorting')">取消</button>
+					</div>
+				</form>		
 		</div>
 	</body>
 

@@ -11,4 +11,9 @@ class Commodity < ActiveRecord::Base
   def all_name
     all_name = self.name + "-" + self.short_name + "-" + self.common_name
   end
+
+  def get_collection(front_user)
+    return Collection.find_by(commodity_id: self.id, front_user_id: front_user.id)
+  end
+
 end

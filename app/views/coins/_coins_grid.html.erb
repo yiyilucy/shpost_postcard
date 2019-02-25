@@ -91,6 +91,14 @@
                     buffer += content_tag(:p,coin.tail)
                     raw buffer
                        
+                end) +
+            content_tag(:td,
+                content_tag(:div) do
+                    # without buffer only the last tag will appear
+                    buffer = content_tag(:b,"描述")
+                    buffer += content_tag(:p,coin.commodity.desc)
+                    raw buffer
+                       
                 end)
         end
     end

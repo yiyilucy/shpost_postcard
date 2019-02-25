@@ -23,32 +23,25 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    respond_with(@collection)
+    binding.pry
+    # respond_with(@collection)
   end
 
   def new
-    @collection = Collection.new
-    respond_with(@collection)
+    # @collection = Collection.new
+    # respond_with(@collection)
   end
 
   def edit
   end
 
   def create
-    @collection = Collection.new(collection_params)
-    @collection.save
-    respond_with(@collection)
+    # @collection = Collection.new(collection_params)
+    # @collection.save
+    # respond_with(@collection)
   end
 
-  def update
-    @collection.update(collection_params)
-    respond_with(@collection)
-  end
-
-  def destroy
-    @collection.destroy
-    respond_with(@collection)
-  end
+  
 
   def export
     @operation = "export"
@@ -140,12 +133,45 @@ class CollectionsController < ApplicationController
     xls_report.string  
   end
 
+
+
+  # 前台功能
+
+  def update
+    @collection.amount = params[:amount].to_i
+    @collection.cost = params[:cost].to_f
+    @collection.desc = params[:desc]
+
+    if @collection.save
+      redirect_to '/postcard_views/index'
+    else
+      redirect_to '/sortings/sorting_edit'
+    end
+  end
+
+  def destroy
+    if !params[:id].blank?
+      Collection.find(params[:id].to_i).destroy
+    end
+    
+    redirect_to '/postcard_views/sorting' 
+  end
+
+  def search
+    redirect_to sorting_postcard_views_path(params[:condition])
+  end
+
+  def filter
+    redirect_to sorting_postcard_views_path(params)
+  end
+
+  
   private
     def set_collection
       @collection = Collection.find(params[:id])
     end
 
     def collection_params
-      params[:collection]
+       params[:collection].permit(:commodity_id, :front_user_id, :amount, :cost, :desc)
     end
 end

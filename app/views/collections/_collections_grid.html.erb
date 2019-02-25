@@ -33,7 +33,7 @@
     end
 
     g.column name: model_class.human_attribute_name(:cost), attribute: 'cost', detach_with_id: :cost_filter do |collection|
-        collection.cost
+        number_with_precision(collection.cost, precision: 2)
     end
 
     g.column name: model_class.human_attribute_name(:desc), attribute: 'desc', detach_with_id: :desc_filter do |collection|

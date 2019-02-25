@@ -115,6 +115,7 @@ class StampsController < ApplicationController
             perforation_index = title_row.index("齿孔度").blank? ? 20: title_row.index("齿孔度")
             specification_index = title_row.index("规格").blank? ? 21 : title_row.index("规格")
             editor_index = title_row.index("责任编辑").blank? ? 22 : title_row.index("责任编辑")
+            desc_index = title_row.index("描述").blank? ? 23 : title_row.index("描述")
 
             2.upto(instance.last_row) do |line|
               catalog_id = nil
@@ -164,11 +165,12 @@ class StampsController < ApplicationController
               perforation = rowarr[perforation_index].blank? ? "" : rowarr[perforation_index].to_s.split('.0')[0]
               specification = rowarr[specification_index].blank? ? "" : rowarr[specification_index].to_s
               editor = rowarr[editor_index].blank? ? "" : rowarr[editor_index].to_s
+              desc = rowarr[desc_index].blank? ? "" : rowarr[desc_index].to_s
 
               if no.blank? or Commodity.find_by(no: no).blank?
-                Stamp.create!(serial_no: serial_no, format: format, theme: theme, version: version, designer: designer, ori_author: ori_author, engrave_author: engrave_author, issue_at: issue_at, issue_unit: issue_unit, print_unit: print_unit, gum: gum, circulation: circulation, set_amount: set_amount, page_amount: page_amount, perforation: perforation, specification: specification, editor: editor, commodity_attributes: {name: name, short_name: short_name, common_name: common_name, catalog_id: catalog_id, category: "stamp", is_show: is_show})
+                Stamp.create!(serial_no: serial_no, format: format, theme: theme, version: version, designer: designer, ori_author: ori_author, engrave_author: engrave_author, issue_at: issue_at, issue_unit: issue_unit, print_unit: print_unit, gum: gum, circulation: circulation, set_amount: set_amount, page_amount: page_amount, perforation: perforation, specification: specification, editor: editor, commodity_attributes: {name: name, short_name: short_name, common_name: common_name, catalog_id: catalog_id, category: "stamp", is_show: is_show, desc: desc})
               elsif !Commodity.find_by(no: no).blank?
-                Commodity.find_by(no: no).detail.update!(serial_no: serial_no, format: format, theme: theme, version: version, designer: designer, ori_author: ori_author, engrave_author: engrave_author, issue_at: issue_at, issue_unit: issue_unit, print_unit: print_unit, gum: gum, circulation: circulation, set_amount: set_amount, page_amount: page_amount, perforation: perforation, specification: specification, editor: editor, commodity_attributes: {name: name, short_name: short_name, common_name: common_name, catalog_id: catalog_id, category: "stamp", is_show: is_show})
+                Commodity.find_by(no: no).detail.update!(serial_no: serial_no, format: format, theme: theme, version: version, designer: designer, ori_author: ori_author, engrave_author: engrave_author, issue_at: issue_at, issue_unit: issue_unit, print_unit: print_unit, gum: gum, circulation: circulation, set_amount: set_amount, page_amount: page_amount, perforation: perforation, specification: specification, editor: editor, commodity_attributes: {name: name, short_name: short_name, common_name: common_name, catalog_id: catalog_id, category: "stamp", is_show: is_show, desc: desc})
               end
             end
 
@@ -304,7 +306,7 @@ class StampsController < ApplicationController
     blue = Spreadsheet::Format.new :color => :blue, :weight => :bold, :size => 10  
     sheet1.row(0).default_format = blue  
 
-    sheet1.row(0).concat %w{商品编码 商品名称 商品简称 商品俗称 商品目录 是否显示 志号 版式 题材 版别 设计者 原作者 雕作者 发行时间 发行机构 印刷机构 背胶 发行量 全套枚数 整版枚数 齿孔度 规格 责任编辑}  
+    sheet1.row(0).concat %w{商品编码 商品名称 商品简称 商品俗称 商品目录 是否显示 志号 版式 题材 版别 设计者 原作者 雕作者 发行时间 发行机构 印刷机构 背胶 发行量 全套枚数 整版枚数 齿孔度 规格 责任编辑 描述}  
     count_row = 1
     objs.each do |obj|
       sheet1[count_row,0] = obj.commodity.no
@@ -330,6 +332,7 @@ class StampsController < ApplicationController
       sheet1[count_row,20] = obj.perforation
       sheet1[count_row,21] = obj.specification
       sheet1[count_row,22] = obj.editor
+      sheet1[count_row,23] = obj.commodity.try :desc
 
       count_row += 1
     end
@@ -521,7 +524,7 @@ class StampsController < ApplicationController
     end
 
     def stamp_params
-      params[:stamp].permit(:serial_no, :format, :theme, :version, :designer, :ori_author, :engrave_author, :issue_at, :issue_unit, :print_unit, :gum, :circulation, :set_amount, :page_amount, :perforation, :specification, :editor, commodity_attributes: [:id, :no, :name, :short_name, :common_name, :catalog_id, :category, :is_show, :pic_name])
+      params[:stamp].permit(:serial_no, :format, :theme, :version, :designer, :ori_author, :engrave_author, :issue_at, :issue_unit, :print_unit, :gum, :circulation, :set_amount, :page_amount, :perforation, :specification, :editor, commodity_attributes: [:id, :no, :name, :short_name, :common_name, :catalog_id, :category, :is_show, :pic_name, :desc])
     end
 
     def upload_stamp(file)

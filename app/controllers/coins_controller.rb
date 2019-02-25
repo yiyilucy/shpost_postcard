@@ -112,6 +112,7 @@ class CoinsController < ApplicationController
             shape_index = title_row.index("形状").blank? ? 18: title_row.index("形状")
             head_index = title_row.index("正面").blank? ? 19 : title_row.index("正面")
             tail_index = title_row.index("反面").blank? ? 20 : title_row.index("反面")
+            desc_index = title_row.index("描述").blank? ? 21 : title_row.index("描述")
 
             2.upto(instance.last_row) do |line|
               catalog_id = nil
@@ -159,11 +160,12 @@ class CoinsController < ApplicationController
               shape = rowarr[shape_index].blank? ? "" : rowarr[shape_index].to_s
               head = rowarr[head_index].blank? ? "" : rowarr[head_index].to_s
               tail = rowarr[tail_index].blank? ? "" : rowarr[tail_index].to_s
+              desc = rowarr[desc_index].blank? ? "" : rowarr[desc_index].to_s
 
               if no.blank? or Commodity.find_by(no: no).blank?
-                Coin.create!(theme: theme, issue_unit: issue_unit, circulation: circulation, material: material, weight: weight, year: year, face_value: face_value, pack_spec: pack_spec, cast_unit: cast_unit, diameter: diameter, percentage: percentage, quality: quality, shape: shape, head: head, tail: tail, commodity_attributes: {name: name, short_name: short_name, common_name: common_name, catalog_id: catalog_id, category: "coin", is_show: is_show})
+                Coin.create!(theme: theme, issue_unit: issue_unit, circulation: circulation, material: material, weight: weight, year: year, face_value: face_value, pack_spec: pack_spec, cast_unit: cast_unit, diameter: diameter, percentage: percentage, quality: quality, shape: shape, head: head, tail: tail, commodity_attributes: {name: name, short_name: short_name, common_name: common_name, catalog_id: catalog_id, category: "coin", is_show: is_show, desc: desc})
               elsif !Commodity.find_by(no: no).blank?
-                Commodity.find_by(no: no).detail.update!(theme: theme, issue_unit: issue_unit, circulation: circulation, material: material, weight: weight, year: year, face_value: face_value, pack_spec: pack_spec, cast_unit: cast_unit, diameter: diameter, percentage: percentage, quality: quality, shape: shape, head: head, tail: tail, commodity_attributes: {name: name, short_name: short_name, common_name: common_name, catalog_id: catalog_id, category: "coin", is_show: is_show})
+                Commodity.find_by(no: no).detail.update!(theme: theme, issue_unit: issue_unit, circulation: circulation, material: material, weight: weight, year: year, face_value: face_value, pack_spec: pack_spec, cast_unit: cast_unit, diameter: diameter, percentage: percentage, quality: quality, shape: shape, head: head, tail: tail, commodity_attributes: {name: name, short_name: short_name, common_name: common_name, catalog_id: catalog_id, category: "coin", is_show: is_show, desc: desc})
               end
             end
 
@@ -292,7 +294,7 @@ class CoinsController < ApplicationController
     blue = Spreadsheet::Format.new :color => :blue, :weight => :bold, :size => 10  
     sheet1.row(0).default_format = blue  
 
-    sheet1.row(0).concat %w{商品编码 商品名称 商品简称 商品俗称 商品目录 是否显示 题材 发行机构 发行量 材质 重量 年份 面值 套系(包装规格) 铸造单位 直径 成色 质量 形状 正面 反面}  
+    sheet1.row(0).concat %w{商品编码 商品名称 商品简称 商品俗称 商品目录 是否显示 题材 发行机构 发行量 材质 重量 年份 面值 套系(包装规格) 铸造单位 直径 成色 质量 形状 正面 反面 描述}  
     count_row = 1
     objs.each do |obj|
       sheet1[count_row,0] = obj.commodity.no
@@ -316,6 +318,7 @@ class CoinsController < ApplicationController
       sheet1[count_row,18] = obj.shape
       sheet1[count_row,19] = obj.head
       sheet1[count_row,20] = obj.tail
+      sheet1[count_row,21] = obj.commodity.try :desc
       
       count_row += 1
     end
@@ -508,7 +511,7 @@ class CoinsController < ApplicationController
     end
 
     def coin_params
-      params[:coin].permit(:theme, :issue_unit, :circulation, :material, :weight, :year, :face_value, :pack_spec, :cast_unit, :diameter, :percentage, :quality, :shape, :head, :tail, commodity_attributes: [:id, :no, :name, :short_name, :common_name, :catalog_id, :category, :is_show, :pic_name])
+      params[:coin].permit(:theme, :issue_unit, :circulation, :material, :weight, :year, :face_value, :pack_spec, :cast_unit, :diameter, :percentage, :quality, :shape, :head, :tail, commodity_attributes: [:id, :no, :name, :short_name, :common_name, :catalog_id, :category, :is_show, :pic_name, :desc])
     end
 
     def upload_coin(file)

@@ -108,6 +108,7 @@ class BillsController < ApplicationController
             serial_no_index = title_row.index("字号").blank? ? 14 : title_row.index("字号")
             watermark_index = title_row.index("水印").blank? ? 15 : title_row.index("水印")
             print_process_index = title_row.index("印刷工艺").blank? ? 16 : title_row.index("印刷工艺")
+            desc_index = title_row.index("描述").blank? ? 17 : title_row.index("描述")
             
             2.upto(instance.last_row) do |line|
               catalog_id = nil
@@ -151,11 +152,12 @@ class BillsController < ApplicationController
               serial_no = rowarr[serial_no_index].blank? ? "" : rowarr[serial_no_index].to_s
               watermark = rowarr[watermark_index].blank? ? "" : rowarr[watermark_index].to_s
               print_process = rowarr[print_process_index].blank? ? "" : rowarr[print_process_index].to_s
+              desc = rowarr[desc_index].blank? ? "" : rowarr[desc_index].to_s
               
               if no.blank? or Commodity.find_by(no: no).blank?
-                Bill.create!(version: version, issue_at: issue_at, engrave_year: engrave_year, face_value: face_value, pack_spec: pack_spec, head: head, tail: tail, prefix: prefix, serial_no: serial_no, watermark: watermark, print_process: print_process, commodity_attributes: {name: name, short_name: short_name, common_name: common_name, catalog_id: catalog_id, category: "bill", is_show: is_show})
+                Bill.create!(version: version, issue_at: issue_at, engrave_year: engrave_year, face_value: face_value, pack_spec: pack_spec, head: head, tail: tail, prefix: prefix, serial_no: serial_no, watermark: watermark, print_process: print_process, commodity_attributes: {name: name, short_name: short_name, common_name: common_name, catalog_id: catalog_id, category: "bill", is_show: is_show, desc: desc})
               elsif !Commodity.find_by(no: no).blank?
-                Commodity.find_by(no: no).detail.update!(version: version, issue_at: issue_at, engrave_year: engrave_year, face_value: face_value, pack_spec: pack_spec, head: head, tail: tail, prefix: prefix, serial_no: serial_no, watermark: watermark, print_process: print_process, commodity_attributes: {name: name, short_name: short_name, common_name: common_name, catalog_id: catalog_id, category: "bill", is_show: is_show})
+                Commodity.find_by(no: no).detail.update!(version: version, issue_at: issue_at, engrave_year: engrave_year, face_value: face_value, pack_spec: pack_spec, head: head, tail: tail, prefix: prefix, serial_no: serial_no, watermark: watermark, print_process: print_process, commodity_attributes: {name: name, short_name: short_name, common_name: common_name, catalog_id: catalog_id, category: "bill", is_show: is_show, desc: desc})
               end
             end
 
@@ -285,7 +287,7 @@ class BillsController < ApplicationController
     blue = Spreadsheet::Format.new :color => :blue, :weight => :bold, :size => 10  
     sheet1.row(0).default_format = blue  
 
-    sheet1.row(0).concat %w{商品编码 商品名称 商品简称 商品俗称 商品目录 是否显示 版别 发行时间 版刻年号 面值 套系(包装规格) 正面 反面 字冠 字号 水印 印刷工艺}  
+    sheet1.row(0).concat %w{商品编码 商品名称 商品简称 商品俗称 商品目录 是否显示 版别 发行时间 版刻年号 面值 套系(包装规格) 正面 反面 字冠 字号 水印 印刷工艺 描述}  
     count_row = 1
     objs.each do |obj|
       sheet1[count_row,0] = obj.commodity.no
@@ -305,6 +307,7 @@ class BillsController < ApplicationController
       sheet1[count_row,14] = obj.serial_no
       sheet1[count_row,15] = obj.watermark
       sheet1[count_row,16] = obj.print_process
+      sheet1[count_row,17] = obj.commodity.try :desc
       
       count_row += 1
     end
@@ -497,7 +500,7 @@ class BillsController < ApplicationController
     end
 
     def bill_params
-      params[:bill].permit(:version, :issue_at, :engrave_year, :face_value, :pack_spec, :head, :tail, :prefix, :serial_no, :watermark, :print_process, commodity_attributes: [:id, :no, :name, :short_name, :common_name, :catalog_id, :category, :is_show, :pic_name])
+      params[:bill].permit(:version, :issue_at, :engrave_year, :face_value, :pack_spec, :head, :tail, :prefix, :serial_no, :watermark, :print_process, commodity_attributes: [:id, :no, :name, :short_name, :common_name, :catalog_id, :category, :is_show, :pic_name, :desc])
     end
 
     def upload_bill(file)

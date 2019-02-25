@@ -3,8 +3,8 @@ class FrontUsers::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
-    front_user = FrontUser.find_by(wechat_id: 'test')
-    front_user ||= FrontUser.create(wechat_id: 'test', head_url: 'nil')
+    front_user = FrontUser.find_by(open_id: 'test')
+    front_user ||= FrontUser.create(open_id: 'test', headimgurl: 'nil')
     sign_in front_user
     # binding.pry
     redirect_to '/front_users/'

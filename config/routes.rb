@@ -95,7 +95,6 @@ ShpostPostcard::Application.routes.draw do
       get 'sorting_edit'
       get 'sorting_collection'
       get 'list_normal_collection'
-
     end
   end
 
@@ -247,6 +246,12 @@ ShpostPostcard::Application.routes.draw do
     collection do
       post 'export'
       get 'collection_index'
+      get 'search'
+      get 'filter'
+    end
+    member do 
+      get 'destroy'
+      get 'update'
     end
   end
 

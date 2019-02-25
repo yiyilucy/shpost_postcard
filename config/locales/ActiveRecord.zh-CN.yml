@@ -393,6 +393,7 @@ zh-CN:
         category: "商品大类"
         is_show: "是否显示"
         pic_name: "主图片文件名"
+        desc: "描述"
       stamp:
         serial_no: "志号"
         format: "版式"
