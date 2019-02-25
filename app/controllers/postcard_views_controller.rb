@@ -7,11 +7,12 @@ class PostcardViewsController < ApplicationController
   end
 
   def list_tab
-    @stamp_catalogs = Catalog.select(:catalog_name).where(catalog_type: 'stamp').distinct.map{|x| x.catalog_name}
+    @stamp_catalogs = Catalog.where(catalog_type: 'stamp')
 
-    @coin_catalogs = Catalog.select(:catalog_name).where(catalog_type: 'coin').distinct.map{|x| x.catalog_name}
+    @coin_catalogs = Catalog.where(catalog_type: 'coin')
 
-    @bill_catalogs = Catalog.select(:catalog_name).where(catalog_type: 'bill').distinct.map{|x| x.catalog_name}
+    @bill_catalogs = Catalog.where(catalog_type: 'bill')
+    
     
     render layout: false
   end

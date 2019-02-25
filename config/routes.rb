@@ -107,8 +107,9 @@ ShpostPostcard::Application.routes.draw do
   resources :list_tabs do
     collection do
       get 'product'
-      get 'list_normal'
+      get 'list_normal', to: 'list_tabs#list_normal'
     end
+    
   end
    
 

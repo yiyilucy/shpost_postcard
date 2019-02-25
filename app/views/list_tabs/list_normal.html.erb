@@ -20,7 +20,7 @@
 					<h1 class="mui-title">普通列表</h1>
 				</header>
 				<div class="mui-bar mui-row filterBtn" style="background: #FFFFFF !important; top: 44px;">
-					<a id="offCanvasShow" href="#" style="position: absolute; width: 72%; z-index: 9999; height: 44px; line-height: 44px;" class="cml-aside" for="pk_operator">
+					<a id="offCanvasShow" href="#" style="position: absolute; left: 0; width: 72%; z-index: 9999; height: 44px; line-height: 44px;" class="cml-aside" for="pk_operator">
 						<span style="display: none;">显示侧面选项卡</span>
 					</a>
 					<div class="mui-input-row mui-search mui-col-xs-9">
@@ -33,12 +33,18 @@
 				
 				<div class="mui-content mui-row mui-fullscreen" style="height: 100% !important; overflow-y: auto !important;">
 					<div class="mui-col-xs-12 " style="padding-top: 44px;">
-						<h5>纪字邮票</h5>
+					<h5> <%=  @catalogs.catalog_name %>   </h5>
+				        
 						<ul class="mui-table-view">
+                           <% @commodities.each do |x| %>
 						    <li class="mui-table-view-cell">
-						        <a id="intro" class="mui-navigate-right" href="product.html"><span class="redMark">纪1</span>庆祝中国人民政治协商会议第一届全体会议</a>
+						        <a id="intro" class="mui-navigate-right" href="product.html"><span class="redMark">
+						         <%= x.no %></span>
+						         <%= x.name %>
+						        </a>	
 						    </li>
-						    <li class="mui-table-view-cell">
+						        <% end %>
+					<!-- 	    <li class="mui-table-view-cell">
 						        <a id="intro" class="mui-navigate-right"><span class="redMark">纪2</span>中国人民政治协商会议纪念</a>
 						    </li>
 						    <li class="mui-table-view-cell">
@@ -79,7 +85,7 @@
 						    </li>
 						    <li class="mui-table-view-cell">
 						        <a id="intro" class="mui-navigate-right"><span class="redMark">纪15</span>国际劳动节</a>
-						    </li>
+						    </li> -->
 						</ul>
 					</div>
 				</div>

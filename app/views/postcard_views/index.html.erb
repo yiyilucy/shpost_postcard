@@ -41,6 +41,11 @@
 				        <a href="<%= x.link%>"><img src="<%= x.import_file.try(:img_relative_path, false) %>" /></a>
 				      </div>
 				      <% end %>
+				      <if @banners = nil >
+				        <div class="mui-slider-item mui-slider-item-duplicate">
+				         <a href=""><img src="/assets/front_page/banner_1.jpg"/></a>
+				        </div>
+				      </if>
 					</div>
 					<div class="mui-slider-indicator">
 						<div class="mui-indicator mui-active"></div>
