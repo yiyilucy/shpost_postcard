@@ -143,7 +143,7 @@ class CollectionsController < ApplicationController
     @collection.desc = params[:desc]
 
     if @collection.save
-      redirect_to '/postcard_views/index'
+      redirect_to '/postcard_views/sorting'
     else
       redirect_to '/sortings/sorting_edit'
     end

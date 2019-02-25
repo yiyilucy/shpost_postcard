@@ -52,12 +52,12 @@
 								</div>
 							<!-- </a> -->
 							
-							<button type="button" class="listIconLeft mui-btn">
-								<%= link_to t('.destroy', :default => t("helpers.links.destroy")), "/collections/#{c.id}/destroy", :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'btn btn-xs btn-danger',:style=>"color:black" %>
-					        </button>
-							<button  type="button" class="listIconRight mui-btn">
-								<%= link_to t('.edit', :default => t("helpers.links.edit")), sorting_edit_sortings_path(c), :class => 'btn btn-xs btn-primary',:style=>"color:black" %>
-					        </button>
+							<!-- <button type="button" class="listIconLeft mui-btn"> -->
+								<%= link_to t('.destroy', :default => t("helpers.links.destroy")), "/collections/#{c.id}/destroy", :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'listIconLeft mui-btn btn btn-xs btn-danger',:style=>"color:black" %>
+					        <!-- </button> -->
+					        <!-- <button  type="button" class="listIconRight mui-btn"> -->
+								<%= link_to t('.edit', :default => t("helpers.links.edit")), sorting_edit_sortings_path(c), :class => 'listIconRight mui-btn btn btn-xs btn-primary',:style=>"color:black" %>
+					        <!-- </button> -->
 						</li>
 						<% end %>
 						<% end %>						
