@@ -6,7 +6,11 @@ class SortingsController < ApplicationController
 
   def product_sorting
     if !params[:format].blank?
-      @commodity = Collection.find(params[:format].to_i).commodity
+      if Collection.find_by(id: params[:format].to_i).blank?
+        @commodity = Commodity.find(params[:format].to_i)
+      else
+        @commodity = Collection.find(params[:format].to_i).commodity
+      end
     end
     render layout: false
   end

@@ -41,9 +41,9 @@
 							else
 								src = c.commodity.import_files.first.img_relative_path(true)
 							end
-						
-							name = c.commodity.name 
 						%>
+						<% name = c.commodity.name %>
+						
 						<li class="mui-table-view-cell mui-media">
 							<!-- <a class="mui-navigate-right paddingRight"> -->
 								<img class="mui-media-object mui-pull-left" src=<%=src %>>
