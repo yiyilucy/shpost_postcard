@@ -93,6 +93,7 @@ ShpostPostcard::Application.routes.draw do
     collection do
       get 'product_sorting'
       get 'sorting_edit'
+      get 'sorting_new'
       get 'sorting_collection'
       get 'list_normal_collection'
     end
@@ -247,12 +248,10 @@ ShpostPostcard::Application.routes.draw do
     collection do
       post 'export'
       get 'collection_index'
-      get 'search'
-      get 'filter'
+      post 'do_create'
     end
     member do 
       get 'destroy'
-      get 'update'
     end
   end
 
