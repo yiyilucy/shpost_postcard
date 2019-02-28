@@ -23,7 +23,6 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    binding.pry
     # respond_with(@collection)
   end
 
@@ -158,7 +157,7 @@ class CollectionsController < ApplicationController
   end
 
   def search
-    redirect_to sorting_postcard_views_path(params[:condition])
+    redirect_to sorting_postcard_views_path(params)
   end
 
   def filter
