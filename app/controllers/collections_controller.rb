@@ -156,14 +156,6 @@ class CollectionsController < ApplicationController
     redirect_to '/postcard_views/sorting' 
   end
 
-  def search
-    redirect_to sorting_postcard_views_path(params)
-  end
-
-  def filter
-    redirect_to sorting_postcard_views_path(params)
-  end
-
   
   private
     def set_collection
