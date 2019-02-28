@@ -36,19 +36,20 @@
 					<ul class="mui-table-view mui-table-view-chevron" style="padding-top: 30px; padding-bottom: 50px;">
 						<% @collections.each do |c| %>						
 						<% if !c.commodity.import_files.blank?
-							if !c.commodity.import_files.find_by(is_master: true).blank?
-								src = c.commodity.import_files.find_by(is_master: true).img_relative_path(true)
-							else
-								src = c.commodity.import_files.first.img_relative_path(true)
-							end
+								if !c.commodity.import_files.find_by(is_master: true).blank?
+									src = c.commodity.import_files.find_by(is_master: true).img_relative_path(true)
+								else
+									src = c.commodity.import_files.first.img_relative_path(true)
+								end
+						   end
+						   name = c.commodity.name 
 						%>
-						<% name = c.commodity.name %>
 						
 						<li class="mui-table-view-cell mui-media">
 							<!-- <a class="mui-navigate-right paddingRight"> -->
 								<img class="mui-media-object mui-pull-left" src=<%=src %>>
 								<div class="mui-media-body">
-									<p class='mui-ellipsis'><%= link_to(name, product_sorting_sortings_path(c.id),:style=>"color:black") %></p>
+									<p class='mui-table-view-cell'><%= link_to(name, product_sorting_sortings_path(c.id),:style=>"color:black") %></p>
 								</div>
 							<!-- </a> -->
 							
@@ -59,13 +60,12 @@
 								<%= link_to t('.edit', :default => t("helpers.links.edit")), sorting_edit_sortings_path(c), :class => 'listIconRight mui-btn btn btn-xs btn-primary',:style=>"color:black" %>
 					        <!-- </button> -->
 						</li>
-						<% end %>
 						<% end %>						
 					</ul>
 				</div>
 
 				<nav class="mui-bar bottomBtn">
-					<button type="button" onclick="window.open('list-tab-popin.html','_self')" class="mui-btn mui-btn-danger">
+					<button type="button" onclick="window.open('list_tab.html','_self')" class="mui-btn mui-btn-danger">
 						新增藏品
 					</button>
 					<button type="button" onclick="window.open('sorting-collection.html','_self')" class="mui-btn mui-btn-warning">
@@ -80,12 +80,12 @@
 			<aside id='aside' class='mui-off-canvas-right'>
 				<button id="offCanvasHide" type="button" class="mui-btn mui-btn-danger mui-btn-block popinBtnClose" style="z-index: 9; top: 44px;">关闭侧滑菜单</button>
 				<div class='mui-scroll-wrapper'>
-					<%= form_tag('/collections/search', name: 'form1', method: 'get') %>
-					<%= hidden_field_tag('search_scope','current') %>
+					<%= form_tag('/postcard_views/sorting', name: 'form1', method: 'get') %>
 					<div id='pk_operator_content' for='pk_operator' class='aside_content'>
+						<%= hidden_field_tag('search_scope','current') %>
 						<div class="mui-bar mui-row" style="position: fixed !important; top: 0 !important;  z-index: 10 !important;">
 							<div class="mui-input-row mui-search mui-col-xs-9">
-				    				<input id="condition" name="condition" type="search" class="mui-input-clear" placeholder="搜索志号、名称、俗称等信息">
+				    				<input id="name" name="name" type="search" class="mui-input-clear" placeholder="搜索志号、名称、简称、俗称等信息">
 							</div>
 							<div class="mui-col-xs-3 filterBtn">
 								<button type="submit" class="mui-btn mui-btn-danger mui-btn-outlined">
@@ -106,8 +106,7 @@
 							</div>
 						</div>
 					</div>
-					</form>
-					<%= form_tag('/collections/filter', name: 'form2', method: 'get') %>
+
 					<div id='pk_loginway_content' for='pk_loginway' class='aside_content'>
 						<div class='mui-scroll'>
 							<div class="content" style="background: #fff;">
@@ -299,7 +298,7 @@
 
 			document.getElementById('current').addEventListener('tap',function(){  
 				document.getElementById('search_scope').value = document.getElementById('current').getAttribute("id");
-			});  
+			});
 
 			document.getElementById('all').addEventListener('tap',function(){  
 				document.getElementById('search_scope').value = document.getElementById('all').getAttribute("id");

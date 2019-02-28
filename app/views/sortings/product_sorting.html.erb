@@ -21,6 +21,7 @@
 		<% imgs = @commodity.import_files %>
 		<% i = imgs.size %>
 		<div class="mui-content mui-fullscreen">
+			<% if i>0 %>
 			<div class="mui-slider productImg" style="max-height: 300px;">
 				<div class="mui-slider-group mui-slider-loop">
 					<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src=<%= imgs.last.img_relative_path(true) %> /></a></div>
@@ -37,7 +38,7 @@
 					<% end %>
 				</div>
 			</div>
-			
+			<% end %>
 			<div class="mui-card">
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell">
@@ -117,7 +118,7 @@
 						<label class="rowTitle">名称</label><p class="rowContent"><%= @commodity.name %></p>
 					</li>
 					<li class="mui-table-view-cell">
-						<label class="rowTitle">当前价格</label><p class="rowContent"><%= number_with_precision(@commodity.prices.last.price, precision: 2) %></p>
+						<label class="rowTitle">当前价格</label><p class="rowContent"><%= number_with_precision(@commodity.prices.blank? ? 0 : @commodity.prices.last.price, precision: 2) %></p>
 					</li>
 					<li class="mui-table-view-cell">
 						<label class="rowTitle">设计者</label><p class="rowContent"><%= @commodity.detail.designer %></p>

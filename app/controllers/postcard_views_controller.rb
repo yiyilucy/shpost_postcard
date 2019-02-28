@@ -42,117 +42,123 @@ class PostcardViewsController < ApplicationController
   # end
 
   def sorting
-    # binding.pry
-    @collections = Collection.where(front_user_id: current_front_user).order(created_at: :desc)
+    collections = Collection.where(front_user_id: current_front_user).order(created_at: :desc)
     @checked_fileds = []
-    search_scope = params[:search_scope]
     result = nil
+    search_scope = params[:search_scope]
 
     # from serach
-    if !params[:format].blank?
-      if !(result = @collections.joins(:commodity).where("commodities.name like ? or commodities.common_name like ?", "%#{params[:format]}%", "%#{params[:format]}%")).blank?
-        @collections = result
-      end
+
+    if !params[:name].blank?
+      collections_with_name = collections.joins(:commodity).where("commodities.name like ? or commodities.short_name like ? or commodities.common_name like ?", "%#{params[:name]}%", "%#{params[:name]}%", "%#{params[:name]}%")
+
+      @stamp_collections = collections.joins(:commodity).joins_stamp.where("commodities.name like ? or commodities.short_name like ? or commodities.common_name like ? or stamps.serial_no like ?", "%#{params[:name]}%", "%#{params[:name]}%", "%#{params[:name]}%", "%#{params[:name]}%")
+
+      @coin_collections = collections_with_name.joins_coin
+
+      @bill_collections = collections_with_name.joins_bill
+    else
+      @stamp_collections = collections.joins_stamp
+      @coin_collections = collections.joins_coin
+      @bill_collections = collections.joins_bill
     end
 
     # from filter
-    stamp_collections = @collections.joins_stamp
-    coin_collections = @collections.joins_coin
-    bill_collections = @collections.joins_bill
+    if !search_scope.eql?"all"
+      if !params[:stamp_format].blank? or !params[:stamp_theme].blank? or !params[:coin_theme].blank? or !params[:coin_material].blank? or !params[:coin_weight].blank? or !params[:coin_year].blank? or !params[:coin_face_value].blank? or !params[:coin_pack_spec].blank? or !params[:bill_version].blank? or !params[:bill_engrave_year].blank? or !params[:bill_face_value].blank? or !params[:bill_pack_spec].blank? or !params[:bill_prefix].blank? or !params[:bill_serial_no].blank? or !params[:bill_watermark].blank?
+        if !params[:stamp_format].blank? or !params[:stamp_theme].blank?
+          if !params[:stamp_format].blank?
+            @checked_fileds += params[:stamp_format]
+            @stamp_collections = @stamp_collections.with_stamp_format(params[:stamp_format]) if ! @stamp_collections.blank?
+          end
+
+          if !params[:stamp_theme].blank?
+            @checked_fileds += params[:stamp_theme]
+            @stamp_collections = @stamp_collections.with_stamp_theme(params[:stamp_theme]) if ! @stamp_collections.blank?
+          end
+        else
+          @stamp_collections = []
+        end
+        
+        if !params[:coin_theme].blank? or !params[:coin_material].blank? or !params[:coin_weight].blank? or !params[:coin_year].blank? or !params[:coin_face_value].blank? or !params[:coin_pack_spec].blank?
+          if !params[:coin_theme].blank?
+            @checked_fileds += params[:coin_theme]
+            @coin_collections = @coin_collections.with_coin_theme(params[:coin_theme]) if ! @coin_collections.blank?
+          end
+
+          if !params[:coin_material].blank?
+            @checked_fileds += params[:coin_material]
+            @coin_collections = @coin_collections.with_coin_material(params[:coin_material]) if ! @coin_collections.blank?
+          end
+
+          if !params[:coin_weight].blank?
+            @checked_fileds += params[:coin_weight]
+            @coin_collections = @coin_collections.with_coin_weight(params[:coin_weight]) if ! @coin_collections.blank?
+          end
+
+          if !params[:coin_year].blank?
+            @checked_fileds += params[:coin_year]
+            @coin_collections = @coin_collections.with_coin_year(params[:coin_year]) if ! @coin_collections.blank?
+          end
+
+          if !params[:coin_face_value].blank?
+            @checked_fileds += params[:coin_face_value]
+             @coin_collections = @coin_collections.with_coin_face_value(params[:coin_face_value]) if ! @coin_collections.blank?
+          end
+
+          if !params[:coin_pack_spec].blank?
+            @checked_fileds += params[:coin_pack_spec]
+            @coin_collections = @coin_collections.with_coin_pack_spec(params[:coin_pack_spec]) if ! @coin_collections.blank?
+          end
+        else
+          @coin_collections = []
+        end
+     
+        if !params[:bill_version].blank? or !params[:bill_engrave_year].blank? or !params[:bill_face_value].blank? or !params[:bill_pack_spec].blank? or !params[:bill_prefix].blank? or !params[:bill_serial_no].blank? or !params[:bill_watermark].blank?
+          if !params[:bill_version].blank?
+            @checked_fileds += params[:bill_version]
+            @bill_collections = @bill_collections.with_bill_version(params[:bill_version]) if ! @bill_collections.blank?
+          end
+
+          if !params[:bill_engrave_year].blank?
+            @checked_fileds += params[:bill_engrave_year]
+            @bill_collections = @bill_collections.with_bill_engrave_year(params[:bill_engrave_year]) if ! @bill_collections.blank?
+          end
+
+          if !params[:bill_face_value].blank?
+            @checked_fileds += params[:bill_face_value]
+            @bill_collections = @bill_collections.with_bill_face_value(params[:bill_face_value]) if ! @bill_collections.blank?
+          end
+
+          if !params[:bill_pack_spec].blank?
+            @checked_fileds += params[:bill_pack_spec]
+            @bill_collections = @bill_collections.with_bill_pack_spec(params[:bill_pack_spec]) if ! @bill_collections.blank?
+          end
+
+          if !params[:bill_prefix].blank?
+            @checked_fileds += params[:bill_prefix]
+            @bill_collections = @bill_collections.with_bill_prefix(params[:bill_prefix]) if ! @bill_collections.blank?
+          end
+
+          if !params[:bill_serial_no].blank?
+            @checked_fileds += params[:bill_serial_no]
+            @bill_collections = @bill_collections.with_bill_serial_no(params[:bill_serial_no]) if ! @bill_collections.blank?
+          end
+
+          if !params[:bill_watermark].blank?
+            @checked_fileds += params[:bill_watermark]
+            @bill_collections = @bill_collections.with_bill_watermark(params[:bill_watermark]) if ! @bill_collections.blank?
+          end
+        else
+          @bill_collections = []
+        end
+      end
+    end
     
-    if params[:stamp_format] or params[:stamp_theme] or (!params[:format].blank? and result.blank?)
-      if !params[:stamp_format].blank?
-        @checked_fileds += params[:stamp_format]
-        stamp_collections = stamp_collections.with_stamp_format(params[:stamp_format])
-      end
-
-      if !params[:stamp_theme].blank?
-        @checked_fileds += params[:stamp_theme]
-        stamp_collections = stamp_collections.with_stamp_theme(params[:stamp_theme])
-      end
-
-      if !params[:format].blank? and result.blank?
-        stamp_collections = stamp_collections.with_stamp_serial_no(params[:format])
-      end
-    else 
-      stamp_collections = []
-    end
-
-    if params[:coin_theme] or params[:coin_material] or params[:coin_weight] or params[:coin_year] or params[:coin_face_value] or params[:coin_pack_spec]
-      if !params[:coin_theme].blank?
-        @checked_fileds += params[:coin_theme]
-        coin_collections = coin_collections.with_coin_theme(params[:coin_theme])
-      end
-
-      if !params[:coin_material].blank?
-        @checked_fileds += params[:coin_material]
-        coin_collections = coin_collections.with_coin_material(params[:coin_material])
-      end
-
-      if !params[:coin_weight].blank?
-        @checked_fileds += params[:coin_weight]
-        coin_collections = coin_collections.with_coin_weight(params[:coin_weight])
-      end
-
-      if !params[:coin_year].blank?
-        @checked_fileds += params[:coin_year]
-        coin_collections = coin_collections.with_coin_year(params[:coin_year])
-      end
-
-      if !params[:coin_face_value].blank?
-        @checked_fileds += params[:coin_face_value]
-         coin_collections = coin_collections.with_coin_face_value(params[:coin_face_value])
-      end
-
-      if !params[:coin_pack_spec].blank?
-        @checked_fileds += params[:coin_pack_spec]
-        coin_collections = coin_collections.with_coin_pack_spec(params[:coin_pack_spec])
-      end
+    if !@stamp_collections.blank? or !@coin_collections.blank? or !@bill_collections.blank?
+      @collections = @stamp_collections + @coin_collections + @bill_collections      
     else
-      coin_collections = []
-    end
-
-    if params[:bill_version] or params[:bill_engrave_year] or params[:bill_face_value] or params[:bill_pack_spec] or params[:bill_prefix] or params[:bill_serial_no] or params[:bill_watermark]
-      if !params[:bill_version].blank?
-        @checked_fileds += params[:bill_version]
-        bill_collections = bill_collections.with_bill_version(params[:bill_version])
-      end
-
-      if !params[:bill_engrave_year].blank?
-        @checked_fileds += params[:bill_engrave_year]
-        bill_collections = bill_collections.with_bill_engrave_year(params[:bill_engrave_year])
-      end
-
-      if !params[:bill_face_value].blank?
-        @checked_fileds += params[:bill_face_value]
-        bill_collections = bill_collections.with_bill_face_value(params[:bill_face_value])
-      end
-
-      if !params[:bill_pack_spec].blank?
-        @checked_fileds += params[:bill_pack_spec]
-        bill_collections = bill_collections.with_bill_pack_spec(params[:bill_pack_spec])
-      end
-
-      if !params[:bill_prefix].blank?
-        @checked_fileds += params[:bill_prefix]
-        bill_collections = bill_collections.with_bill_prefix(params[:bill_prefix])
-      end
-
-      if !params[:bill_serial_no].blank?
-        @checked_fileds += params[:bill_serial_no]
-        bill_collections = bill_collections.with_bill_serial_no(params[:bill_serial_no])
-      end
-
-      if !params[:bill_watermark].blank?
-        @checked_fileds += params[:bill_watermark]
-        bill_collections = bill_collections.with_bill_watermark(params[:bill_watermark])
-      end
-    else 
-      bill_collections = []
-    end
-
-    if !stamp_collections.blank? and !coin_collections.blank? and !bill_collections.blank?
-      @collections = stamp_collections + coin_collections + bill_collections      
+      @collections = []
     end
 
     @stamp_formats = DicTitle.find_by(category: "stamp", db_field: "format").blank? ? nil : DicTitle.find_by(category: "stamp", db_field: "format").dic_contents
@@ -170,6 +176,7 @@ class PostcardViewsController < ApplicationController
     @bill_prefixs = DicTitle.find_by(category: "bill", db_field: "prefix").blank? ? nil : DicTitle.find_by(category: "bill", db_field: "prefix").dic_contents
     @bill_serial_nos = DicTitle.find_by(category: "bill", db_field: "serial_no").blank? ? nil : DicTitle.find_by(category: "bill", db_field: "serial_no").dic_contents
     @bill_watermarks = DicTitle.find_by(category: "bill", db_field: "watermark").blank? ? nil : DicTitle.find_by(category: "bill", db_field: "watermark").dic_contents
+
     render layout: false
   end
 
