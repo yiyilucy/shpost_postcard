@@ -9,8 +9,11 @@ class SortingsController < ApplicationController
       if !params[:is_collect].blank? and params[:is_collect].eql?"true"
         @commodity = Collection.find(params[:format].to_i).commodity
       else
-        @commodity = Commodity.find(params[:format].to_i)       
-      end
+        @commodity = Follow.find(params[:format].to_i).commodity       
+      end  
+      if !Follow.find_by(id: params[:format].to_i).blank?
+        @follows = Follow.find(params[:format].to_i).commodity
+      end  
     end
     render layout: false
   end
