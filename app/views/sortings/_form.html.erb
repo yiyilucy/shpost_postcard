@@ -1,0 +1,24 @@
+<div class="mui-input-group" style="margin-top: 15px;" enctype="multipart/form-data">
+	<%= form_tag("#{@path}", method: "#{@method}")%>
+		<!-- <input name="_method" type="hidden" value="patch" /> -->
+		<input name="commodity_id" type="hidden" value=<%=@commodity.blank? ? nil : @commodity.id%> />
+		<div class="mui-input-row">
+			<label>数量</label>
+			<input id="amount" name="amount" type="text" class="mui-input-clear" placeholder="输入藏品数量" style="height:40px;line-height:40px" value = <%=@collection.try :amount %>>
+		</div>
+		<div class="mui-input-row">
+			<label>成本</label>
+			<input id="cost" name="cost" type="text" class="mui-input-clear" placeholder="输入藏品成本" style="height:40px;line-height:40px" value = <%=number_with_precision(@collection.try(:cost), precision: 2) %>>
+		</div>
+		<div class="mui-input-row">
+			<label>备注</label>
+		</div>
+		<div class="mui-input-row" style="height: 150px;">
+			<textarea name="desc" rows="5" placeholder="请输入备注内容"><%=@collection.try :desc %></textarea>
+		</div>
+</div>
+		<div class="mui-button-row editBtn">
+			<button type="submit" class="mui-btn mui-btn-danger" >确定</button>
+			<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" onclick="window.open('/postcard_views/sorting')">取消</button>
+		</div>
+	</form>		

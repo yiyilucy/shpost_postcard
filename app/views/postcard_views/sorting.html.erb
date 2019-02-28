@@ -49,12 +49,12 @@
 							<!-- <a class="mui-navigate-right paddingRight"> -->
 								<img class="mui-media-object mui-pull-left" src=<%=src %>>
 								<div class="mui-media-body">
-									<p class='mui-table-view-cell'><%= link_to(name, product_sorting_sortings_path(c.id),:style=>"color:black") %></p>
+									<p class='mui-table-view-cell'><%= link_to(name, "/sortings/product_sorting?format=#{c.id}&&is_collect=#{true}",:style=>"color:black") %></p>
 								</div>
 							<!-- </a> -->
 							
 							<!-- <button type="button" class="listIconLeft mui-btn"> -->
-								<%= link_to t('.destroy', :default => t("helpers.links.destroy")), "/collections/#{c.id}/destroy", :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'listIconLeft mui-btn btn btn-xs btn-danger',:style=>"color:black" %>
+								<%= link_to t('.destroy', :default => t("helpers.links.destroy")), collection_path(c), :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'listIconLeft mui-btn btn btn-xs btn-danger',:style=>"color:black" %>
 					        <!-- </button> -->
 					        <!-- <button  type="button" class="listIconRight mui-btn"> -->
 								<%= link_to t('.edit', :default => t("helpers.links.edit")), sorting_edit_sortings_path(c), :class => 'listIconRight mui-btn btn btn-xs btn-primary',:style=>"color:black" %>

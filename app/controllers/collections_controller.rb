@@ -34,12 +34,7 @@ class CollectionsController < ApplicationController
   def edit
   end
 
-  def create
-    # @collection = Collection.new(collection_params)
-    # @collection.save
-    # respond_with(@collection)
-  end
-
+  
   
 
   def export
@@ -155,6 +150,27 @@ class CollectionsController < ApplicationController
     
     redirect_to '/postcard_views/sorting' 
   end
+
+  def do_create
+    # binding.pry
+    if !params[:commodity_id].blank? and !Commodity.find(params[:commodity_id].to_i).blank?
+      commodity = Commodity.find(params[:commodity_id].to_i)
+      front_user = current_front_user
+      amount = params[:amount].to_i
+      cost = params[:cost].to_f
+      desc = params[:desc]
+
+      respond_to do |format|
+        if Collection.create!(commodity: commodity, front_user: front_user, amount: amount, cost: cost, desc: desc)
+          format.html { redirect_to '/postcard_views/sorting', notice: I18n.t('controller.create_success_notice', model: '藏品添加') }
+        else
+          format.html { redirect_to '/sortings/sorting_new' }
+          format.json { render json: @collection.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+  end
+
 
   
   private

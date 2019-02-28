@@ -6,18 +6,34 @@ class SortingsController < ApplicationController
 
   def product_sorting
     if !params[:format].blank?
-      if Collection.find_by(id: params[:format].to_i).blank?
-        @commodity = Commodity.find(params[:format].to_i)
-      else
+      if !params[:is_collect].blank? and params[:is_collect].eql?"true"
         @commodity = Collection.find(params[:format].to_i).commodity
+      else
+        @commodity = Commodity.find(params[:format].to_i)       
       end
     end
     render layout: false
   end
 
+  def sorting_new
+    @path = "/collections/do_create"
+    @method = "post"
+    @commodity = Commodity.last
+    
+
+    if !params[:format].blank?
+      @commodity = Commodity.find(params[:format].to_i)
+    end
+    render layout: false
+  end
+
   def sorting_edit
+    @path = ""
+    @method = "patch"
+
     if !params[:format].blank?
       @collection = Collection.find(params[:format].to_i)
+      @path = "/collections/#{@collection.id}"
     end
     render layout: false
   end

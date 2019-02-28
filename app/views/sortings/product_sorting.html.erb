@@ -82,7 +82,7 @@
 						<label class="rowTitle">名称</label><p class="rowContent"><%= @commodity.name %></p>
 					</li>
 					<li class="mui-table-view-cell">
-						<label class="rowTitle">当前价格</label><p class="rowContent"><%= number_with_precision(@commodity.prices.blank? ? 0 : @commodity.prices.last.price, precision: 2) %></p>
+						<label class="rowTitle">当前价格</label><p class="rowContent"><%= number_with_precision(@commodity.prices.blank? ? nil : @commodity.prices.last.price, precision: 2) %></p>
 					</li>
 					<li class="mui-table-view-cell">
 						<label class="rowTitle">设计者</label><p class="rowContent"><%= @commodity.detail.designer %></p>
@@ -137,7 +137,7 @@
 						<label class="rowTitle">名称</label><p class="rowContent"><%= @commodity.name %></p>
 					</li>
 					<li class="mui-table-view-cell">
-						<label class="rowTitle">当前价格</label><p class="rowContent"><%= number_with_precision(@commodity.prices.last.price, precision: 2) %></p>
+						<label class="rowTitle">当前价格</label><p class="rowContent"><%= number_with_precision(@commodity.prices.blank? ? nil : @commodity.prices.last.price, precision: 2) %></p>
 					</li>
 					<li class="mui-table-view-cell">
 						<label class="rowTitle">题材</label><p class="rowContent"><%= @commodity.detail.theme %></p>
@@ -189,7 +189,7 @@
 						<label class="rowTitle">名称</label><p class="rowContent"><%= @commodity.name %></p>
 					</li>
 					<li class="mui-table-view-cell">
-						<label class="rowTitle">当前价格</label><p class="rowContent"><%= number_with_precision(@commodity.prices.last.price, precision: 2) %></p>
+						<label class="rowTitle">当前价格</label><p class="rowContent"><%= number_with_precision(@commodity.prices.blank? ? nil : @commodity.prices.last.price, precision: 2) %></p>
 					</li>	
 					<li class="mui-table-view-cell">
 						<label class="rowTitle">版别</label><p class="rowContent"><%= @commodity.detail.version %></p>
