@@ -38,12 +38,14 @@
 						<ul class="mui-table-view">
                            <% @commodities.each do |x| %>
 						    <li class="mui-table-view-cell">
-						        <a id="intro" class="mui-navigate-right" href="product.html"><span class="redMark">
-						         <%= x.no %></span>
-						         <%= x.name %>
-						        </a>	
+						   		<%= link_to(product_sorting_sortings_path(x.id), class: "mui-navigate-right")  do%>
+						        <!-- <a id="intro" class="mui-navigate-right" > -->
+						        <span class="redMark"><%= x.no%></span>
+						        <span><%= x.name %></span>
+						        <!-- </a>	 -->
+						       	<% end %>
 						    </li>
-						        <% end %>
+						    <% end %>
 					<!-- 	    <li class="mui-table-view-cell">
 						        <a id="intro" class="mui-navigate-right"><span class="redMark">纪2</span>中国人民政治协商会议纪念</a>
 						    </li>

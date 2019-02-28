@@ -182,6 +182,7 @@ class PostcardViewsController < ApplicationController
   # end
 
   def follow
+    @follows = Follow.where(front_user_id: current_front_user).order(created_at: :desc)
     render layout: false
   end
 

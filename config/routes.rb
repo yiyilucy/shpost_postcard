@@ -101,6 +101,7 @@ ShpostPostcard::Application.routes.draw do
   resources :follows do
     collection do
       get 'product_follow'
+      
     end
   end
 

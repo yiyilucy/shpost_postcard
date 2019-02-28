@@ -43,6 +43,7 @@
 					<li class="mui-table-view-cell">
 						<label class="rowTitle">名称</label><p class="rowContent"><%= @commodity.name %></p>
 					</li>
+					
 					<% if !(collection = @commodity.get_collection(current_front_user)).blank? %>
 					<li class="mui-table-view-cell">
 						<label class="rowTitle">库存数量</label><p class="rowContent"><%= collection.try :amount %>枚</p>
@@ -57,6 +58,41 @@
 				</ul>
 			</div>
 			
+			<div class="mui-card">
+			    <% if @follows.blank? %>
+			    
+
+
+			    <%= form_tag("/follows/", name: "form1", method: "post") %>
+			    <input name="commodity_id" value=<%=@commodity.id%> type="hidden" /> 
+			    <button type="submit" class= "productBtn mui-btn mui-btn-danger mui-btn-block mui-btn-outlined" style="width: 50%; float: left; border-radius: 0; background-color: #ff4040;">
+
+				<!-- <a href="/postcard_views/follows/" type="button" value="post" class="productBtn mui-btn mui-btn-danger mui-btn-block" style="width: 50%; float: left; border-radius: 0;"> -->
+				<span class="mui-icon iconfont icon-guanzhu3" style="font-size: 16px; color: white">关注藏品</span> 
+				</button>
+				</form>
+				<% else %>
+                
+				<%= form_tag("/follows/#{@follows.id}", name: "form2", method: "delete") %>
+			    <input name="commodity_id" value=<%=@commodity.id%> type="hidden" /> 
+			    <button type="submit" class= "productBtn mui-btn mui-btn-danger mui-btn-block mui-btn-outlined" style="width: 50%; float: left; border-radius: 0; background-color: #ff4040;">
+
+				<!-- <a href="/postcard_views/follows/" type="button" value="post" class="productBtn mui-btn mui-btn-danger mui-btn-block" style="width: 50%; float: left; border-radius: 0;"> -->
+				<span class="mui-icon iconfont icon-guanzhu3" style="font-size: 16px; color: white">取消关注</span> 
+				</button>
+				</form>	
+			    <% end %>
+				<!-- </a> -->
+				<%= link_to(sorting_edit_sortings_path,  method: "post", type: "button", class: "productBtn mui-btn mui-btn-danger mui-btn-block mui-btn-outlined" , style: "width: 50%; float: left; border-radius: 0;") do%> 
+				<!-- <a href="/sortings/sorting_edit" type="button" class="productBtn mui-btn mui-btn-danger mui-btn-block mui-btn-outlined" style="width: 50%; float: left; border-radius: 0;"> -->
+				<span class="mui-icon iconfont icon-zhengli2" style="font-size: 18px;"></span> 添加藏品
+				
+				<% end %>
+				
+				<!-- </a> -->
+			</div>
+
+
 			<div class="mui-card">
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell mui-collapse">
