@@ -25,7 +25,7 @@
 						<span style="display: none;">显示侧面选项卡</span>
 					</a>
 					<div class="mui-input-row mui-search mui-col-xs-9">
-						<input type="search" class="mui-input-clear" placeholder="搜索志号、名称、俗称等信息">
+						<input type="search" class="mui-input-clear" placeholder="搜索志号、名称、简称、俗称等信息">
 					</div>
 					<div class="mui-col-xs-3">
 						<div class="mui-btn mui-btn-danger mui-btn-outlined cml-aside filterBtnA" for="pk_loginway">筛选</div>
@@ -48,13 +48,7 @@
 							<!-- <a class="mui-navigate-right paddingRight"> -->
 								<img class="mui-media-object mui-pull-left" src=<%= src %>>
 								<div class="mui-media-body">
-								<p class='mui-ellipsis' >
-								
-								    <%= link_to("/sortings/product_sorting?format=#{c.id}&&is_follow=#{true}") do%>
-								   <span style="color: black"><%= name %></span>
-								    <% end %>	
-								  
-								</p>
+								<p class='mui-ellipsis' ><%= link_to(name, "/sortings/product_sorting?format=#{c.id}&&is_collect=#{true}",:style=>"color:black") %></p>
 									<!-- <p class='mui-ellipsis'><%= link_to(name, product_sorting_sortings_path(c.id),:style=>"color:black") %></p> -->
 								</div>
 							<!-- </a> -->
@@ -74,13 +68,17 @@
 			<aside id='aside' class='mui-off-canvas-right'>
 				<button id="offCanvasHide" type="button" class="mui-btn mui-btn-danger mui-btn-block popinBtnClose" style="z-index: 9; top: 44px;">关闭侧滑菜单</button>
 				<div class='mui-scroll-wrapper'>
+				    <%= form_tag('/postcard_views/follow', name: 'form1', method: 'get') %>
 					<div id='pk_operator_content' for='pk_operator' class='aside_content'>
+					    <%= hidden_field_tag('search_scope','current') %>
 						<div class="mui-bar mui-row" style="position: fixed !important; top: 0 !important;  z-index: 10 !important;">
 							<div class="mui-input-row mui-search mui-col-xs-9">
-				    				<input type="search" class="mui-input-clear" placeholder="搜索志号、名称、俗称等信息">
+				    				<input id="name" name="name" type="search" class="mui-input-clear" placeholder="搜索志号、名称、简称、俗称等信息">
 							</div>
 							<div class="mui-col-xs-3 filterBtn">
-								<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">搜索</button> 	
+								<button type="submit" class="mui-btn mui-btn-danger mui-btn-outlined">
+									搜索
+								</button>
 							</div>
 						</div>
 						<div class='mui-scroll'>
@@ -99,7 +97,7 @@
 					<div id='pk_loginway_content' for='pk_loginway' class='aside_content'>
 						<div class='mui-scroll'>
 							<div class="content" style="background: #fff;">
-								<button type="button" class="mui-btn mui-btn-danger mui-btn-block submitBtn">确定</button>
+								<button type="submit" class="mui-btn mui-btn-danger mui-btn-block submitBtn">确定</button>
 								<div style="padding: 0px 10px;">
 									<div class="mui-segmented-control mui-segmented-control-inverted">
 										<a class="mui-control-item mui-active" href="#item1">邮票</a>
