@@ -28,8 +28,8 @@ class SortingsController < ApplicationController
   def sorting_new
     @path = "/collections/do_create"
     @method = "post"
-    @commodity = Commodity.last
-    
+    @commodity = nil
+    # binding.pry
 
     if !params[:format].blank?
       @commodity = Commodity.find(params[:format].to_i)
