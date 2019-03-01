@@ -1,6 +1,7 @@
 class Collection < ActiveRecord::Base
 	belongs_to :commodity
 	belongs_to :front_user
+	
 
 	def current_profit
 		if !self.commodity.prices.blank?

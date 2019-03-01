@@ -38,7 +38,8 @@
 						<ul class="mui-table-view">
                            <% @commodities.each do |x| %>
 						    <li class="mui-table-view-cell">
-						   		<%= link_to(product_sorting_sortings_path(x.id), class: "mui-navigate-right")  do%>
+						   
+						   		<%= link_to("/sortings/product_sorting?format=#{x.id}&&is_list=#{true}", class: "mui-navigate-right")  do%>
 						        <!-- <a id="intro" class="mui-navigate-right" > -->
 						        <span class="redMark"><%= x.no%></span>
 						        <span><%= x.name %></span>
