@@ -17,15 +17,15 @@
 			<h1 class="mui-title">邮币助手</h1>
 		</header>
 		<nav class="mui-bar mui-bar-tab">
-			<a class="mui-tab-item mui-active" href="#tabbar-with-index">
+			<a id ="intro" class="mui-tab-item mui-active" href="#tabbar-with-index">
 				<span class="mui-icon mui-icon-home"></span>
 				<span class="mui-tab-label">首页</span>
 			</a>
-			<a class="mui-tab-item" href="#tabbar-with-syh">
+			<a id ="intro" class="mui-tab-item" href="#tabbar-with-syh">
 				<span class="mui-icon iconfont icon-syh"></span>
 		    	<span class="mui-tab-label">上邮汇</span>
 			</a>
-			<a class="mui-tab-item" href="#tabbar-with-setting">
+			<a id ="intro" class="mui-tab-item" href="#tabbar-with-setting">
 				<span class="mui-icon mui-icon-contact"></span>
 		    	<span class="mui-tab-label">我的</span>
 			</a>
@@ -41,11 +41,11 @@
 				        <a href="<%= x.link%>"><img src="<%= x.import_file.try(:img_relative_path, false) %>" /></a>
 				      </div>
 				      <% end %>
-				      <if @banners = nil >
+				      <%if @banners.blank? %>
 				        <div class="mui-slider-item mui-slider-item-duplicate">
 				         <a href=""><img src="/assets/front_page/banner_1.jpg"/></a>
 				        </div>
-				      </if>
+				      <% end %>
 					</div>
 					<div class="mui-slider-indicator">
 						<div class="mui-indicator mui-active"></div>

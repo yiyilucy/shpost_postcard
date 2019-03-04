@@ -18,6 +18,9 @@ class SortingsController < ApplicationController
         @commodity = Commodity.find(params[:format].to_i)
       end  
       @follows = Follow.find_by(front_user_id: current_front_user, commodity_id: @commodity.id) if !@commodity.blank?
+      @collections = Collection.find_by(front_user_id: current_front_user, commodity_id: @commodity.id) if !@commodity.blank?
+      
+      
       # if !Follow.find_by(id: params[:format].to_i).blank?
       #   @follows = Follow.find(params[:format].to_i).commodity
       # end  
