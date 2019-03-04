@@ -7,7 +7,7 @@ class SortingsController < ApplicationController
   def product_sorting
     if !params[:format].blank?
       if !params[:is_collect].blank? and params[:is_collect].eql?"true"
-        @commodity = Collection.find(params[:format].to_i).commodity
+        @commodity = Collection.find_by(id: params[:format].to_i).commodity
       end
       if !params[:is_list].blank? and params[:is_list].eql?"true"
         @commodity = Commodity.find(params[:format].to_i)
