@@ -31,16 +31,17 @@
 						<div class="mui-btn mui-btn-danger mui-btn-outlined cml-aside filterBtnA" for="pk_loginway">筛选</div>
 					</div>
 				</div>
-				
+		
 				<div class="mui-content mui-row mui-fullscreen" style="height: 100% !important; overflow-y: auto;">
 					<div style="padding-top: 44px;">
 						<ul class="mui-table-view mui-table-view-chevron" style="padding-top: 30px; padding-bottom: 50px;">
 						<% @follows.each do |c| %>						
-						<% if !c.commodity.import_files.blank?
-							if !c.commodity.import_files.find_by(is_master: true).blank?
-								src = c.commodity.import_files.find_by(is_master: true).img_relative_path(true)
-							else
-								src = c.commodity.import_files.first.img_relative_path(true)
+						<%  if !c.commodity.import_files.blank?
+								if !c.commodity.import_files.find_by(is_master: true).blank?
+									src = c.commodity.import_files.find_by(is_master: true).img_relative_path(true)
+								else
+									src = c.commodity.import_files.first.img_relative_path(true)
+								end
 							end
 						%>
 						   <%name = c.commodity.name %>
@@ -53,7 +54,6 @@
 								</div>
 							<!-- </a> -->
 						</li>
-						<% end %>
 						<% end %>				
 						</ul>
 					</div>

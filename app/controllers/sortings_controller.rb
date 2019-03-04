@@ -4,15 +4,13 @@ class SortingsController < ApplicationController
     render layout: false
   end
 
-  def product_sorting
+  def product_sorting   
     if !params[:format].blank?
       if !params[:is_collect].blank? and params[:is_collect].eql?"true"
         @commodity = Collection.find_by(id: params[:format].to_i).commodity
-      end
-      if !params[:is_list].blank? and params[:is_list].eql?"true"
+      elsif !params[:is_list].blank? and params[:is_list].eql?"true"
         @commodity = Commodity.find(params[:format].to_i)
-      end
-      if !params[:is_follow].blank? and params[:is_follow].eql?"true"
+      elsif !params[:is_follow].blank? and params[:is_follow].eql?"true"
         @commodity = Follow.find_by(id: params[:format].to_i).commodity   
       else  
         @commodity = Commodity.find(params[:format].to_i)
@@ -20,7 +18,7 @@ class SortingsController < ApplicationController
       @follows = Follow.find_by(front_user_id: current_front_user, commodity_id: @commodity.id) if !@commodity.blank?
       @collections = Collection.find_by(front_user_id: current_front_user, commodity_id: @commodity.id) if !@commodity.blank?
       
-      
+
       # if !Follow.find_by(id: params[:format].to_i).blank?
       #   @follows = Follow.find(params[:format].to_i).commodity
       # end  

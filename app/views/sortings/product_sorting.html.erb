@@ -73,7 +73,7 @@
 				</button>
 				</form>
 				<% else %>
-                
+               
 				<%= form_tag("/follows/#{@follows.id}", name: "form2", method: "delete") %>
 			    <input name="commodity_id" value=<%=@commodity.id%> type="hidden" /> 
 			    <button type="submit" class= "productBtn mui-btn mui-btn-danger mui-btn-block mui-btn-outlined" style="width: 50%; float: left; border-radius: 0; background-color: #ff4040;">
