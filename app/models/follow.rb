@@ -2,7 +2,7 @@ class Follow < ActiveRecord::Base
   belongs_to :commodity
   belongs_to :front_user
 
-  def self.joins_stamp
+    def self.joins_stamp
 		joins(:commodity).where(commodities: {detail_type: 'Stamp'}).joins("left join stamps on stamps.id = commodities.detail_id")
 	end
 
