@@ -26,7 +26,7 @@
 						<span style="display: none;">显示侧面选项卡</span>
 					</a>
 					<div class="mui-input-row mui-search mui-col-xs-9">
-						<input type="search" class="mui-input-clear" placeholder="搜索志号、名称、俗称等信息">
+						<input type="search" class="mui-input-clear" placeholder="搜索志号、名称、简称、俗称等信息">
 					</div>
 					<div class="mui-col-xs-3">
 						<div class="mui-btn mui-btn-danger mui-btn-outlined cml-aside filterBtnA" for="pk_loginway">筛选</div>
@@ -37,156 +37,46 @@
 					<div class="mui-card">
 						<ul class="mui-table-view">
 							<li class="mui-table-view-cell">
-								<label class="rowTitle">总市值</label><p class="rowContent"><span class="bigFont">¥2455200.00</span></p>
+								<label class="rowTitle">总市值</label><p class="rowContent"><span class="bigFont">¥<%= number_with_precision(@sum_price, precision: 2) %></span></p>
 							</li>
 							<li class="mui-table-view-cell">
-								<label class="rowTitle">总成本</label><p class="rowContent">¥1208400.00</p>
+								<label class="rowTitle">总成本</label><p class="rowContent">¥<%= number_with_precision(@sum_cost, precision: 2) %></p>
 							</li>
 							<li class="mui-table-view-cell">
-								<label class="rowTitle">盈亏</label><p class="rowContent"><span class="up">+1246800.00</span></p>
+								<label class="rowTitle">盈亏</label><p class="rowContent"><span class="<%=@color%>"><%= @sum_profit>0 ? ("+"+number_with_precision(@sum_profit, precision: 2)) : number_with_precision(@sum_profit, precision: 2) %></span></p>
 							</li>
 						</ul>
 					</div>
 					<div class="mui-card">
 						<ul class="mui-table-view">
+							<% @collections.each do |x| 
+							   if x.current_profit>=0
+								color = "up" 
+							   else
+								color = "down"
+							   end
+							%>
 							<li class="mui-table-view-cell mui-collapse">
 								<a class="mui-navigate-right valueCheck" href="#">
-									<p class="mui-ellipsis">纪1 庆祝中国人民政治协商会议第一届全体会议（原版）</p><span class="up">+1000</span>
+									<p class="mui-ellipsis"><%= x.commodity.name %></p><span class="<%=color%>"><%= x.current_profit>0 ? ("+"+number_with_precision(x.current_profit, precision: 2)) : number_with_precision(x.current_profit, precision: 2) %></span>
 								</a>
 								<div class="mui-collapse-content valueItem">
 									<a href="/sortings/product_sorting">
 										<ul class="mui-table-view">
 											<li class="mui-table-view-cell">
-												<label class="rowTitle">成本</label><p class="rowContent">¥120.00</p>
+												<label class="rowTitle">成本</label><p class="rowContent">¥<%= number_with_precision(x.cost, precision: 2) %></p>
 											</li>
 											<li class="mui-table-view-cell">
-												<label class="rowTitle">市值</label><p class="rowContent">¥130.00</p>
+												<label class="rowTitle">市值</label><p class="rowContent">¥<%= number_with_precision(x.commodity.current_price, precision: 2) %></p>
 											</li>
 											<li class="mui-table-view-cell">
-												<label class="rowTitle">数量</label><p class="rowContent">100</p>
+												<label class="rowTitle">数量</label><p class="rowContent"><%= x.amount %></p>
 											</li>
 										</ul>
 									</a>
 								</div>
 							</li>
-							<li class="mui-table-view-cell mui-collapse">
-								<a class="mui-navigate-right valueCheck" href="#">
-									<p class="mui-ellipsis">T46 庚申年</p><span class="up">+425000</span>
-								</a>
-								<div class="mui-collapse-content valueItem">
-									<a href="">
-										<ul class="mui-table-view">
-											<li class="mui-table-view-cell">
-												<label class="rowTitle">成本</label><p class="rowContent">¥11000.00</p>
-											</li>
-											<li class="mui-table-view-cell">
-												<label class="rowTitle">市值</label><p class="rowContent">¥6000.00</p>
-											</li>
-											<li class="mui-table-view-cell">
-												<label class="rowTitle">数量</label><p class="rowContent">85</p>
-											</li>
-										</ul>
-									</a>
-								</div>
-							</li>
-							<li class="mui-table-view-cell mui-collapse">
-								<a class="mui-navigate-right valueCheck" href="#">
-									<p class="mui-ellipsis">2018版熊猫1公斤金币</p><span class="down">·15000</span>
-								</a>
-								<div class="mui-collapse-content valueItem">
-									<a href="">
-										<ul class="mui-table-view">
-											<li class="mui-table-view-cell">
-												<label class="rowTitle">成本</label><p class="rowContent">¥11000.00</p>
-											</li>
-										</ul>
-									</a>
-								</div>
-							</li>
-							<li class="mui-table-view-cell mui-collapse">
-								<a class="mui-navigate-right valueCheck" href="#">
-									<p class="mui-ellipsis">古币车工 第三套人民币贰圆券（车床工人－古币水印）</p><span class="up">+5000</span>
-								</a>
-								<div class="mui-collapse-content valueItem">
-									<a href="">
-										<ul class="mui-table-view">
-											<li class="mui-table-view-cell">
-												<label class="rowTitle">成本</label><p class="rowContent">¥11000.00</p>
-											</li>
-										</ul>
-									</a>
-								</div>
-							</li>
-							<li class="mui-table-view-cell mui-collapse">
-								<a class="mui-navigate-right valueCheck" href="#">
-									<p class="mui-ellipsis">纪16 抗目战争十五周年纪念</p><span class="up">+100</span>
-								</a>
-								<div class="mui-collapse-content valueItem">
-									<a href="">
-										<ul class="mui-table-view">
-											<li class="mui-table-view-cell">
-												<label class="rowTitle">成本</label><p class="rowContent">¥11000.00</p>
-											</li>
-										</ul>
-									</a>
-								</div>
-							</li>
-							<li class="mui-table-view-cell mui-collapse">
-								<a class="mui-navigate-right valueCheck" href="#">
-									<p class="mui-ellipsis">J1 万国邮政联盟成立一百周年纪念</p><span class="down">-4800</span>
-								</a>
-								<div class="mui-collapse-content valueItem">
-									<a href="">
-										<ul class="mui-table-view">
-											<li class="mui-table-view-cell">
-												<label class="rowTitle">成本</label><p class="rowContent">¥11000.00</p>
-											</li>
-										</ul>
-									</a>
-								</div>
-							</li>
-							<li class="mui-table-view-cell mui-collapse">
-								<a class="mui-navigate-right valueCheck" href="#">
-									<p class="mui-ellipsis">建国30周年1/2盎司圆形金质纪念币(天安门)</p><span class="up">+300</span>
-								</a>
-								<div class="mui-collapse-content valueItem">
-									<a href="">
-										<ul class="mui-table-view">
-											<li class="mui-table-view-cell">
-												<label class="rowTitle">成本</label><p class="rowContent">¥11000.00</p>
-											</li>
-										</ul>
-									</a>
-								</div>
-							</li>
-							<li class="mui-table-view-cell mui-collapse">
-								<a class="mui-navigate-right valueCheck" href="#">
-									<p class="mui-ellipsis">中国辛酉（鸡）年15克圆形银质纪念币</p><span class="down">-100</span>
-								</a>
-								<div class="mui-collapse-content valueItem">
-									<a href="">
-										<ul class="mui-table-view">
-											<li class="mui-table-view-cell">
-												<label class="rowTitle">成本</label><p class="rowContent">¥11000.00</p>
-											</li>
-										</ul>
-									</a>
-								</div>
-							</li>
-							<li class="mui-table-view-cell mui-collapse">
-								<a class="mui-navigate-right valueCheck" href="#">
-									<p class="mui-ellipsis">长号一分 第二套人民币壹分券（汽车）（长号码）</p><span class="down">-20000</span>
-								</a>
-								<div class="mui-collapse-content valueItem">
-									<a href="">
-										<ul class="mui-table-view">
-											<li class="mui-table-view-cell">
-												<label class="rowTitle">成本</label><p class="rowContent">¥11000.00</p>
-											</li>
-										</ul>
-									</a>
-								</div>
-							</li>
+							<% end %>
 						</ul>
 					</div>
 				</div>
@@ -198,21 +88,23 @@
 			<aside id='aside' class='mui-off-canvas-right'>
 				<button id="offCanvasHide" type="button" class="mui-btn mui-btn-danger mui-btn-block popinBtnClose" style="z-index: 9; top: 44px;">关闭侧滑菜单</button>
 				<div class='mui-scroll-wrapper'>
+					<%= form_tag('/postcard_views/sorting?is_value=true', name: 'form1', method: 'get') %>
 					<div id='pk_operator_content' for='pk_operator' class='aside_content'>
+						<%= hidden_field_tag('search_scope','current') %>
 						<div class="mui-bar mui-row" style="position: fixed !important; top: 0 !important;  z-index: 10 !important;">
 							<div class="mui-input-row mui-search mui-col-xs-9">
-				    				<input type="search" class="mui-input-clear" placeholder="搜索志号、名称、俗称等信息">
+				    				<input id="name" name="name" type="search" class="mui-input-clear" placeholder="搜索志号、名称、简称、俗称等信息">
 							</div>
 							<div class="mui-col-xs-3 filterBtn">
-								<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">搜索</button> 	
+								<button type="submit" class="mui-btn mui-btn-danger mui-btn-outlined">搜索</button> 	
 							</div>
 						</div>
 						<div class='mui-scroll'>
 							<div class="content" style="background: #fff;">
 								<div style="padding: 0px 10px;">
 									<div class="mui-segmented-control mui-segmented-control-inverted">
-										<a class="mui-control-item mui-active" href="#">当前</a>
-										<a class="mui-control-item" href="#">全部</a>
+										<a class="mui-control-item mui-active" id="current" href="#">当前</a>
+										<a class="mui-control-item" id="all" href="#">全部</a>
 									</div>
 									<div style="height: calc(100vh - 120px); touch-action: none;">
 									</div>
@@ -223,7 +115,7 @@
 					<div id='pk_loginway_content' for='pk_loginway' class='aside_content'>
 						<div class='mui-scroll'>
 							<div class="content" style="background: #fff;">
-								<button type="button" class="mui-btn mui-btn-danger mui-btn-block submitBtn">确定</button>
+								<button type="submit" class="mui-btn mui-btn-danger mui-btn-block submitBtn">确定</button>
 								<div style="padding: 0px 10px;">
 									<div class="mui-segmented-control mui-segmented-control-inverted">
 										<a class="mui-control-item mui-active" href="#item1">邮票</a>
@@ -237,146 +129,131 @@
 											<li class="mui-table-view-cell">
 												<label style="font-weight: bolder;">版式</label>
 											</li>
+											<% @stamp_formats.each do |x| %>
 											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>套票</label><input name="" value="" type="checkbox">
+												<label><%= x.name %></label><%= check_box_tag("stamp_format[]","#{x.name}",((@checked_fileds.include?x.name) ? true : false)) %>
 											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>大版</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>小版</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>赠送版</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>小型张/小全张</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>小本票</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>大本册</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>其他</label><input name="" value="" type="checkbox">
-											</li>
+											<% end %>
 											<li class="mui-table-view-cell">
 												<label style="font-weight: bolder;">题材</label>
 											</li>
+											<% @stamp_themes.each do |x| %>
 											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>动物</label><input name="" value="" type="checkbox">
+												<label><%= x.name %></label><%= check_box_tag("stamp_theme[]","#{x.name}",((@checked_fileds.include?x.name) ? true : false)) %>
 											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>植物</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>人物</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>文化</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>政治</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>经济</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>建筑</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>风光</label><input name="" value="" type="checkbox">
-											</li>
+											<% end %>
 										</ul>
 									</div>
 									<div id="item2" class="mui-control-content">
 										<ul class="mui-table-view popinScrollItem">
 											<li class="mui-table-view-cell">
-												<label style="font-weight: bolder;">选项卡二标题</label>
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>套票</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>大版</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>小版</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>赠送版</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>小型张/小全张</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>小本票</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>大本册</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>其他</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell">
 												<label style="font-weight: bolder;">题材</label>
 											</li>
+											<% @coin_themes.each do |x| %>
 											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>动物</label><input name="" value="" type="checkbox">
+												<label><%= x.name %></label><%= check_box_tag("coin_theme[]","#{x.name}",((@checked_fileds.include?x.name) ? true : false)) %>
 											</li>
+											<% end %>
+											<li class="mui-table-view-cell">
+												<label style="font-weight: bolder;">材质</label>
+											</li>
+											<% @coin_materials.each do |x| %>
 											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>植物</label><input name="" value="" type="checkbox">
+												<label><%= x.name %></label><%= check_box_tag("coin_material[]","#{x.name}",((@checked_fileds.include?x.name) ? true : false)) %>
 											</li>
+											<% end %>
+											<li class="mui-table-view-cell">
+												<label style="font-weight: bolder;">重量</label>
+											</li>
+											<% @coin_weights.each do |x| %>
 											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>人物</label><input name="" value="" type="checkbox">
+												<label><%= x.name %></label><%= check_box_tag("coin_weight[]","#{x.name}",((@checked_fileds.include?x.name) ? true : false)) %>
 											</li>
+											<% end %>
+											<li class="mui-table-view-cell">
+												<label style="font-weight: bolder;">年份</label>
+											</li>
+											<% @coin_years.each do |x| %>
 											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>文化</label><input name="" value="" type="checkbox">
+												<label><%= x.name %></label><%= check_box_tag("coin_year[]","#{x.name}",((@checked_fileds.include?x.name) ? true : false)) %>
 											</li>
+											<% end %>
+											<li class="mui-table-view-cell">
+												<label style="font-weight: bolder;">面值</label>
+											</li>
+											<% @coin_face_values.each do |x| %>
 											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>政治</label><input name="" value="" type="checkbox">
+												<label><%= x.name %></label><%= check_box_tag("coin_face_value[]","#{x.name}",((@checked_fileds.include?x.name) ? true : false)) %>
 											</li>
+											<% end %>
+											<li class="mui-table-view-cell">
+												<label style="font-weight: bolder;">套系(包装规格)</label>
+											</li>
+											<% @coin_pack_specs.each do |x| %>
 											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>经济</label><input name="" value="" type="checkbox">
+												<label><%= x.name %></label><%= check_box_tag("coin_pack_spec[]","#{x.name}",((@checked_fileds.include?x.name) ? true : false)) %>
 											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>建筑</label><input name="" value="" type="checkbox">
-											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>风光</label><input name="" value="" type="checkbox">
-											</li>
+											<% end %>
 										</ul>
 									</div>
 									<div id="item3" class="mui-control-content">
 										<ul class="mui-table-view popinScrollItem">
 											<li class="mui-table-view-cell">
-												<label style="font-weight: bolder;">选项卡三标题</label>
+												<label style="font-weight: bolder;">版别</label>
 											</li>
+											<% @bill_versions.each do |x| %>
 											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>套票</label><input name="" value="" type="checkbox">
+												<label><%= x.name %></label><%= check_box_tag("bill_version[]","#{x.name}",((@checked_fileds.include?x.name) ? true : false)) %>
 											</li>
+											<% end %>
+											<li class="mui-table-view-cell">
+												<label style="font-weight: bolder;">版刻年号</label>
+											</li>
+											<% @bill_engrave_years.each do |x| %>
 											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>大版</label><input name="" value="" type="checkbox">
+												<label><%= x.name %></label><%= check_box_tag("bill_engrave_year[]","#{x.name}",((@checked_fileds.include?x.name) ? true : false)) %>
 											</li>
+											<% end %>
+											<li class="mui-table-view-cell">
+												<label style="font-weight: bolder;">面值</label>
+											</li>
+											<% @bill_face_values.each do |x| %>
 											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>小版</label><input name="" value="" type="checkbox">
+												<label><%= x.name %></label><%= check_box_tag("bill_face_value[]","#{x.name}",((@checked_fileds.include?x.name) ? true : false)) %>
 											</li>
+											<% end %>
+											<li class="mui-table-view-cell">
+												<label style="font-weight: bolder;">套系(包装规格)</label>
+											</li>
+											<% @bill_pack_specs.each do |x| %>
 											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>赠送版</label><input name="" value="" type="checkbox">
+												<label><%= x.name %></label><%= check_box_tag("bill_pack_spec[]","#{x.name}",((@checked_fileds.include?x.name) ? true : false)) %>
 											</li>
+											<% end %>
+											<li class="mui-table-view-cell">
+												<label style="font-weight: bolder;">字冠</label>
+											</li>
+											<% @bill_prefixs.each do |x| %>
 											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>小型张/小全张</label><input name="" value="" type="checkbox">
+												<label><%= x.name %></label><%= check_box_tag("bill_prefix[]","#{x.name}",((@checked_fileds.include?x.name) ? true : false)) %>
 											</li>
+											<% end %>
+											<li class="mui-table-view-cell">
+												<label style="font-weight: bolder;">字号</label>
+											</li>
+											<% @bill_serial_nos.each do |x| %>
 											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>小本票</label><input name="" value="" type="checkbox">
+												<label><%= x.name %></label><%= check_box_tag("bill_serial_no[]","#{x.name}",((@checked_fileds.include?x.name) ? true : false)) %>
 											</li>
+											<% end %>
+											<li class="mui-table-view-cell">
+												<label style="font-weight: bolder;">水印</label>
+											</li>
+											<% @bill_watermarks.each do |x| %>
 											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>大本册</label><input name="" value="" type="checkbox">
+												<label><%= x.name %></label><%= check_box_tag("bill_watermark[]","#{x.name}",((@checked_fileds.include?x.name) ? true : false)) %>
 											</li>
-											<li class="mui-table-view-cell mui-input-row mui-checkbox popinCheck">
-												<label>其他</label><input name="" value="" type="checkbox">
-											</li>
+											<% end %>
 										</ul>
 									</div>
 								</div>
@@ -384,6 +261,7 @@
 						</div>
 
 					</div>
+					</form>
 				</div>
 			</aside>
 			
@@ -421,6 +299,19 @@
 
 			document.getElementById('offCanvasHide').addEventListener('tap', function() {
 				mui('#aside').offCanvas('close');
+			});
+
+			document.getElementById('current').addEventListener('tap',function(){  
+				document.getElementById('search_scope').value = document.getElementById('current').getAttribute("id");
+			});
+
+			document.getElementById('all').addEventListener('tap',function(){  
+				document.getElementById('search_scope').value = document.getElementById('all').getAttribute("id");
+				var ck_list = document.body.querySelectorAll("input[type='checkbox']")
+				
+				for (var i = 0; i < ck_list.length; i++) {
+					ck_list[i].checked = false;
+				}
 			});
 		</script>
 	</body>

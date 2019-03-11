@@ -9,7 +9,6 @@ class Collection < ActiveRecord::Base
 		else
 			profit = 0
 		end
-		return profit
 	end
 
 	def self.joins_stamp

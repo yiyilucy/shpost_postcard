@@ -17,4 +17,8 @@ class Commodity < ActiveRecord::Base
     return Collection.find_by(commodity_id: self.id, front_user_id: front_user.id)
   end
 
+  def current_price
+    self.prices.blank? ? 0 : self.prices.last.price
+  end
+
 end

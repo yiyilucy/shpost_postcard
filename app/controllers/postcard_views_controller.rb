@@ -177,7 +177,28 @@ class PostcardViewsController < ApplicationController
     @bill_serial_nos = DicTitle.find_by(category: "bill", db_field: "serial_no").blank? ? nil : DicTitle.find_by(category: "bill", db_field: "serial_no").dic_contents
     @bill_watermarks = DicTitle.find_by(category: "bill", db_field: "watermark").blank? ? nil : DicTitle.find_by(category: "bill", db_field: "watermark").dic_contents
 
-    render layout: false
+    if !params[:is_value].blank? and params[:is_value].eql?"true"
+      @sum_price = 0
+      @sum_cost = 0
+      @sum_profit = 0
+      @color = ""
+
+      @collections.each do |x|        
+        @sum_price += x.commodity.current_price
+        @sum_cost += x.cost
+        @sum_profit += x.current_profit
+      end
+      
+      if @sum_profit>=0
+        @color = "up"
+      else
+        @color = "down"
+      end
+
+      render template: '/postcard_views/value',layout: false
+    else
+      render layout: false
+    end
   end
 
   # def sorting_collection
