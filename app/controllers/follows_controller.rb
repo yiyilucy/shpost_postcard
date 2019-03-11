@@ -19,7 +19,7 @@ class FollowsController < ApplicationController
 
   def create
   	@commodity = Commodity.find(params[:commodity_id])
-  	if !current_front_user.has_follow? @commodity
+    if !current_front_user.has_follow? @commodity
   		@follow = Follow.create(front_user: current_front_user, commodity: @commodity)
   	end
   	respond_to do |format|
@@ -55,7 +55,8 @@ class FollowsController < ApplicationController
     # @follow.destroy
     # respond_with(@follow)
     @commodity = Commodity.find(params[:commodity_id])
-    @follow = Follow.find_by(commodity_id = params[:commodity_id])
+    @follow = Follow.find_by(commodity_id: params[:commodity_id])
+    # binding.pry
   	@follow.destroy
   	respond_to do |format|
   		format.html { redirect_to "/sortings/product_sorting.#{@commodity.id}" }
