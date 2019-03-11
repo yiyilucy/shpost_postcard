@@ -61,7 +61,7 @@
 									<p class="mui-ellipsis"><%= x.commodity.name %></p><span class="<%=color%>"><%= x.current_profit>0 ? ("+"+number_with_precision(x.current_profit, precision: 2)) : number_with_precision(x.current_profit, precision: 2) %></span>
 								</a>
 								<div class="mui-collapse-content valueItem">
-									<a href="/sortings/product_sorting">
+									<a href="/sortings/product_sorting?format=<%=x.commodity.id%>">
 										<ul class="mui-table-view">
 											<li class="mui-table-view-cell">
 												<label class="rowTitle">成本</label><p class="rowContent">¥<%= number_with_precision(x.cost, precision: 2) %></p>
