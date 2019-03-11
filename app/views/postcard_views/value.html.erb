@@ -88,9 +88,10 @@
 			<aside id='aside' class='mui-off-canvas-right'>
 				<button id="offCanvasHide" type="button" class="mui-btn mui-btn-danger mui-btn-block popinBtnClose" style="z-index: 9; top: 44px;">关闭侧滑菜单</button>
 				<div class='mui-scroll-wrapper'>
-					<%= form_tag('/postcard_views/sorting?is_value=true', name: 'form1', method: 'get') %>
+					<%= form_tag('/postcard_views/sorting', name: 'form1', method: 'get') %>
 					<div id='pk_operator_content' for='pk_operator' class='aside_content'>
 						<%= hidden_field_tag('search_scope','current') %>
+						<%= hidden_field_tag('is_value','true') %>
 						<div class="mui-bar mui-row" style="position: fixed !important; top: 0 !important;  z-index: 10 !important;">
 							<div class="mui-input-row mui-search mui-col-xs-9">
 				    				<input id="name" name="name" type="search" class="mui-input-clear" placeholder="搜索志号、名称、简称、俗称等信息">
