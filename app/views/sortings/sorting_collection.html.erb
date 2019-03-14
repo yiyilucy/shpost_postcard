@@ -24,13 +24,13 @@
 				<div class="mui-card">
 					<ul class="mui-table-view">
 						<li class="mui-table-view-cell">
-							<label class="rowTitle">邮票</label><p class="rowContent">纪字邮票、特字邮票、编年邮票</p>
+							<label class="rowTitle">邮票</label><p class="rowContent"><%= @stamp_catalogs_title.blank? ? "暂无" : @stamp_catalogs_title %></p>
 						</li>
 						<li class="mui-table-view-cell">
-							<label class="rowTitle">硬币</label><p class="rowContent">贵金属纪念币、流通纪念币</p>
+							<label class="rowTitle">硬币</label><p class="rowContent"><%= @coin_catalogs_title.blank? ? "暂无" : @coin_catalogs_title %></p>
 						</li>
 						<li class="mui-table-view-cell">
-							<label class="rowTitle">纸钞</label><p class="rowContent">暂无</p>
+							<label class="rowTitle">纸钞</label><p class="rowContent"><%= @bill_catalogs_title.blank? ? "暂无" : @bill_catalogs_title %></p>
 						</li>
 					</ul>
 				</div>
@@ -41,53 +41,25 @@
 							<a class="mui-navigate-right" href="#">邮票</a>
 							<div class="mui-collapse-content" style="padding: 0;">
 								<ul class="mui-table-view" style="margin-top: 0; margin-bottom: 0;">
-									<a href="/sortings/list_normal_collection">
-										<li class="mui-table-view-cell collectionItem">
-											<div class="mui-card-content">
-												<div class="mui-card-content-inner">
-													<p style="color: #333;">纪字邮票</p>
+									<% @stamp_catalogs_user.each do |x| %>
+										<a href="/sortings/list_normal_collection?catalog_name=<%= x[0] %>">
+											<li class="mui-table-view-cell collectionItem">
+												<div class="mui-card-content">
+													<div class="mui-card-content-inner">
+														<p style="color: #333;"><%= x[0] %></p>
+													</div>
 												</div>
-											</div>
-											<div class="mui-card-footer">
-												<p class="mui-card-link">我的藏品数量 788</p>
-												<p class="mui-card-link">藏品总数 1802</p>
-											</div>
-											<div class="percentWrap">
-												<div class="parcntDisplay" style="width: 43%;"></div>
-												<span class="percentText">完整度 43%</span>
-											</div>
-										</li>
-									</a>
-									<li class="mui-table-view-cell collectionItem">
-										<div class="mui-card-content">
-											<div class="mui-card-content-inner">
-												<p style="color: #333;">特字邮票</p>
-											</div>
-										</div>
-										<div class="mui-card-footer">
-											<p class="mui-card-link">我的藏品数量 48</p>
-											<p class="mui-card-link">藏品总数 520</p>
-										</div>
-										<div class="percentWrap">
-											<div class="parcntDisplay" style="width: 9%;"></div>
-											<span class="percentText">完整度 9%</span>
-										</div>
-									</li>
-									<li class="mui-table-view-cell collectionItem">
-										<div class="mui-card-content">
-											<div class="mui-card-content-inner">
-												<p style="color: #333;">编年邮票</p>
-											</div>
-										</div>
-										<div class="mui-card-footer">
-											<p class="mui-card-link">我的藏品数量 5048</p>
-											<p class="mui-card-link">藏品总数 5972</p>
-										</div>
-										<div class="percentWrap">
-											<div class="parcntDisplay" style="width: 84%;"></div>
-											<span class="percentText">完整度 84%</span>
-										</div>
-									</li>
+												<div class="mui-card-footer">
+													<p class="mui-card-link">我的藏品数量 <%= x[1] %></p>
+													<p class="mui-card-link">藏品总数 <%= sum = @stamp_catalogs_all[x[0]] %></p>
+												</div>
+												<div class="percentWrap">
+													<div class="parcntDisplay" style="width: <%= (x[1].to_f/sum)*100 %>%;"></div>
+													<span class="percentText">完整度 <%= number_with_precision((x[1].to_f/sum)*100, precision: 2) %>%</span>
+												</div>
+											</li>
+										</a>
+									<% end %>
 								</ul>
 							</div>
 						</li>
@@ -100,36 +72,25 @@
 							<a class="mui-navigate-right" href="#">硬币</a>
 							<div class="mui-collapse-content" style="padding: 0;">
 								<ul class="mui-table-view" style="margin-top: 0; margin-bottom: 0;">
-									<li class="mui-table-view-cell collectionItem">
-										<div class="mui-card-content">
-											<div class="mui-card-content-inner">
-												<p style="color: #333;">贵金属纪念币</p>
-											</div>
-										</div>
-										<div class="mui-card-footer">
-											<p class="mui-card-link">我的藏品数量 788</p>
-											<p class="mui-card-link">藏品总数 1802</p>
-										</div>
-										<div class="percentWrap">
-											<div class="parcntDisplay" style="width: 43%;"></div>
-											<span class="percentText">完整度 43%</span>
-										</div>
-									</li>
-									<li class="mui-table-view-cell collectionItem">
-										<div class="mui-card-content">
-											<div class="mui-card-content-inner">
-												<p style="color: #333;">流通纪念币</p>
-											</div>
-										</div>
-										<div class="mui-card-footer">
-											<p class="mui-card-link">我的藏品数量 48</p>
-											<p class="mui-card-link">藏品总数 520</p>
-										</div>
-										<div class="percentWrap">
-											<div class="parcntDisplay" style="width: 9%;"></div>
-											<span class="percentText">完整度 9%</span>
-										</div>
-									</li>
+									<% @coin_catalogs_user.each do |x| %>
+										<a href="/sortings/list_normal_collection">
+											<li class="mui-table-view-cell collectionItem">
+												<div class="mui-card-content">
+													<div class="mui-card-content-inner">
+														<p style="color: #333;"><%= x[0] %></p>
+													</div>
+												</div>
+												<div class="mui-card-footer">
+													<p class="mui-card-link">我的藏品数量 <%= x[1] %></p>
+													<p class="mui-card-link">藏品总数 <%= sum = @coin_catalogs_all[x[0]] %></p>
+												</div>
+												<div class="percentWrap">
+													<div class="parcntDisplay" style="width: <%= (x[1].to_f/sum)*100 %>%;"></div>
+													<span class="percentText">完整度 <%= number_with_precision((x[1].to_f/sum)*100, precision: 2) %>%</span>
+												</div>
+											</li>
+										</a>
+									<% end %>
 								</ul>
 							</div>
 						</li>
@@ -142,36 +103,25 @@
 							<a class="mui-navigate-right" href="#">纸钞</a>
 							<div class="mui-collapse-content" style="padding: 0;">
 								<ul class="mui-table-view" style="margin-top: 0; margin-bottom: 0;">
-									<li class="mui-table-view-cell collectionItem">
-										<div class="mui-card-content">
-											<div class="mui-card-content-inner">
-												<p style="color: #333;">三版人民币</p>
-											</div>
-										</div>
-										<div class="mui-card-footer">
-											<p class="mui-card-link">我的藏品数量 788</p>
-											<p class="mui-card-link">藏品总数 1802</p>
-										</div>
-										<div class="percentWrap">
-											<div class="parcntDisplay" style="width: 43%;"></div>
-											<span class="percentText">完整度 43%</span>
-										</div>
-									</li>
-									<li class="mui-table-view-cell collectionItem">
-										<div class="mui-card-content">
-											<div class="mui-card-content-inner">
-												<p style="color: #333;">纪念钞</p>
-											</div>
-										</div>
-										<div class="mui-card-footer">
-											<p class="mui-card-link">我的藏品数量 48</p>
-											<p class="mui-card-link">藏品总数 520</p>
-										</div>
-										<div class="percentWrap">
-											<div class="parcntDisplay" style="width: 9%;"></div>
-											<span class="percentText">完整度 9%</span>
-										</div>
-									</li>
+									<% @bill_catalogs_user.each do |x| %>
+										<a href="/sortings/list_normal_collection">
+											<li class="mui-table-view-cell collectionItem">
+												<div class="mui-card-content">
+													<div class="mui-card-content-inner">
+														<p style="color: #333;"><%= x[0] %></p>
+													</div>
+												</div>
+												<div class="mui-card-footer">
+													<p class="mui-card-link">我的藏品数量 <%= x[1] %></p>
+													<p class="mui-card-link">藏品总数 <%= sum = @bill_catalogs_all[x[0]] %></p>
+												</div>
+												<div class="percentWrap">
+													<div class="parcntDisplay" style="width: <%= (x[1].to_f/sum)*100 %>%;"></div>
+													<span class="percentText">完整度 <%= number_with_precision((x[1].to_f/sum)*100, precision: 2) %>%</span>
+												</div>
+											</li>
+										</a>
+									<% end %>
 								</ul>
 							</div>
 						</li>

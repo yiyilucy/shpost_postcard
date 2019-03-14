@@ -51,10 +51,32 @@ class SortingsController < ApplicationController
 
   
   def sorting_collection
+    @stamp_catalogs_user = current_front_user.collections.joins(:commodity).joins(:commodity=>[:catalog]).where("commodities.category = ?", "stamp").order("catalogs.catalog_no").group("catalogs.catalog_name").count
+
+    @stamp_catalogs_all = Commodity.joins(:catalog).where("commodities.category = ?", "stamp").order("catalogs.catalog_no").group("catalogs.catalog_name").count
+
+    @stamp_catalogs_title = @stamp_catalogs_user.map{|x| x[0]}.compact.join(",")
+
+    @coin_catalogs_user = current_front_user.collections.joins(:commodity).joins(:commodity=>[:catalog]).where("commodities.category = ?", "coin").order("catalogs.catalog_no").group("catalogs.catalog_name").count
+
+    @coin_catalogs_all = Commodity.joins(:catalog).where("commodities.category = ?", "coin").order("catalogs.catalog_no").group("catalogs.catalog_name").count
+
+    @coin_catalogs_title = @coin_catalogs_user.map{|x| x[0]}.compact.join(",")
+
+    @bill_catalogs_user = current_front_user.collections.joins(:commodity).joins(:commodity=>[:catalog]).where("commodities.category = ?", "bill").order("catalogs.catalog_no").group("catalogs.catalog_name").count
+
+    @bill_catalogs_all = Commodity.joins(:catalog).where("commodities.category = ?", "bill").order("catalogs.catalog_no").group("catalogs.catalog_name").count
+
+    @bill_catalogs_title = @bill_catalogs_user.map{|x| x[0]}.compact.join(",")
+
     render layout: false
   end
 
   def list_normal_collection
+    @catalog_name = params[:catalog_name]
+    @commodities_user = current_front_user.collections.joins(:commodity).joins(:commodity=>[:catalog]).where("catalogs.catalog_name = ?", @catalog_name).order("catalogs.catalog_no").map{|c| c.commodity}
+    @commodities_all = Commodity.joins(:catalog).where("catalogs.catalog_name = ?", @catalog_name).order("catalogs.catalog_no")
+
     render layout: false
   end
 
