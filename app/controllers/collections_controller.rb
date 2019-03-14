@@ -144,10 +144,11 @@ class CollectionsController < ApplicationController
   end
 
   def destroy
-    if !params[:id].blank?
-      Collection.find(params[:id].to_i).destroy
-    end
+    # if !params[:id].blank?
+    #   Collection.find(params[:id].to_i).destroy
+    # end
     
+    @collection.destroy!
     redirect_to '/postcard_views/sorting' 
   end
 
