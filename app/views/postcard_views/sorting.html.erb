@@ -34,30 +34,29 @@
 				
 				<div class="mui-content mui-row mui-fullscreen" style="height: 100% !important; overflow-y: auto;">
 					<ul class="mui-table-view mui-table-view-chevron" style="padding-top: 30px; padding-bottom: 50px;">
-						<% @collections.each do |c| %>						
-						<% if !c.commodity.import_files.blank?
-								if !c.commodity.import_files.find_by(is_master: true).blank?
-									src = c.commodity.import_files.find_by(is_master: true).img_relative_path(true)
+						<% @collections.map{|x| x.commodity}.each do |commodity| %>						
+						<%  if !commodity.import_files.blank?
+								if !commodity.import_files.find_by(is_master: true).blank?
+									src = commodity.import_files.find_by(is_master: true).img_relative_path(true)
 								else
-									src = c.commodity.import_files.first.img_relative_path(true)
+									src = commodity.import_files.first.img_relative_path(true)
 								end
-						   end
-						   name = c.commodity.name 
+							end
 						%>
 						
 						<li class="mui-table-view-cell mui-media">
 							<!-- <a class="mui-navigate-right paddingRight"> -->
 								<img class="mui-media-object mui-pull-left" src=<%=src %>>
 								<div class="mui-media-body">
-									<p class='mui-table-view-cell'><%= link_to(name, "/sortings/product_sorting?commodity_id=#{c.commodity.id}",:style=>"color:black") %></p>
+									<p class='mui-table-view-cell'><%= link_to(commodity.name, "/sortings/product_sorting?commodity_id=#{commodity.id}",:style=>"color:black") %></p>
 								</div>
 							<!-- </a> -->
 							
 							<!-- <button type="button" class="listIconLeft mui-btn"> -->
-								<%= link_to t('.destroy', :default => t("helpers.links.destroy")), collection_path(c), :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'listIconLeft mui-btn btn btn-xs btn-danger',:style=>"color:black" %>
+								<%= link_to t('.destroy', :default => t("helpers.links.destroy")), collection_path(current_front_user.get_collection(commodity)), :method => :delete, :data => { :confirm => t('wice_grid.saved_query_deletion_confirmation', :default => t("helpers.links.confirm", :default => '确定删除?')) }, :class => 'listIconLeft mui-btn btn btn-xs btn-danger',:style=>"color:black" %>
 					        <!-- </button> -->
 					        <!-- <button  type="button" class="listIconRight mui-btn"> -->
-								<%= link_to t('.edit', :default => t("helpers.links.edit")), sorting_edit_sortings_path(c), :class => 'listIconRight mui-btn btn btn-xs btn-primary',:style=>"color:black" %>
+								<%= link_to t('.edit', :default => t("helpers.links.edit")), sorting_edit_sortings_path(current_front_user.get_collection(commodity)), :class => 'listIconRight mui-btn btn btn-xs btn-primary',:style=>"color:black" %>
 					        <!-- </button> -->
 						</li>
 						<% end %>						

@@ -1,154 +1,160 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>邮币助手</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<link href="/assets/front_page/mui.css" rel="stylesheet" />
-		<link href="/assets/front_page/editApp.css" rel="stylesheet" />
-		<script src="/assets/front_page/mui.min.js"></script>
-	</head>
+<head>
+	<meta charset="utf-8">
+	<title>邮币助手</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link href="/assets/front_page/mui.css" rel="stylesheet" />
+	<link href="/assets/front_page/editApp.css" rel="stylesheet" />
+	<script src="/assets/front_page/mui.min.js"></script>
+</head>
 
-	<body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">邮币助手</h1>
-		</header>
-		<nav class="mui-bar mui-bar-tab">
-			<a id ="intro" class="mui-tab-item mui-active" href="#tabbar-with-index">
-				<span class="mui-icon mui-icon-home"></span>
-				<span class="mui-tab-label">首页</span>
-			</a>
-			<a id ="intro" class="mui-tab-item" href="#tabbar-with-syh">
-				<span class="mui-icon iconfont icon-syh"></span>
-		    	<span class="mui-tab-label">上邮汇</span>
-			</a>
-			<a id ="intro" class="mui-tab-item" href="#tabbar-with-setting">
-				<span class="mui-icon mui-icon-contact"></span>
-		    	<span class="mui-tab-label">我的</span>
-			</a>
-		</nav>
-		<div class="mui-content">
-			<div id="tabbar-with-index" class="mui-control-content mui-active">
-				<div class="mui-slider">
-					<div class="mui-slider-group mui-slider-loop">
-						<!--支持循环，需要重复图片节点，图片412341-->
-				      <% @banners.each do |x|%>
-
-				      <div class="mui-slider-item mui-slider-item-duplicate">
-				        <a href="<%= x.link%>"><img src="<%= x.import_file.try(:img_relative_path, false) %>" /></a>
-				      </div>
-				      <% end %>
-				      <%if @banners.blank? %>
-				        <div class="mui-slider-item mui-slider-item-duplicate">
-				         <a href=""><img src="/assets/front_page/banner_1.jpg"/></a>
-				        </div>
-				      <% end %>
-					</div>
-					<div class="mui-slider-indicator">
-						<div class="mui-indicator mui-active"></div>
-						<div class="mui-indicator"></div>
-						<div class="mui-indicator"></div>
-						<div class="mui-indicator"></div>
-					</div>
-				</div>
-				<ul class="mui-table-view mui-grid-view mui-grid-9 indexGrid9">
-					<li class="mui-table-view-cell mui-media mui-col-xs-6">
-					    <a id="intro" href="/postcard_views/sorting">
-					        <span class="mui-icon iconfont icon-zhengli2" style="color: #ff409a;"></span>
-					        <div class="mui-media-body">我要整理</div>
-					    </a>
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-6">
-					    <a id="intro" href="/postcard_views/sorting?is_value=true">
-					        <span class="mui-icon iconfont icon-shizhi2" style="color: #40d9ff;"></span>
-					        <div class="mui-media-body">我的市值</div>
-					    </a>
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-6">
-					    <a id="intro" href="/postcard_views/list_tab">
-					        <span class="mui-icon iconfont icon-mulu" style="color: #ffb540;"></span>
-					        <div class="mui-media-body">目录大全</div>
-					    </a>
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-6">
-					    <a id="intro" href="/postcard_views/follow">
-					        <span class="mui-icon iconfont icon-guanzhu3" style="color: #ff4040;"></span>
-					        <div class="mui-media-body">我的关注</div>
-					    </a>
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-6">
-					    <a id="intro" href="/postcard_views/appraisal">
-					        <span class="mui-icon iconfont icon-jianping1" style="color: #b540ff;"></span>
-					        <div class="mui-media-body">我要鉴评</div>
-					    </a>
-					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-6">
-					    <a id="intro" href="/postcard_views/news">
-					        <span class="mui-icon iconfont icon-zixun1" style="color: #4083ff;"></span>
-					        <div class="mui-media-body">资讯公告</div>
-					    </a>
-					</li>
-				</ul>
-			</div>
-			<div id="tabbar-with-syh" class="mui-control-content">
-				<div style="margin: 20px 15px 10px; color: #6d6d72; font-size: 15px;">链接到上邮汇。</div>
-			</div>
-			<div id="tabbar-with-setting" class="mui-control-content">
-				<ul class="mui-table-view mui-table-view-chevron" style="margin-top: 15px;">
-					<li class="mui-table-view-cell mui-media">
-						<a id="intro" class="mui-navigate-right" href="#">
-							<img class="mui-media-object mui-pull-left head-img" id="head-img" src="images/logo.png">
-							<div class="mui-media-body">
-								Hello SYH
-								<p class='mui-ellipsis'>账号:hellosyh</p>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">邮币助手</h1>
+	</header>
+	<nav class="mui-bar mui-bar-tab">
+		<a id ="intro" class="mui-tab-item mui-active" href="#tabbar-with-index">
+			<span class="mui-icon mui-icon-home"></span>
+			<span class="mui-tab-label">首页</span>
+		</a>
+		<a id ="intro" class="mui-tab-item" href="#tabbar-with-syh">
+			<span class="mui-icon iconfont icon-syh"></span>
+			<span class="mui-tab-label">上邮汇</span>
+		</a>
+		<a id ="intro" class="mui-tab-item" href="#tabbar-with-setting">
+			<span class="mui-icon mui-icon-contact"></span>
+			<span class="mui-tab-label">我的</span>
+		</a>
+	</nav>
+	<div class="mui-content">
+		<div id="tabbar-with-index" class="mui-control-content mui-active">
+			<div class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					<!--支持循环，需要重复图片节点，图片412341-->
+					<% if !@banners.blank?%>
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="<%= @banners.last.link%>"><img src="<%= @banners.last.import_file.try(:img_relative_path, false) %>" /></a>
+						</div>
+						<% @banners.each do |x|%>
+							<div class="mui-slider-item">
+								<a href="<%= x.link%>"><img src="<%= x.import_file.try(:img_relative_path, false) %>" /></a>
 							</div>
-						</a>
-					</li>
-				</ul>
-				<ul class="mui-table-view" style="margin-top: 15px;">
-					<li class="mui-table-view-cell">
-						<a id="intro" class="mui-navigate-right">
-							设置
-						</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a id="intro" class="mui-navigate-right">
-							绑定手机
-						</a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a id="intro" class="mui-navigate-right">
-							个人资料
-						</a>
-					</li>
-				</ul>
-				<ul class="mui-table-view" style="margin-top: 15px;">
-					<li class="mui-table-view-cell">
-						<a id="intro" class="mui-navigate-right">
-							关于我们
-						</a>
-					</li>
-				</ul>
-				<ul class="mui-table-view" style="margin-top: 15px;">
-					<li class="mui-table-view-cell">
-						<a id="intro" style="text-align: center;color: #ff4040;">
-							退出登录
-						</a>
-					</li>
-				</ul>
+						<% end %>
+						<div class="mui-slider-item">
+							<a href="<%= @banners.last.link%>"><img src="<%= @banners.last.import_file.try(:img_relative_path, false) %>" /></a>
+						</div>
+					<% else %>
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href=""><img src="/assets/front_page/banner_1.jpg"/></a>
+						</div>
+					<% end %>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
 			</div>
+			<ul class="mui-table-view mui-grid-view mui-grid-9 indexGrid9">
+				<li class="mui-table-view-cell mui-media mui-col-xs-6">
+					<a id="intro" href="/postcard_views/sorting">
+						<span class="mui-icon iconfont icon-zhengli2" style="color: #ff409a;"></span>
+						<div class="mui-media-body">我要整理</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-6">
+					<a id="intro" href="/postcard_views/sorting?is_value=true">
+						<span class="mui-icon iconfont icon-shizhi2" style="color: #40d9ff;"></span>
+						<div class="mui-media-body">我的市值</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-6">
+					<a id="intro" href="/postcard_views/list_tab">
+						<span class="mui-icon iconfont icon-mulu" style="color: #ffb540;"></span>
+						<div class="mui-media-body">目录大全</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-6">
+					<a id="intro" href="/postcard_views/follow">
+						<span class="mui-icon iconfont icon-guanzhu3" style="color: #ff4040;"></span>
+						<div class="mui-media-body">我的关注</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-6">
+					<a id="intro" href="/postcard_views/appraisal">
+						<span class="mui-icon iconfont icon-jianping1" style="color: #b540ff;"></span>
+						<div class="mui-media-body">我要鉴评</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-6">
+					<a id="intro" href="/postcard_views/news">
+						<span class="mui-icon iconfont icon-zixun1" style="color: #4083ff;"></span>
+						<div class="mui-media-body">资讯公告</div>
+					</a>
+				</li>
+			</ul>
 		</div>
-		<script type="text/javascript" charset="utf-8">
-			mui.init({
-				swipeBack:true //启用右滑关闭功能L
-			});
-			var gallery = mui('.mui-slider');
+		<div id="tabbar-with-syh" class="mui-control-content">
+			<div style="margin: 20px 15px 10px; color: #6d6d72; font-size: 15px;">链接到上邮汇。</div>
+		</div>
+		<div id="tabbar-with-setting" class="mui-control-content">
+			<ul class="mui-table-view mui-table-view-chevron" style="margin-top: 15px;">
+				<li class="mui-table-view-cell mui-media">
+					<a id="intro" class="mui-navigate-right" href="#">
+						<img class="mui-media-object mui-pull-left head-img" id="head-img" src="images/logo.png">
+						<div class="mui-media-body">
+							Hello SYH
+							<p class='mui-ellipsis'>账号:hellosyh</p>
+						</div>
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 15px;">
+				<li class="mui-table-view-cell">
+					<a id="intro" class="mui-navigate-right">
+						设置
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="intro" class="mui-navigate-right">
+						绑定手机
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="intro" class="mui-navigate-right">
+						个人资料
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 15px;">
+				<li class="mui-table-view-cell">
+					<a id="intro" class="mui-navigate-right">
+						关于我们
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 15px;">
+				<li class="mui-table-view-cell">
+					<a id="intro" style="text-align: center;color: #ff4040;">
+						退出登录
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript" charset="utf-8">
+		mui.init({
+			swipeBack:true //启用右滑关闭功能L
+		});
+		var gallery = mui('.mui-slider');
 			gallery.slider({
-			  interval:3000//自动轮播周期，若为0则不自动播放，默认为0；
-			});
-		</script>
-	</body>
+			interval:3000//自动轮播周期，若为0则不自动播放，默认为0；
+		});
+	</script>
+</body>
 </html>

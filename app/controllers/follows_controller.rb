@@ -23,7 +23,7 @@ class FollowsController < ApplicationController
   		@follow = Follow.create(front_user: current_front_user, commodity: @commodity)
   	end
   	respond_to do |format|
-  		format.html { redirect_to  "/sortings/product_sorting.#{@commodity.id}" }
+  		format.html { redirect_to  "/sortings/product_sorting?commodity_id=#{@commodity.id}" }
   	end
     # @follow = Follow.new(follow_params)
     # @follow.save
@@ -55,11 +55,12 @@ class FollowsController < ApplicationController
     # @follow.destroy
     # respond_with(@follow)
     @commodity = Commodity.find(params[:commodity_id])
-    @follow = Follow.find_by(commodity_id: params[:commodity_id])
+    follow = Follow.find_by(commodity_id: params[:commodity_id])
     # binding.pry
-  	@follow.destroy
+  	follow.destroy
   	respond_to do |format|
-  		format.html { redirect_to "/sortings/product_sorting.#{@commodity.id}" }
+      format.html {redirect_to  "/sortings/product_sorting?commodity_id=#{@commodity.id}" }
+  		# format.html { redirect_to "/sortings/product_sorting.#{@commodity.id}" }
   	end
   end
 end

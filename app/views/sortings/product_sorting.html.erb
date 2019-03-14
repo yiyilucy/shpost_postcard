@@ -60,7 +60,7 @@
 			</div>
 			
 			<div class="mui-card">
-			    <% if @follows.blank? %>
+			    <% if !current_front_user.has_follow?(@commodity)%>
 			    
 
 
@@ -73,8 +73,7 @@
 				</button>
 				</form>
 				<% else %>
-               
-				<%= form_tag("/follows/#{@follows.id}", name: "form2", method: "delete") %>
+				<%= form_tag("/follows/#{current_front_user.get_follow(@commodity).id}", name: "form2", method: "delete") %>
 			    <input name="commodity_id" value=<%=@commodity.id%> type="hidden" /> 
 			    <button type="submit" class= "productBtn mui-btn mui-btn-danger mui-btn-block mui-btn-outlined" style="width: 50%; float: left; border-radius: 0; background-color: #ff4040;">
 
@@ -84,12 +83,15 @@
 				</form>	
 			    <% end %>
 				<!-- </a> -->
-				<% if @collections.blank? %>
-				<%= link_to(sorting_new_sortings_path(@commodity),  method: "post", type: "button", class: "productBtn mui-btn mui-btn-danger mui-btn-block mui-btn-outlined" , style: "width: 50%; float: left; border-radius: 0;") do%> 
+				<% if !current_front_user.has_collection?(@commodity) %>
+				    <%= link_to(sorting_new_sortings_path(@commodity),  method: "post", type: "button", class: "productBtn mui-btn mui-btn-danger mui-btn-block mui-btn-outlined" , style: "width: 50%; float: left; border-radius: 0;") do%> 
 				<!-- <a href="/sortings/sorting_edit" type="button" class="productBtn mui-btn mui-btn-danger mui-btn-block mui-btn-outlined" style="width: 50%; float: left; border-radius: 0;"> -->
-				<span class="mui-icon iconfont icon-zhengli2" style="font-size: 18px;"></span> 添加藏品
-				
-				<% end %>
+				   <span class="mui-icon iconfont icon-zhengli2" style="font-size: 18px;"></span> 添加藏品
+				   <% end %>
+				<% else %>
+				   <a  type="button" class="productBtn mui-btn mui-btn-danger mui-btn-block mui-btn-outlined" style="width: 50%; float: left; border-radius: 0;">
+				   <span class="mui-icon iconfont icon-zhengli2" style="font-size: 18px;"></span> 已收藏		
+				   </a>	
 				<% end %>
 				
 				<!-- </a> -->

@@ -12,4 +12,16 @@ class FrontUser < ActiveRecord::Base
 	def has_follow?(commodity)
 		Follow.where(commodity: commodity).exists?
 	end
+
+	def has_collection?(commodity)
+		Collection.where(commodity: commodity).exists?
+	end
+
+	def get_follow(commodity)
+		Follow.find_by(front_user: self, commodity: commodity)
+	end
+
+	def get_collection(commodity)
+		Collection.find_by(front_user: self, commodity: commodity)
+	end
 end
