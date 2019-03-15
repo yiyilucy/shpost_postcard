@@ -32,7 +32,7 @@
 					<ul class="mui-table-view">
 						<% @commodities_user.each do |x| %>
 							<li class="mui-table-view-cell">
-						        <a class="mui-navigate-right check" href="product_sorting?commodity_id=#{x.id}"><span class="redMark"><%= x.common_name %></span><%= x.name %></a>
+						        <a class="mui-navigate-right check" href="product_sorting?commodity_id=<%= x.id %>"><span class="redMark"><%= x.common_name %></span><%= x.name %></a>
 						    </li>
 					    <% end %>
 					    <% (@commodities_all - @commodities_user).each do |x| %>
@@ -48,7 +48,7 @@
 						<li class="mui-table-view-cell">
 							<% @commodities_all.each do |x| %>
 								<% if @commodities_user.include?x %>
-					        		<a class="mui-navigate-right check" href="product_sorting?commodity_id=#{x.id}"><span class="redMark"><%= x.common_name %></span><%= x.name %></a>
+					        		<a class="mui-navigate-right check" href="product_sorting?commodity_id=<%= x.id %>"><span class="redMark"><%= x.common_name %></span><%= x.name %></a>
 					        	<% else %>
 					        		<a class="grayLine"><span class="redMark"><%= x.common_name %></span><%= x.name %></a>
 					        	<% end %>

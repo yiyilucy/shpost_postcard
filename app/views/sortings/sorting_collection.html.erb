@@ -73,7 +73,7 @@
 							<div class="mui-collapse-content" style="padding: 0;">
 								<ul class="mui-table-view" style="margin-top: 0; margin-bottom: 0;">
 									<% @coin_catalogs_user.each do |x| %>
-										<a href="/sortings/list_normal_collection">
+										<a href="/sortings/list_normal_collection?catalog_name=<%= x[0] %>">
 											<li class="mui-table-view-cell collectionItem">
 												<div class="mui-card-content">
 													<div class="mui-card-content-inner">
@@ -104,7 +104,7 @@
 							<div class="mui-collapse-content" style="padding: 0;">
 								<ul class="mui-table-view" style="margin-top: 0; margin-bottom: 0;">
 									<% @bill_catalogs_user.each do |x| %>
-										<a href="/sortings/list_normal_collection">
+										<a href="/sortings/list_normal_collection?catalog_name=<%= x[0] %>">
 											<li class="mui-table-view-cell collectionItem">
 												<div class="mui-card-content">
 													<div class="mui-card-content-inner">
