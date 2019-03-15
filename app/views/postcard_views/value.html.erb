@@ -49,8 +49,8 @@
 					</div>
 					<div class="mui-card">
 						<ul class="mui-table-view">
-							<% @collections.each do |x| 
-							   if x.current_profit>=0
+							<% @collections.map{|x| x.commodity}.each do |commodity|  
+							   if current_front_user.get_collection(commodity).current_profit>=0
 								color = "up" 
 							   else
 								color = "down"
@@ -58,19 +58,19 @@
 							%>
 							<li class="mui-table-view-cell mui-collapse">
 								<a class="mui-navigate-right valueCheck" href="#">
-									<p class="mui-ellipsis"><%= x.commodity.name %></p><span class="<%=color%>"><%= x.current_profit>0 ? ("+"+number_with_precision(x.current_profit, precision: 2)) : number_with_precision(x.current_profit, precision: 2) %></span>
+									<p class="mui-ellipsis"><%= commodity.name %></p><span class="<%=color%>"><%= current_front_user.get_collection(commodity).current_profit>0 ? ("+"+number_with_precision(current_front_user.get_collection(commodity).current_profit, precision: 2)) : number_with_precision(current_front_user.get_collection(commodity).current_profit, precision: 2) %></span>
 								</a>
 								<div class="mui-collapse-content valueItem">
-									<a href="/sortings/product_sorting?format=<%=x.commodity.id%>">
+									<a href="/sortings/product_sorting?commodity_id=<%=commodity.id%>">
 										<ul class="mui-table-view">
 											<li class="mui-table-view-cell">
-												<label class="rowTitle">成本</label><p class="rowContent">¥<%= number_with_precision(x.cost, precision: 2) %></p>
+												<label class="rowTitle">成本</label><p class="rowContent">¥<%= number_with_precision(current_front_user.get_collection(commodity).cost, precision: 2) %></p>
 											</li>
 											<li class="mui-table-view-cell">
-												<label class="rowTitle">市值</label><p class="rowContent">¥<%= number_with_precision(x.commodity.current_price, precision: 2) %></p>
+												<label class="rowTitle">市值</label><p class="rowContent">¥<%= number_with_precision(current_front_user.get_collection(commodity).commodity.current_price, precision: 2) %></p>
 											</li>
 											<li class="mui-table-view-cell">
-												<label class="rowTitle">数量</label><p class="rowContent"><%= x.amount %></p>
+												<label class="rowTitle">数量</label><p class="rowContent"><%= current_front_user.get_collection(commodity).amount %></p>
 											</li>
 										</ul>
 									</a>
