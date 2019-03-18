@@ -16,7 +16,7 @@
 		<div class="mui-off-canvas-wrap mui-slide-in">
 			<div class="mui-inner-wrap">
 				<header class="mui-bar mui-bar-nav">
-					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<a class="mui-icon mui-icon-left-nav mui-pull-left" href="/postcard_views/"></a>
 					<h1 class="mui-title">我的关注</h1>
 				</header>
 				
@@ -45,11 +45,13 @@
 							end
 						%>
 						<li class="mui-table-view-cell mui-media">
+						    <%= link_to( "/sortings/product_sorting?commodity_id=#{commodity.id}",:style=>"color:black") do%>
 							<!-- <a class="mui-navigate-right paddingRight"> -->
-								<img class="mui-media-object mui-pull-left" src=<%= src %>>
-								<div class="mui-media-body">
-								<p class='mui-ellipsis' ><%= link_to(commodity.name, "/sortings/product_sorting?commodity_id=#{commodity.id}",:style=>"color:black") %></p>
+							    <img class="mui-media-object mui-pull-left" src=<%= src %>>
+							    <div class="mui-media-body">
+								<p class='mui-ellipsis' style="color: black;"><%= commodity.name %></p>
 								</div>
+							<% end %>
 							<!-- </a> -->
 						</li>
 						<% end %>				
